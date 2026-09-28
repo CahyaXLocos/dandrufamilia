@@ -1315,11 +1315,11 @@
       <div class="stat-label">Pemain</div>
     </div>
     <div class="stat-card">
-      <div class="stat-value" data-count="4">0</div>
+      <div class="stat-value" data-count="5">0</div>
       <div class="stat-label">Roster</div>
     </div>
     <div class="stat-card">
-      <div class="stat-value" data-count="9">0</div>
+      <div class="stat-value" data-count="13">0</div>
       <div class="stat-label">Album</div>
     </div>
   </div>
@@ -1410,22 +1410,23 @@
 </div>
 
 <script>
-  // ===== DATA PEMAIN (REVISI: Mang Komar = Gold, Onic Khairul = Jungle) =====
+  // ===== DATA PEMAIN =====
   const players = [
     { nickname: "Cahya Mirip Nnael", roles: ["Jungle", "Mid", "Exp", "Roam", "Gold"], badge: "captain" },
     { nickname: "Yukki", roles: ["Mid", "Gold"] },
     { nickname: "Ahmed Teymola", roles: ["Jungle", "Roam"], badge: "core" },
     { nickname: "Dann Like Noona", roles: ["Exp", "Roam"], badge: "core" },
     { nickname: "Reey", roles: ["Roam", "Mid"] },
-    { nickname: "Mang Komar", roles: ["Gold"] },         // ← diubah
-    { nickname: "Onic Khairul 969", roles: ["Jungle"] },  // ← diubah
+    { nickname: "Mang Komar", roles: ["Gold"] },
+    { nickname: "Onic Khairul 969", roles: ["Jungle"] },
     { nickname: "Dyerta │ 05", roles: ["Mid", "Exp"], badge: "founder" },
     { nickname: "Xiao Yan", roles: ["Gold"] },
     { nickname: "Darkness", roles: ["Roam"] }
   ];
 
-  // ===== DATA ALBUM =====
+  // ===== DATA ALBUM (9 lama + 4 baru = 13) =====
   const albumImages = [
+    // Album lama
     "https://b.top4top.io/p_3923v42bz1.jpeg",
     "https://c.top4top.io/p_3923l5isa2.jpeg",
     "https://d.top4top.io/p_3923baz1g3.jpeg",
@@ -1434,49 +1435,64 @@
     "https://g.top4top.io/p_39234bw256.jpeg",
     "https://h.top4top.io/p_3923scu117.jpeg",
     "https://i.top4top.io/p_3923l70kp8.jpeg",
-    "https://j.top4top.io/p_3923gjhjl9.jpeg"
+    "https://j.top4top.io/p_3923gjhjl9.jpeg",
+    // Album baru
+    "https://g.top4top.io/p_392327r8d3.jpeg",
+    "https://e.top4top.io/p_3923boz0c1.jpeg",
+    "https://l.top4top.io/p_39239ipht1.jpeg",
+    "https://a.top4top.io/p_3923qs3ol1.jpeg"
   ];
 
-  // ===== DATA ROSTER (REVISI: Roster 1 swap Jungle/Gold) =====
+  // ===== DATA ROSTER (5 roster) =====
   const rosters = [
     {
       title: "Roster 1", icon: "1",
       players: [
-        { role: "Jungle", name: "Onic Khairul 969" },   // ← diubah
-        { role: "Roam", name: "Cahya Mirip Nnael" },
+        { role: "Jungle", name: "Onic Khairul 969" },
+        { role: "Gold", name: "Mang Komar" },
         { role: "Exp", name: "Ahmed Teymola" },
-        { role: "Gold", name: "Mang Komar" },            // ← diubah
-        { role: "Mid", name: "Reey" }
+        { role: "Mid", name: "Reey" },
+        { role: "Roam", name: "Cahya Mirip Nnael" }
       ]
     },
     {
       title: "Roster 2", icon: "2",
       players: [
         { role: "Jungle", name: "Ahmed Teymola" },
-        { role: "Roam", name: "Darkness" },
-        { role: "Exp", name: "Dann Like Noona" },
-        { role: "Mid", name: "Cahya Mirip Nnael" },
-        { role: "Gold", name: "Xiao Yan" }
+        { role: "Gold", name: "Xiao Yan" },
+        { role: "Exp", name: "Dyerta │ 05" },
+        { role: "Mid", name: "Yukki" },
+        { role: "Roam", name: "Darkness" }
       ]
     },
     {
       title: "Roster 3", icon: "3",
       players: [
-        { role: "Jungle", name: "Cahya Mirip Nnael" },
-        { role: "Roam", name: "Ahmed Teymola" },
-        { role: "Exp", name: "Dyerta │ 05" },
-        { role: "Mid", name: "Yukki" },
-        { role: "Gold", name: "Xiao Yan" }
+        { role: "Jungle", name: "Onic Khairul 969" },
+        { role: "Gold", name: "Mang Komar" },
+        { role: "Exp", name: "Dann Like Noona" },
+        { role: "Mid", name: "Cahya Mirip Nnael" },
+        { role: "Roam", name: "Ahmed Teymola" }
       ]
     },
     {
       title: "Roster 4", icon: "4",
       players: [
         { role: "Jungle", name: "Ahmed Teymola" },
-        { role: "Roam", name: "Darkness" },
-        { role: "Exp", name: "Cahya Mirip Nnael" },
+        { role: "Gold", name: "Xiao Yan" },
+        { role: "Exp", name: "Dyerta │ 05" },
+        { role: "Mid", name: "Yukki" },
+        { role: "Roam", name: "Darkness" }
+      ]
+    },
+    {
+      title: "Roster 5", icon: "5",
+      players: [
+        { role: "Jungle", name: "Cahya Mirip Nnael" },
+        { role: "Gold", name: "Mang Komar" },
+        { role: "Exp", name: "Dann Like Noona" },
         { role: "Mid", name: "Reey" },
-        { role: "Gold", name: "Onic Khairul 969" }
+        { role: "Roam", name: "Ahmed Teymola" }
       ]
     }
   ];
