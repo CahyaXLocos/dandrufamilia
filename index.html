@@ -483,11 +483,13 @@
       font-family: 'Orbitron', sans-serif; z-index: 3;
     }
 
-    .player-badge.founder { background: linear-gradient(135deg, var(--gold), #ff9500); color: #1a1000; box-shadow: 0 0 16px rgba(255, 201, 60, 0.6); }
-    .player-badge.captain { background: linear-gradient(135deg, var(--accent-3), var(--accent)); color: #fff; box-shadow: 0 0 16px rgba(255, 45, 148, 0.6); }
-    .player-badge.core { background: linear-gradient(135deg, var(--accent-2), #0088aa); color: #001a20; box-shadow: 0 0 16px rgba(0, 229, 255, 0.5); }
+    .player-badge.founder {
+      background: linear-gradient(135deg, var(--gold), #ff9500);
+      color: #1a1000;
+      box-shadow: 0 0 16px rgba(255, 201, 60, 0.6);
+    }
 
-    /* ===== PLAYER AVATAR (kotak dengan border-radius 8px) ===== */
+    /* ===== PLAYER AVATAR ===== */
     .player-avatar {
       position: relative;
       width: 92px;
@@ -1237,12 +1239,12 @@
 </div>
 
 <script>
-  // ===== DATA PEMAIN (Reey sekarang newcomer) =====
+  // ===== DATA PEMAIN (Hanya badge "founder" yang dipakai) =====
   const players = [
     {
       nickname: "Cahya Mirip Nnael",
       roles: ["Jungle", "Mid", "Exp", "Roam", "Gold"],
-      badge: "captain", status: "veteran",
+      status: "veteran",
       photo: "https://k.top4top.io/p_3924k40l91.png",
       bg: "linear-gradient(135deg, #ff2d94, #8b5cff)",
       glow: "rgba(255, 45, 148, 0.5)"
@@ -1258,7 +1260,7 @@
     {
       nickname: "Ahmed Teymola",
       roles: ["Jungle", "Roam"],
-      badge: "core", status: "veteran",
+      status: "veteran",
       photo: "https://l.top4top.io/p_3924pr2c91.jpeg",
       bg: "linear-gradient(135deg, #00e5ff, #0066ff)",
       glow: "rgba(0, 229, 255, 0.5)"
@@ -1266,7 +1268,7 @@
     {
       nickname: "Dann Like Noona",
       roles: ["Exp", "Roam"],
-      badge: "core", status: "veteran",
+      status: "veteran",
       photo: "https://e.top4top.io/p_3924l8l7s2.jpeg",
       bg: "linear-gradient(135deg, #b06cff, #6a3aff)",
       glow: "rgba(176, 108, 255, 0.5)"
@@ -1338,6 +1340,7 @@
     "https://b.top4top.io/p_3924hduan1.jpeg"
   ];
 
+  // ===== DATA ROSTER (Roster 3 & 5 sudah direvisi) =====
   const rosters = [
     {
       title: "Roster 1", icon: "1",
@@ -1363,9 +1366,9 @@
       title: "Roster 3", icon: "3",
       players: [
         { role: "Jungle", name: "Onic Khairul 969" },
-        { role: "Gold", name: "Mang Komar" },
-        { role: "Exp", name: "Dann Like Noona" },
-        { role: "Mid", name: "Cahya Mirip Nnael" },
+        { role: "Gold", name: "Xiao Yan" },
+        { role: "Exp", name: "Dyerta │ 05" },
+        { role: "Mid", name: "Yukki" },
         { role: "Roam", name: "Ahmed Teymola" }
       ]
     },
@@ -1384,7 +1387,7 @@
       players: [
         { role: "Jungle", name: "Cahya Mirip Nnael" },
         { role: "Gold", name: "Mang Komar" },
-        { role: "Exp", name: "Dann Like Noona" },
+        { role: "Exp", name: "Dyerta │ 05" },
         { role: "Mid", name: "Reey" },
         { role: "Roam", name: "Ahmed Teymola" }
       ]
@@ -1402,9 +1405,7 @@
   const CORRECT_PASSWORD = "cahyadanpadil";
 
   const badgeLabels = {
-    founder: "Founder",
-    captain: "Captain",
-    core: "Core"
+    founder: "Founder"
   };
 
   // ===== RENDER PLAYERS =====
