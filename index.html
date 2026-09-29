@@ -511,37 +511,73 @@
     .player-card:active::after, .player-card:hover::after { opacity: 1; }
     .player-card:active { transform: scale(0.97); border-color: var(--border-2); }
 
+    /* ===== PLAYER AVATAR (1:1 dengan background warna) ===== */
     .player-avatar {
-      width: 56px;
-      height: 56px;
+      position: relative;
+      width: 84px;
+      height: 84px;
+      aspect-ratio: 1 / 1;
       margin: 0 auto 12px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      padding: 3px;
+      background: var(--avatar-bg, linear-gradient(135deg, var(--accent), var(--accent-2)));
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.3rem;
-      font-weight: 900;
-      color: #fff;
-      position: relative;
       transition: all 0.35s;
-      box-shadow: 0 8px 24px rgba(139, 92, 255, 0.4);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 24px var(--avatar-glow, rgba(139, 92, 255, 0.4));
+      overflow: hidden;
     }
 
     .player-avatar::before {
       content: '';
       position: absolute;
-      inset: -3px;
+      inset: -4px;
       border-radius: 50%;
-      border: 1px dashed rgba(0, 229, 255, 0.4);
+      border: 1px dashed rgba(255, 255, 255, 0.35);
       animation: spin 12s linear infinite reverse;
       opacity: 0;
       transition: opacity 0.3s;
+      z-index: 2;
     }
 
     .player-card:hover .player-avatar::before { opacity: 1; }
-    .player-card:hover .player-avatar { transform: scale(1.08) rotate(-5deg); box-shadow: 0 10px 30px rgba(0, 229, 255, 0.5); }
+
+    .player-avatar .avatar-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--avatar-bg, linear-gradient(135deg, var(--accent), var(--accent-2)));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--bg-0);
+      z-index: 1;
+    }
+
+    .player-avatar .avatar-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      aspect-ratio: 1 / 1;
+      display: block;
+    }
+
+    .player-avatar .avatar-inner .avatar-initial {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: #fff;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    .player-card:hover .player-avatar {
+      transform: scale(1.06);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), 0 0 36px var(--avatar-glow, rgba(0, 229, 255, 0.6));
+    }
 
     .player-badge {
       position: absolute;
@@ -554,7 +590,7 @@
       letter-spacing: 1px;
       text-transform: uppercase;
       font-family: 'Orbitron', sans-serif;
-      z-index: 2;
+      z-index: 3;
     }
 
     .player-badge.founder { background: linear-gradient(135deg, var(--gold), #ff9500); color: #1a1000; box-shadow: 0 0 16px rgba(255, 201, 60, 0.6); }
@@ -1247,7 +1283,8 @@
 
       .player-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 18px; }
       .player-card { padding: 26px 18px 20px; }
-      .player-avatar { width: 70px; height: 70px; font-size: 1.6rem; }
+      .player-avatar { width: 104px; height: 104px; }
+      .player-avatar .avatar-inner .avatar-initial { font-size: 2rem; }
       .player-card h3 { font-size: 0.98rem; }
       .player-card .role-tag { font-size: 0.65rem; padding: 4px 11px; }
 
@@ -1319,7 +1356,7 @@
       <div class="stat-label">Roster</div>
     </div>
     <div class="stat-card">
-      <div class="stat-value" data-count="13">0</div>
+      <div class="stat-value" data-count="14">0</div>
       <div class="stat-label">Album</div>
     </div>
   </div>
@@ -1410,23 +1447,78 @@
 </div>
 
 <script>
-  // ===== DATA PEMAIN =====
+  // ===== DATA PEMAIN (dengan foto + background color) =====
   const players = [
-    { nickname: "Cahya Mirip Nnael", roles: ["Jungle", "Mid", "Exp", "Roam", "Gold"], badge: "captain" },
-    { nickname: "Yukki", roles: ["Mid", "Gold"] },
-    { nickname: "Ahmed Teymola", roles: ["Jungle", "Roam"], badge: "core" },
-    { nickname: "Dann Like Noona", roles: ["Exp", "Roam"], badge: "core" },
-    { nickname: "Reey", roles: ["Roam", "Mid"] },
-    { nickname: "Mang Komar", roles: ["Gold"] },
-    { nickname: "Onic Khairul 969", roles: ["Jungle"] },
-    { nickname: "Dyerta │ 05", roles: ["Mid", "Exp"], badge: "founder" },
-    { nickname: "Xiao Yan", roles: ["Gold"] },
-    { nickname: "Darkness", roles: ["Roam"] }
+    {
+      nickname: "Cahya Mirip Nnael",
+      roles: ["Jungle", "Mid", "Exp", "Roam", "Gold"],
+      badge: "captain",
+      photo: "https://k.top4top.io/p_3924k40l91.png",
+      bg: "linear-gradient(135deg, #ff2d94, #8b5cff)",
+      glow: "rgba(255, 45, 148, 0.5)"
+    },
+    {
+      nickname: "Yukki",
+      roles: ["Mid", "Gold"]
+      // foto nyusul
+    },
+    {
+      nickname: "Ahmed Teymola",
+      roles: ["Jungle", "Roam"],
+      badge: "core",
+      photo: "https://l.top4top.io/p_3924pr2c91.jpeg",
+      bg: "linear-gradient(135deg, #00e5ff, #0066ff)",
+      glow: "rgba(0, 229, 255, 0.5)"
+    },
+    {
+      nickname: "Dann Like Noona",
+      roles: ["Exp", "Roam"],
+      badge: "core",
+      photo: "https://e.top4top.io/p_3924l8l7s2.jpeg",
+      bg: "linear-gradient(135deg, #b06cff, #6a3aff)",
+      glow: "rgba(176, 108, 255, 0.5)"
+    },
+    {
+      nickname: "Reey",
+      roles: ["Roam", "Mid"],
+      photo: "https://j.top4top.io/p_39240iqpc1.jpeg",
+      bg: "linear-gradient(135deg, #00ff88, #00b060)",
+      glow: "rgba(0, 255, 136, 0.5)"
+    },
+    {
+      nickname: "Mang Komar",
+      roles: ["Gold"],
+      photo: "https://g.top4top.io/p_392472ny04.jpeg",
+      bg: "linear-gradient(135deg, #ffb800, #ff5e00)",
+      glow: "rgba(255, 184, 0, 0.5)"
+    },
+    {
+      nickname: "Onic Khairul 969",
+      roles: ["Jungle"],
+      photo: "https://h.top4top.io/p_3924vhutv5.jpeg",
+      bg: "linear-gradient(135deg, #00e5ff, #7c5cff)",
+      glow: "rgba(0, 229, 255, 0.5)"
+    },
+    {
+      nickname: "Dyerta │ 05",
+      roles: ["Mid", "Exp"],
+      badge: "founder"
+      // foto nyusul
+    },
+    {
+      nickname: "Xiao Yan",
+      roles: ["Gold"]
+      // foto nyusul
+    },
+    {
+      nickname: "Darkness",
+      roles: ["Roam"]
+      // foto nyusul
+    }
   ];
 
-  // ===== DATA ALBUM (9 lama + 4 baru = 13) =====
+  // ===== DATA ALBUM (13 + 1 baru = 14) =====
   const albumImages = [
-    // Album lama
     "https://b.top4top.io/p_3923v42bz1.jpeg",
     "https://c.top4top.io/p_3923l5isa2.jpeg",
     "https://d.top4top.io/p_3923baz1g3.jpeg",
@@ -1436,14 +1528,14 @@
     "https://h.top4top.io/p_3923scu117.jpeg",
     "https://i.top4top.io/p_3923l70kp8.jpeg",
     "https://j.top4top.io/p_3923gjhjl9.jpeg",
-    // Album baru
     "https://g.top4top.io/p_392327r8d3.jpeg",
     "https://e.top4top.io/p_3923boz0c1.jpeg",
     "https://l.top4top.io/p_39239ipht1.jpeg",
-    "https://a.top4top.io/p_3923qs3ol1.jpeg"
+    "https://a.top4top.io/p_3923qs3ol1.jpeg",
+    "https://b.top4top.io/p_3924hduan1.jpeg"
   ];
 
-  // ===== DATA ROSTER (5 roster) =====
+  // ===== DATA ROSTER =====
   const rosters = [
     {
       title: "Roster 1", icon: "1",
@@ -1497,7 +1589,6 @@
     }
   ];
 
-  // ===== DATA ROSTER INTI =====
   const coreRoster = [
     { role: "Jungle", name: "Ahmed Teymola" },
     { role: "Exp", name: "Dann Like Noona" },
@@ -1518,11 +1609,29 @@
   const playerGrid = document.getElementById("playerGrid");
   players.forEach(p => {
     const initial = p.nickname.trim().charAt(0).toUpperCase();
+
+    // Kalau ada foto pakai foto, kalau nggak ada pakai inisial
+    const avatarContent = p.photo
+      ? `<img src="${p.photo}" alt="${p.nickname}" loading="lazy" onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=&quot;avatar-initial&quot;>${initial}</span>';">`
+      : `<span class="avatar-initial">${initial}</span>`;
+
+    const bgStyle = p.bg
+      ? `--avatar-bg: ${p.bg};`
+      : `--avatar-bg: linear-gradient(135deg, var(--accent), var(--accent-2));`;
+
+    const glowStyle = p.glow
+      ? `--avatar-glow: ${p.glow};`
+      : `--avatar-glow: rgba(139, 92, 255, 0.4);`;
+
     const card = document.createElement("div");
     card.className = "player-card reveal";
     card.innerHTML = `
       ${p.badge ? `<span class="player-badge ${p.badge}">${badgeLabels[p.badge]}</span>` : ''}
-      <div class="player-avatar">${initial}</div>
+      <div class="player-avatar" style="${bgStyle} ${glowStyle}">
+        <div class="avatar-inner">
+          ${avatarContent}
+        </div>
+      </div>
       <h3>${p.nickname}</h3>
       <div class="roles">
         ${p.roles.map(r => `<span class="role-tag">${r}</span>`).join("")}
