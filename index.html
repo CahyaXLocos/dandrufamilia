@@ -1062,7 +1062,6 @@
       <a href="#about"><i class="fas fa-book-open"></i> Tentang</a>
       <a href="#players"><i class="fas fa-users"></i> Player</a>
       <a href="#album"><i class="fas fa-images"></i> Album</a>
-      <a href="#roster"><i class="fas fa-chess-board"></i> Roster</a>
     </nav>
   </header>
 
@@ -1090,7 +1089,7 @@
       <div class="stat-label">Pemain</div>
     </div>
     <div class="stat-card">
-      <div class="stat-value" data-count="5">0</div>
+      <div class="stat-value" data-count="2">0</div>
       <div class="stat-label">Roster</div>
     </div>
     <div class="stat-card">
@@ -1199,7 +1198,6 @@
   <a href="#about"><i class="fas fa-book-open"></i> Tentang</a>
   <a href="#players"><i class="fas fa-users"></i> Player</a>
   <a href="#album"><i class="fas fa-images"></i> Album</a>
-  <a href="#roster"><i class="fas fa-chess-board"></i> Roster</a>
 </div>
 
 <button class="back-top" id="backTop" aria-label="Kembali ke atas">
@@ -1340,66 +1338,36 @@
     "https://b.top4top.io/p_3924hduan1.jpeg"
   ];
 
-  // ===== DATA ROSTER (Roster 4 SUDAH DIFIX) =====
+  // ===== DATA ROSTER (Hanya Roster 1 & 2) =====
   const rosters = [
     {
       title: "Roster 1", icon: "1",
       players: [
-        { role: "Jungle", name: "Onic Khairul 969" },
-        { role: "Gold", name: "Mang Komar" },
-        { role: "Exp", name: "Ahmed Teymola" },
-        { role: "Mid", name: "Reey" },
-        { role: "Roam", name: "Cahya Mirip Nnael" }
+        { role: "Jungler", name: "Onic Khairul 969" },
+        { role: "Roamer", name: "Ahmed Teymola" },
+        { role: "Midlaner", name: "Yukki" },
+        { role: "Gold Laner", name: "Xiao Yan" },
+        { role: "Exp Laner", name: "Dyerta │ 05" }
       ]
     },
     {
       title: "Roster 2", icon: "2",
       players: [
-        { role: "Jungle", name: "Ahmed Teymola" },
-        { role: "Gold", name: "Xiao Yan" },
-        { role: "Exp", name: "Dann Like Noona" },
-        { role: "Mid", name: "Yukki" },
-        { role: "Roam", name: "Darkness" }
-      ]
-    },
-    {
-      title: "Roster 3", icon: "3",
-      players: [
-        { role: "Jungle", name: "Onic Khairul 969" },
-        { role: "Gold", name: "Xiao Yan" },
-        { role: "Exp", name: "Dyerta │ 05" },
-        { role: "Mid", name: "Yukki" },
-        { role: "Roam", name: "Darkness" }
-      ]
-    },
-    {
-      title: "Roster 4", icon: "4",
-      players: [
-        { role: "Jungle", name: "Ahmed Teymola" },
-        { role: "Gold", name: "Mang Komar" },
-        { role: "Exp", name: "Dann Like Noona" },
-        { role: "Mid", name: "Cahya Mirip Nnael" },
-        { role: "Roam", name: "Darkness" }
-      ]
-    },
-    {
-      title: "Roster 5", icon: "5",
-      players: [
-        { role: "Jungle", name: "Ahmed Teymola" },
-        { role: "Gold", name: "Mang Komar" },
-        { role: "Exp", name: "Dyerta │ 05" },
-        { role: "Mid", name: "Reey" },
-        { role: "Roam", name: "Cahya Mirip Nnael" }
+        { role: "Jungler", name: "Ahmed Teymola" },
+        { role: "Roamer", name: "Cahya Mirip Nnael" },
+        { role: "Midlaner", name: "Yukki" },
+        { role: "Gold Laner", name: "Mang Komar" },
+        { role: "Exp Laner", name: "Dann Like Noona" }
       ]
     }
   ];
 
   const coreRoster = [
     { role: "Jungle", name: "Ahmed Teymola" },
-    { role: "Exp", name: "Dann Like Noona" },
-    { role: "Roam", name: "Cahya Mirip Nnael" },
-    { role: "Gold", name: "??" },
-    { role: "Mid", name: "??" }
+    { role: "Exp Lane", name: "Dann Like Noona" },
+    { role: "Roamer", name: "Cahya Mirip Nnael" },
+    { role: "Gold Lane", name: "Mang Komar" },
+    { role: "Mid Lane", name: "??" }
   ];
 
   const CORRECT_PASSWORD = "cahyadanpadil";
