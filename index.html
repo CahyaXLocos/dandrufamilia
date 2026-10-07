@@ -363,58 +363,6 @@
       font-size: 0.8rem; color: var(--text-dim); line-height: 1.5;
     }
 
-    /* ===== FILTER TABS ===== */
-    .player-filters {
-      display: flex; gap: 8px; margin-bottom: 18px;
-      overflow-x: auto; padding-bottom: 4px;
-      scrollbar-width: none;
-    }
-
-    .player-filters::-webkit-scrollbar { display: none; }
-
-    .filter-btn {
-      display: inline-flex; align-items: center; gap: 7px;
-      padding: 9px 16px; border-radius: 50px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border-2);
-      color: var(--text-dim); font-family: 'Orbitron', sans-serif;
-      font-size: 0.7rem; font-weight: 700;
-      letter-spacing: 1px; text-transform: uppercase;
-      cursor: pointer; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      white-space: nowrap; flex-shrink: 0;
-    }
-
-    .filter-btn i { font-size: 0.75rem; }
-
-    .filter-btn .filter-count {
-      background: rgba(255, 255, 255, 0.08);
-      padding: 1px 7px; border-radius: 20px;
-      font-size: 0.65rem; font-weight: 800;
-      color: #fff; min-width: 20px; text-align: center;
-    }
-
-    .filter-btn:active { transform: scale(0.96); }
-
-    .filter-btn.active {
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      border-color: transparent; color: #fff;
-      box-shadow: 0 8px 24px rgba(139, 92, 255, 0.4);
-    }
-
-    .filter-btn.active .filter-count {
-      background: rgba(0, 0, 0, 0.25); color: #fff;
-    }
-
-    .filter-btn[data-filter="veteran"].active {
-      background: linear-gradient(135deg, var(--gold), #ff9500);
-      box-shadow: 0 8px 24px rgba(255, 201, 60, 0.5);
-    }
-
-    .filter-btn[data-filter="newcomer"].active {
-      background: linear-gradient(135deg, var(--green), #00b060);
-      box-shadow: 0 8px 24px rgba(0, 255, 136, 0.4);
-    }
-
     /* ===== PLAYER GRID ===== */
     .player-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 
@@ -435,45 +383,6 @@
 
     .player-card:active::before, .player-card:hover::before { transform: scaleX(1); }
     .player-card:active { transform: scale(0.97); border-color: var(--border-2); }
-
-    .player-card.filter-hidden { display: none; }
-    .player-card.filter-showing { animation: filterIn 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
-
-    @keyframes filterIn {
-      from { opacity: 0; transform: scale(0.85) translateY(15px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
-    }
-
-    .player-card.status-veteran { border-color: rgba(255, 201, 60, 0.25); }
-    .player-card.status-veteran:hover { border-color: rgba(255, 201, 60, 0.6); }
-
-    .player-card.status-newcomer { border-color: rgba(0, 255, 136, 0.25); }
-    .player-card.status-newcomer:hover { border-color: rgba(0, 255, 136, 0.6); }
-
-    .status-badge {
-      position: absolute; top: 8px; left: 8px;
-      display: inline-flex; align-items: center; gap: 3px;
-      padding: 3px 8px; border-radius: 6px;
-      font-size: 0.48rem; font-weight: 900;
-      letter-spacing: 1px; text-transform: uppercase;
-      font-family: 'Orbitron', sans-serif; z-index: 3;
-    }
-
-    .status-badge.veteran {
-      background: linear-gradient(135deg, var(--gold), #ff9500);
-      color: #1a1000;
-      box-shadow: 0 0 14px rgba(255, 201, 60, 0.6);
-    }
-
-    .status-badge.veteran i { font-size: 0.45rem; }
-
-    .status-badge.newcomer {
-      background: linear-gradient(135deg, var(--green), #00b060);
-      color: #00200d;
-      box-shadow: 0 0 14px rgba(0, 255, 136, 0.5);
-    }
-
-    .status-badge.newcomer i { font-size: 0.45rem; }
 
     .player-badge {
       position: absolute; top: 8px; right: 8px;
@@ -551,12 +460,12 @@
 
     .player-card h3 {
       font-size: 0.86rem; font-weight: 700; color: #fff;
-      margin-bottom: 10px; word-break: break-word; line-height: 1.3;
+      margin-bottom: 8px; word-break: break-word; line-height: 1.3;
       min-height: 2.4em; display: flex; align-items: center;
       justify-content: center; letter-spacing: 0.2px;
     }
 
-    .player-card .roles { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; }
+    .player-card .roles { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; margin-bottom: 10px; }
 
     .player-card .role-tag {
       background: rgba(139, 92, 255, 0.08);
@@ -570,6 +479,117 @@
     .player-card:hover .role-tag {
       border-color: var(--accent-2); color: var(--accent-2);
       background: rgba(0, 229, 255, 0.08);
+    }
+
+    /* ===== ID BUTTON ===== */
+    .id-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 7px 16px; border-radius: 50px;
+      background: linear-gradient(135deg, rgba(139, 92, 255, 0.15), rgba(0, 229, 255, 0.08));
+      border: 1px solid rgba(139, 92, 255, 0.35);
+      color: var(--accent-2); font-family: 'Orbitron', sans-serif;
+      font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 1.2px; text-transform: uppercase;
+      cursor: pointer; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      width: 100%;
+    }
+
+    .id-btn i { font-size: 0.65rem; transition: all 0.3s; }
+
+    .id-btn:active, .id-btn:hover {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border-color: transparent; color: #fff;
+      box-shadow: 0 6px 20px rgba(139, 92, 255, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .id-btn:active i, .id-btn:hover i {
+      filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
+    }
+
+    /* ===== ID MODAL ===== */
+    .id-modal-content {
+      text-align: center;
+    }
+
+    .id-modal-avatar {
+      width: 80px; height: 80px; border-radius: 50%;
+      margin: 0 auto 14px;
+      padding: 3px;
+      background: var(--id-bg, linear-gradient(135deg, var(--accent), var(--accent-2)));
+      box-shadow: 0 0 30px var(--id-glow, rgba(139, 92, 255, 0.5));
+    }
+
+    .id-modal-avatar img {
+      width: 100%; height: 100%; border-radius: 50%;
+      object-fit: cover; border: 2px solid var(--bg-0);
+    }
+
+    .id-modal-name {
+      font-family: 'Orbitron', sans-serif; font-size: 0.95rem; font-weight: 900;
+      color: #fff; margin-bottom: 4px;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      word-break: break-word;
+    }
+
+    .id-modal-role {
+      font-size: 0.7rem; color: var(--text-dim);
+      text-transform: uppercase; letter-spacing: 1.5px;
+      font-weight: 700; margin-bottom: 20px;
+    }
+
+    .id-modal-label {
+      font-size: 0.62rem; text-transform: uppercase;
+      letter-spacing: 2px; color: var(--text-dimmer);
+      font-weight: 800; margin-bottom: 8px;
+    }
+
+    .id-display {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1.5px solid var(--border-2); border-radius: 14px;
+      padding: 14px 16px; margin-bottom: 14px;
+      transition: all 0.3s;
+    }
+
+    .id-display:active { border-color: var(--accent-2); }
+
+    .id-display .id-text {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem; font-weight: 900;
+      color: #fff; letter-spacing: 1.5px;
+      word-break: break-all; flex: 1;
+      text-align: center;
+    }
+
+    .id-display .id-copy-icon {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 0.85rem; flex-shrink: 0;
+      cursor: pointer; transition: all 0.3s;
+      box-shadow: 0 4px 14px rgba(139, 92, 255, 0.4);
+    }
+
+    .id-display .id-copy-icon:active {
+      transform: scale(0.9);
+      box-shadow: 0 2px 8px rgba(0, 229, 255, 0.6);
+    }
+
+    .copy-feedback {
+      font-size: 0.72rem; font-weight: 700;
+      color: var(--green); min-height: 18px;
+      letter-spacing: 1px; text-transform: uppercase;
+      opacity: 0; transition: opacity 0.3s;
+    }
+
+    .copy-feedback.show { opacity: 1; }
+
+    .id-note {
+      margin-top: 18px; padding-top: 14px;
+      border-top: 1px solid var(--border);
+      font-size: 0.68rem; color: var(--text-dimmer);
+      font-style: italic;
     }
 
     /* ===== ALBUM ===== */
@@ -677,6 +697,26 @@
     }
 
     .roster-card ul li .player-name { color: #fff; font-weight: 600; text-align: right; font-size: 0.85rem; }
+
+    .roster-substitute {
+      margin-top: 14px; padding-top: 12px;
+      border-top: 1px dashed rgba(255, 201, 60, 0.3);
+      display: flex; align-items: center; gap: 10px;
+      padding-left: 6px;
+    }
+
+    .roster-substitute .sub-label {
+      font-size: 0.58rem; text-transform: uppercase;
+      letter-spacing: 1.5px; font-weight: 800;
+      color: var(--gold);
+      background: rgba(255, 201, 60, 0.1);
+      border: 1px solid rgba(255, 201, 60, 0.3);
+      padding: 3px 9px; border-radius: 7px;
+    }
+
+    .roster-substitute .sub-name {
+      font-size: 0.82rem; color: #fff; font-weight: 600;
+    }
 
     .locked-wrapper { display: flex; justify-content: center; margin: 36px 0 20px; }
 
@@ -1014,17 +1054,16 @@
       .timeline-item .tl-title { font-size: 0.95rem; }
       .timeline-item .tl-desc { font-size: 0.88rem; }
 
-      .filter-btn { padding: 11px 20px; font-size: 0.78rem; }
-      .filter-btn i { font-size: 0.85rem; }
-
       .player-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 18px; }
       .player-card { padding: 26px 18px 20px; }
       .player-avatar { width: 116px; height: 116px; }
       .player-avatar .avatar-inner .avatar-initial { font-size: 2.2rem; }
       .player-card h3 { font-size: 0.98rem; }
       .player-card .role-tag { font-size: 0.65rem; padding: 4px 11px; }
-      .status-badge { font-size: 0.55rem; padding: 4px 10px; }
       .player-badge { font-size: 0.55rem; padding: 4px 9px; }
+
+      .id-btn { padding: 8px 18px; font-size: 0.65rem; }
+      .id-btn i { font-size: 0.7rem; }
 
       .album-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
 
@@ -1037,6 +1076,9 @@
 
       .modal-box { padding: 42px 38px 32px; max-width: 440px; }
       .core-grid { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
+
+      .id-display .id-text { font-size: 1.15rem; }
+      .id-display .id-copy-icon { width: 38px; height: 38px; font-size: 0.95rem; }
 
       .back-top { bottom: 30px; right: 30px; width: 52px; height: 52px; font-size: 1.1rem; }
       .back-top:hover { transform: translateY(-4px) scale(1.05); box-shadow: 0 18px 50px rgba(0, 229, 255, 0.6); }
@@ -1062,6 +1104,7 @@
       <a href="#about"><i class="fas fa-book-open"></i> Tentang</a>
       <a href="#players"><i class="fas fa-users"></i> Player</a>
       <a href="#album"><i class="fas fa-images"></i> Album</a>
+      <a href="#roster"><i class="fas fa-chess-board"></i> Roster</a>
     </nav>
   </header>
 
@@ -1089,7 +1132,7 @@
       <div class="stat-label">Pemain</div>
     </div>
     <div class="stat-card">
-      <div class="stat-value" data-count="2">0</div>
+      <div class="stat-value" data-count="3">0</div>
       <div class="stat-label">Roster</div>
     </div>
     <div class="stat-card">
@@ -1155,19 +1198,6 @@
 
   <section id="players">
     <h2 class="section-title"><i class="fas fa-user-astronaut"></i> Player Dandru</h2>
-
-    <div class="player-filters reveal" id="playerFilters">
-      <button class="filter-btn active" data-filter="all">
-        <i class="fas fa-users"></i> Semua <span class="filter-count" data-count="all">10</span>
-      </button>
-      <button class="filter-btn" data-filter="veteran">
-        <i class="fas fa-crown"></i> Veteran <span class="filter-count" data-count="veteran">6</span>
-      </button>
-      <button class="filter-btn" data-filter="newcomer">
-        <i class="fas fa-sparkles"></i> Pemain Baru <span class="filter-count" data-count="newcomer">4</span>
-      </button>
-    </div>
-
     <div class="player-grid" id="playerGrid"></div>
   </section>
 
@@ -1198,6 +1228,7 @@
   <a href="#about"><i class="fas fa-book-open"></i> Tentang</a>
   <a href="#players"><i class="fas fa-users"></i> Player</a>
   <a href="#album"><i class="fas fa-images"></i> Album</a>
+  <a href="#roster"><i class="fas fa-chess-board"></i> Roster</a>
 </div>
 
 <button class="back-top" id="backTop" aria-label="Kembali ke atas">
@@ -1236,21 +1267,40 @@
   </div>
 </div>
 
+<div class="modal-overlay" id="modalId">
+  <div class="modal-box">
+    <button class="modal-close-x" id="btnCloseId"><i class="fas fa-times"></i></button>
+    <div class="id-modal-content">
+      <div class="id-modal-avatar" id="idModalAvatar">
+        <img id="idModalImg" src="" alt="">
+      </div>
+      <div class="id-modal-name" id="idModalName"></div>
+      <div class="id-modal-role" id="idModalRole"></div>
+      <div class="id-modal-label">Player ID</div>
+      <div class="id-display">
+        <div class="id-text" id="idDisplayText"></div>
+        <div class="id-copy-icon" id="idCopyIcon"><i class="fas fa-copy"></i></div>
+      </div>
+      <div class="copy-feedback" id="copyFeedback">✓ Tersalin!</div>
+      <div class="id-note">* ID lain menyusul</div>
+    </div>
+  </div>
+</div>
+
 <script>
-  // ===== DATA PEMAIN (Hanya badge "founder" yang dipakai) =====
+  // ===== DATA PEMAIN =====
   const players = [
     {
       nickname: "Cahya Mirip Nnael",
       roles: ["Jungle", "Mid", "Exp", "Roam", "Gold"],
-      status: "veteran",
       photo: "https://k.top4top.io/p_3924k40l91.png",
       bg: "linear-gradient(135deg, #ff2d94, #8b5cff)",
-      glow: "rgba(255, 45, 148, 0.5)"
+      glow: "rgba(255, 45, 148, 0.5)",
+      id: "104721947 (2522)"
     },
     {
       nickname: "Yukki",
       roles: ["Mid", "Gold"],
-      status: "veteran",
       photo: "https://k.top4top.io/p_3924qwhb32.jpeg",
       bg: "linear-gradient(135deg, #ffb800, #ff2d94)",
       glow: "rgba(255, 184, 0, 0.5)"
@@ -1258,23 +1308,22 @@
     {
       nickname: "Ahmed Teymola",
       roles: ["Jungle", "Roam"],
-      status: "veteran",
       photo: "https://l.top4top.io/p_3924pr2c91.jpeg",
       bg: "linear-gradient(135deg, #00e5ff, #0066ff)",
-      glow: "rgba(0, 229, 255, 0.5)"
+      glow: "rgba(0, 229, 255, 0.5)",
+      id: "137190313 (2676)"
     },
     {
       nickname: "Dann Like Noona",
       roles: ["Exp", "Roam"],
-      status: "veteran",
       photo: "https://e.top4top.io/p_3924l8l7s2.jpeg",
       bg: "linear-gradient(135deg, #b06cff, #6a3aff)",
-      glow: "rgba(176, 108, 255, 0.5)"
+      glow: "rgba(176, 108, 255, 0.5)",
+      id: "1024256775 (13109)"
     },
     {
       nickname: "Reey",
       roles: ["Roam", "Mid"],
-      status: "newcomer",
       photo: "https://j.top4top.io/p_39240iqpc1.jpeg",
       bg: "linear-gradient(135deg, #00ff88, #00b060)",
       glow: "rgba(0, 255, 136, 0.5)"
@@ -1282,7 +1331,6 @@
     {
       nickname: "Mang Komar",
       roles: ["Gold"],
-      status: "newcomer",
       photo: "https://g.top4top.io/p_392472ny04.jpeg",
       bg: "linear-gradient(135deg, #ffb800, #ff5e00)",
       glow: "rgba(255, 184, 0, 0.5)"
@@ -1290,15 +1338,15 @@
     {
       nickname: "Onic Khairul 969",
       roles: ["Jungle"],
-      status: "newcomer",
       photo: "https://h.top4top.io/p_3924vhutv5.jpeg",
       bg: "linear-gradient(135deg, #00e5ff, #7c5cff)",
-      glow: "rgba(0, 229, 255, 0.5)"
+      glow: "rgba(0, 229, 255, 0.5)",
+      id: "320206209 (9658)"
     },
     {
       nickname: "Dyerta │ 05",
       roles: ["Mid", "Exp"],
-      badge: "founder", status: "veteran",
+      badge: "founder",
       photo: "https://l.top4top.io/p_3924jp05s3.jpeg",
       bg: "linear-gradient(135deg, #ffc93c, #ff5e00)",
       glow: "rgba(255, 201, 60, 0.6)"
@@ -1306,7 +1354,6 @@
     {
       nickname: "Xiao Yan",
       roles: ["Gold"],
-      status: "veteran",
       photo: "https://b.top4top.io/p_3924uq7sz1.jpeg",
       bg: "linear-gradient(135deg, #ff2d94, #00e5ff)",
       glow: "rgba(255, 45, 148, 0.5)"
@@ -1314,10 +1361,10 @@
     {
       nickname: "Darkness",
       roles: ["Roam"],
-      status: "newcomer",
       photo: "https://j.top4top.io/p_39244ksa01.jpeg",
       bg: "linear-gradient(135deg, #6a3aff, #00e5ff)",
-      glow: "rgba(106, 58, 255, 0.5)"
+      glow: "rgba(106, 58, 255, 0.5)",
+      id: "140534781 (2703)"
     }
   ];
 
@@ -1338,27 +1385,38 @@
     "https://b.top4top.io/p_3924hduan1.jpeg"
   ];
 
-  // ===== DATA ROSTER (Hanya Roster 1 & 2) =====
+  // ===== DATA ROSTER =====
   const rosters = [
     {
       title: "Roster 1", icon: "1",
       players: [
         { role: "Jungler", name: "Onic Khairul 969" },
-        { role: "Roamer", name: "Ahmed Teymola" },
-        { role: "Midlaner", name: "Yukki" },
+        { role: "Exp Laner", name: "Dyerta │ 05" },
         { role: "Gold Laner", name: "Xiao Yan" },
-        { role: "Exp Laner", name: "Dyerta │ 05" }
+        { role: "Mid Laner", name: "Yukki" },
+        { role: "Roamer", name: "Ahmed Teymola" }
       ]
     },
     {
       title: "Roster 2", icon: "2",
       players: [
         { role: "Jungler", name: "Ahmed Teymola" },
-        { role: "Roamer", name: "Darkness" },
-        { role: "Midlaner", name: "Cahya Mirip Nnael" },
+        { role: "Exp Laner", name: "Dann Like Noona" },
         { role: "Gold Laner", name: "Mang Komar" },
-        { role: "Exp Laner", name: "Dann Like Noona" }
+        { role: "Mid Laner", name: "Cahya Mirip Nnael" },
+        { role: "Roamer", name: "Darkness" }
       ]
+    },
+    {
+      title: "Turnamen Jakarta Selatan", icon: "★",
+      players: [
+        { role: "Jungler", name: "Onic Khairul 969" },
+        { role: "Exp Laner", name: "Dann Like Noona" },
+        { role: "Gold Laner", name: "Xiao Yan" },
+        { role: "Mid Laner", name: "Cahya Mirip Nnael" },
+        { role: "Roamer", name: "Ahmed Teymola" }
+      ],
+      substitute: "Dyerta │ 05"
     }
   ];
 
@@ -1388,20 +1446,14 @@
     const bgStyle = p.bg ? `--avatar-bg: ${p.bg};` : `--avatar-bg: linear-gradient(135deg, var(--accent), var(--accent-2));`;
     const glowStyle = p.glow ? `--avatar-glow: ${p.glow};` : `--avatar-glow: rgba(139, 92, 255, 0.4);`;
 
-    let statusBadgeHTML = "";
-    if (p.status === "veteran") {
-      statusBadgeHTML = `<span class="status-badge veteran"><i class="fas fa-crown"></i> Veteran</span>`;
-    } else if (p.status === "newcomer") {
-      statusBadgeHTML = `<span class="status-badge newcomer"><i class="fas fa-sparkles"></i> New</span>`;
-    }
-
-    const statusClass = p.status ? `status-${p.status}` : "";
+    // ID button hanya muncul jika player punya ID
+    const idButtonHTML = p.id
+      ? `<button class="id-btn" data-player-index="${players.indexOf(p)}"><i class="fas fa-id-card"></i> Lihat ID</button>`
+      : '';
 
     const card = document.createElement("div");
-    card.className = `player-card reveal ${statusClass}`;
-    card.dataset.status = p.status || "none";
+    card.className = "player-card reveal";
     card.innerHTML = `
-      ${statusBadgeHTML}
       ${p.badge ? `<span class="player-badge ${p.badge}">${badgeLabels[p.badge]}</span>` : ''}
       <div class="player-avatar" style="${bgStyle} ${glowStyle}">
         <div class="avatar-inner">
@@ -1412,34 +1464,97 @@
       <div class="roles">
         ${p.roles.map(r => `<span class="role-tag">${r}</span>`).join("")}
       </div>
+      ${idButtonHTML}
     `;
     playerGrid.appendChild(card);
   });
 
-  // ===== FILTER LOGIC =====
-  const filterBtns = document.querySelectorAll(".filter-btn");
-  filterBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-      filterBtns.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      const filter = btn.dataset.filter;
+  // ===== ID MODAL LOGIC =====
+  const modalId = document.getElementById("modalId");
+  const btnCloseId = document.getElementById("btnCloseId");
+  const idModalImg = document.getElementById("idModalImg");
+  const idModalName = document.getElementById("idModalName");
+  const idModalRole = document.getElementById("idModalRole");
+  const idDisplayText = document.getElementById("idDisplayText");
+  const idCopyIcon = document.getElementById("idCopyIcon");
+  const copyFeedback = document.getElementById("copyFeedback");
+  const idModalAvatar = document.getElementById("idModalAvatar");
 
-      document.querySelectorAll(".player-card").forEach(card => {
-        const status = card.dataset.status;
-        const match = filter === "all" || status === filter;
+  let currentIdValue = "";
 
-        card.classList.remove("filter-showing");
+  document.querySelectorAll(".id-btn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const idx = parseInt(btn.dataset.playerIndex, 10);
+      const p = players[idx];
 
-        if (match) {
-          card.classList.remove("filter-hidden");
-          void card.offsetWidth;
-          card.classList.add("filter-showing");
-        } else {
-          card.classList.add("filter-hidden");
-        }
-      });
+      currentIdValue = p.id;
+
+      idModalImg.src = p.photo || "";
+      idModalImg.alt = p.nickname;
+      idModalName.textContent = p.nickname;
+      idModalRole.textContent = p.roles.join(" • ");
+      idDisplayText.textContent = p.id;
+      idModalAvatar.style.setProperty("--id-bg", p.bg || "linear-gradient(135deg, var(--accent), var(--accent-2))");
+      idModalAvatar.style.setProperty("--id-glow", p.glow || "rgba(139, 92, 255, 0.5)");
+      copyFeedback.classList.remove("show");
+      idCopyIcon.innerHTML = '<i class="fas fa-copy"></i>';
+
+      modalId.classList.add("active");
+      lockScroll();
     });
   });
+
+  btnCloseId.addEventListener("click", () => {
+    modalId.classList.remove("active");
+    unlockScroll();
+  });
+
+  modalId.addEventListener("click", (e) => {
+    if (e.target === modalId) {
+      modalId.classList.remove("active");
+      unlockScroll();
+    }
+  });
+
+  function copyIdToClipboard() {
+    if (!currentIdValue) return;
+
+    const doFallback = () => {
+      const ta = document.createElement("textarea");
+      ta.value = currentIdValue;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); } catch (err) {}
+      document.body.removeChild(ta);
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(currentIdValue).then(() => {
+        showCopySuccess();
+      }).catch(() => {
+        doFallback();
+        showCopySuccess();
+      });
+    } else {
+      doFallback();
+      showCopySuccess();
+    }
+  }
+
+  function showCopySuccess() {
+    copyFeedback.classList.add("show");
+    idCopyIcon.innerHTML = '<i class="fas fa-check"></i>';
+    setTimeout(() => {
+      copyFeedback.classList.remove("show");
+      idCopyIcon.innerHTML = '<i class="fas fa-copy"></i>';
+    }, 2000);
+  }
+
+  idCopyIcon.addEventListener("click", copyIdToClipboard);
+  idDisplayText.addEventListener("click", copyIdToClipboard);
 
   // ===== RENDER ALBUM =====
   const albumGrid = document.getElementById("albumGrid");
@@ -1459,6 +1574,15 @@
   rosters.forEach(r => {
     const card = document.createElement("div");
     card.className = "roster-card reveal";
+    let subHTML = "";
+    if (r.substitute) {
+      subHTML = `
+        <div class="roster-substitute">
+          <span class="sub-label">Cadangan</span>
+          <span class="sub-name">${r.substitute}</span>
+        </div>
+      `;
+    }
     card.innerHTML = `
       <h3><i>${r.icon}</i> ${r.title}</h3>
       <ul>
@@ -1469,6 +1593,7 @@
           </li>
         `).join("")}
       </ul>
+      ${subHTML}
     `;
     rosterGrid.appendChild(card);
   });
@@ -1570,7 +1695,7 @@
 
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
-      [modalPassword, modalAlbum, modalCore].forEach(m => {
+      [modalPassword, modalAlbum, modalCore, modalId].forEach(m => {
         if (m.classList.contains("active")) {
           m.classList.remove("active");
           unlockScroll();
