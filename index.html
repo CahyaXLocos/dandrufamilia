@@ -38,7 +38,6 @@
     position: relative;
   }
 
-  /* ===== GLOBAL BACKGROUND: GRID + NOISE + STRIPES ===== */
   body::before {
     content: '';
     position: fixed; inset: 0;
@@ -109,7 +108,6 @@
     to { transform: translateX(-50%); }
   }
 
-  /* ===== WRAP ===== */
   .wrap { max-width: 1280px; margin: 0 auto; padding: 0 22px 80px; position: relative; z-index: 2; }
 
   /* ===== HEADER ===== */
@@ -144,17 +142,7 @@
   }
 
   .logo-mark:hover { transform: rotate(-4deg) scale(1.05); }
-
   .logo-mark img { width: 100%; height: 100%; object-fit: cover; }
-
-  .logo-mark::after {
-    content: '';
-    position: absolute;
-    inset: 3px;
-    border: 1.5px solid rgba(10,10,10,0.35);
-    border-radius: 4px;
-    pointer-events: none;
-  }
 
   .header-title {
     font-family: 'Bebas Neue', sans-serif;
@@ -177,13 +165,8 @@
   .header-nav { display: none; }
 
   /* ===== HERO ===== */
-  .hero {
-    padding: 80px 0 50px;
-    position: relative;
-    overflow: hidden;
-  }
+  .hero { padding: 80px 0 50px; position: relative; overflow: hidden; }
 
-  /* Giant background wordmark */
   .hero-bg-word {
     position: absolute;
     top: 55%; left: -4%;
@@ -234,83 +217,36 @@
     color: var(--ink);
     text-transform: uppercase;
     margin-bottom: 32px;
-    position: relative;
   }
 
-  .hero-title .row {
-    display: block;
-    position: relative;
-  }
-
-  .hero-title .row-1 {
-    color: var(--ink);
-  }
-
-  .hero-title .row-2 {
-    color: transparent;
-    -webkit-text-stroke: 2.5px var(--ink);
-    font-style: italic;
-    padding-left: 6%;
-  }
-
-  .hero-title .row-3 {
-    color: var(--accent);
-    font-style: italic;
-    padding-left: 12%;
-    position: relative;
-  }
-
-  .hero-title .row-3::after {
-    content: '●';
-    color: var(--ink);
-    font-size: 0.25em;
-    vertical-align: super;
-    margin-left: 12px;
-    -webkit-text-stroke: 0;
-  }
-
+  .hero-title .row { display: block; position: relative; }
+  .hero-title .row-1 { color: var(--ink); }
+  .hero-title .row-2 { color: transparent; -webkit-text-stroke: 2.5px var(--ink); font-style: italic; padding-left: 6%; }
+  .hero-title .row-3 { color: var(--accent); font-style: italic; padding-left: 12%; }
+  .hero-title .row-3::after { content: '●'; color: var(--ink); font-size: 0.25em; vertical-align: super; margin-left: 12px; -webkit-text-stroke: 0; }
   .hero-title .row-4 {
-    font-size: 0.16em;
-    color: var(--muted);
-    letter-spacing: 0.42em;
-    font-weight: 400;
-    margin-top: 26px;
-    padding-left: 6px;
+    font-size: 0.16em; color: var(--muted); letter-spacing: 0.42em;
+    font-weight: 400; margin-top: 26px; padding-left: 6px;
     font-family: 'JetBrains Mono', monospace;
-    -webkit-text-stroke: 0;
-    font-style: normal;
+    -webkit-text-stroke: 0; font-style: normal;
   }
 
-  /* Info row */
   .hero-info {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 26px;
-    padding-top: 28px;
-    border-top: 2px dashed var(--ink);
+    display: grid; grid-template-columns: 1fr; gap: 26px;
+    padding-top: 28px; border-top: 2px dashed var(--ink);
     position: relative;
   }
 
   .hero-info::before {
     content: 'INFO';
-    position: absolute;
-    top: -12px; left: 20px;
-    background: var(--paper);
-    padding: 0 10px;
+    position: absolute; top: -12px; left: 20px;
+    background: var(--paper); padding: 0 10px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.58rem;
-    letter-spacing: 3px;
-    font-weight: 700;
-    color: var(--muted);
+    font-size: 0.58rem; letter-spacing: 3px;
+    font-weight: 700; color: var(--muted);
   }
 
-  .hero-desc {
-    font-size: 1rem;
-    color: var(--ink-soft);
-    max-width: 560px;
-    line-height: 1.7;
-  }
-
+  .hero-desc { font-size: 1rem; color: var(--ink-soft); max-width: 560px; line-height: 1.7; }
   .hero-desc strong { background: var(--accent-2); padding: 0 4px; font-weight: 700; }
 
   .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
@@ -319,57 +255,35 @@
     display: inline-flex; align-items: center; gap: 9px;
     padding: 15px 24px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
     text-decoration: none;
     border: 2.5px solid var(--ink);
-    background: var(--paper);
-    color: var(--ink);
+    background: var(--paper); color: var(--ink);
     transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
-    cursor: pointer;
-    border-radius: var(--r);
-    position: relative;
+    cursor: pointer; border-radius: var(--r);
   }
 
   .btn:hover, .btn:active {
-    background: var(--ink);
-    color: var(--paper);
+    background: var(--ink); color: var(--paper);
     transform: translate(-3px, -3px);
     box-shadow: 6px 6px 0 var(--accent);
   }
 
-  .btn.primary {
-    background: var(--accent);
-    color: var(--white);
-    border-color: var(--ink);
-  }
-
-  .btn.primary:hover {
-    background: var(--ink);
-    color: var(--white);
-    box-shadow: 6px 6px 0 var(--accent);
-  }
+  .btn.primary { background: var(--accent); color: var(--white); border-color: var(--ink); }
+  .btn.primary:hover { background: var(--ink); color: var(--white); box-shadow: 6px 6px 0 var(--accent); }
 
   /* ===== STATS STRIP ===== */
   .stats-strip {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    border: 3px solid var(--ink);
-    margin-top: 60px;
-    background: var(--ink);
-    gap: 3px;
-    border-radius: var(--r);
-    overflow: hidden;
-    position: relative;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border: 3px solid var(--ink); margin-top: 60px;
+    background: var(--ink); gap: 3px;
+    border-radius: var(--r); overflow: hidden;
   }
 
   .stat {
-    background: var(--paper);
-    padding: 30px 10px;
-    text-align: center;
-    position: relative;
+    background: var(--paper); padding: 30px 10px;
+    text-align: center; position: relative;
     transition: background 0.25s;
   }
 
@@ -377,85 +291,58 @@
 
   .stat::before {
     content: attr(data-label);
-    position: absolute;
-    top: 8px; left: 10px;
+    position: absolute; top: 8px; left: 10px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.52rem;
-    letter-spacing: 2px;
-    color: var(--muted);
-    font-weight: 700;
+    font-size: 0.52rem; letter-spacing: 2px;
+    color: var(--muted); font-weight: 700;
   }
 
   .stat-num {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 3.6rem;
-    line-height: 1;
-    color: var(--ink);
-    letter-spacing: 1px;
+    font-size: 3.6rem; line-height: 1;
+    color: var(--ink); letter-spacing: 1px;
   }
 
   .stat-label {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.58rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 8px;
-    font-weight: 700;
+    font-size: 0.58rem; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--muted);
+    margin-top: 8px; font-weight: 700;
   }
 
   /* ===== SECTION ===== */
-  .section {
-    padding: 90px 0 20px;
-    position: relative;
-  }
+  .section { padding: 90px 0 20px; position: relative; }
 
   .section-head {
     display: flex; align-items: flex-end; justify-content: space-between;
     gap: 16px;
     border-bottom: 3px solid var(--ink);
-    padding-bottom: 18px;
-    margin-bottom: 40px;
+    padding-bottom: 18px; margin-bottom: 40px;
     position: relative;
   }
 
   .section-head h2 {
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(2.4rem, 9vw, 4.4rem);
-    line-height: 0.85;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--ink);
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-    flex-wrap: wrap;
+    line-height: 0.85; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--ink);
+    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
   }
 
-  .section-head h2 em {
-    color: var(--accent);
-    font-style: italic;
-    position: relative;
-  }
-
+  .section-head h2 em { color: var(--accent); font-style: italic; position: relative; }
   .section-head h2 em::after {
     content: '';
-    position: absolute;
-    bottom: 8%; left: 0; right: 0;
-    height: 3px;
-    background: var(--ink);
+    position: absolute; bottom: 8%; left: 0; right: 0;
+    height: 3px; background: var(--ink);
   }
 
   .section-num {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 5rem;
-    line-height: 0.7;
+    font-size: 5rem; line-height: 0.7;
     color: transparent;
     -webkit-text-stroke: 1.5px var(--ink);
-    letter-spacing: 1px;
-    flex-shrink: 0;
-    padding-bottom: 4px;
-    user-select: none;
+    letter-spacing: 1px; flex-shrink: 0;
+    padding-bottom: 4px; user-select: none;
   }
 
   /* ===== ABOUT ===== */
@@ -463,9 +350,7 @@
     background: var(--white);
     border: 3px solid var(--ink);
     padding: 34px 28px;
-    font-size: 1rem;
-    color: var(--ink-soft);
-    line-height: 1.8;
+    font-size: 1rem; color: var(--ink-soft); line-height: 1.8;
     position: relative;
     box-shadow: 10px 10px 0 var(--ink);
     border-radius: var(--r);
@@ -473,26 +358,19 @@
 
   .about-text::before {
     content: '';
-    position: absolute;
-    top: 0; right: 0;
+    position: absolute; top: 0; right: 0;
     width: 100px; height: 100px;
-    background:
-      repeating-linear-gradient(45deg, var(--accent) 0 6px, transparent 6px 12px);
-    opacity: 0.15;
-    pointer-events: none;
+    background: repeating-linear-gradient(45deg, var(--accent) 0 6px, transparent 6px 12px);
+    opacity: 0.15; pointer-events: none;
     border-bottom-left-radius: var(--r);
   }
 
   .about-text .quote-mark {
-    position: absolute;
-    top: -26px; left: 22px;
+    position: absolute; top: -26px; left: 22px;
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 6rem;
-    color: var(--accent);
-    line-height: 1;
-    background: var(--paper);
-    padding: 0 12px;
-    font-style: italic;
+    font-size: 6rem; color: var(--accent);
+    line-height: 1; background: var(--paper);
+    padding: 0 12px; font-style: italic;
   }
 
   .about-text p { margin-bottom: 16px; }
@@ -504,93 +382,59 @@
   .timeline { display: flex; flex-direction: column; gap: 0; }
 
   .tl-item {
-    display: grid;
-    grid-template-columns: 80px 1fr;
-    gap: 22px;
-    padding: 26px 0;
-    border-bottom: 2px solid var(--ink);
-    transition: all 0.2s;
-    position: relative;
-    align-items: center;
+    display: grid; grid-template-columns: 80px 1fr; gap: 22px;
+    padding: 26px 0; border-bottom: 2px solid var(--ink);
+    transition: all 0.2s; align-items: center;
   }
 
   .tl-item:last-child { border-bottom: none; }
-
   .tl-item:hover { padding-left: 10px; background: var(--paper-2); }
 
   .tl-num {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 3rem;
-    line-height: 1;
-    color: var(--ink);
-    border-left: 4px solid var(--accent);
-    padding-left: 12px;
-    transition: all 0.25s;
+    font-size: 3rem; line-height: 1;
+    color: var(--ink); border-left: 4px solid var(--accent);
+    padding-left: 12px; transition: all 0.25s;
   }
 
-  .tl-item:hover .tl-num {
-    color: var(--accent);
-    border-left-color: var(--ink);
-  }
+  .tl-item:hover .tl-num { color: var(--accent); border-left-color: var(--ink); }
 
   .tl-body { padding-top: 2px; }
 
   .tl-title {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.6rem;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: var(--ink);
-    margin-bottom: 4px;
-    line-height: 1;
+    font-size: 1.6rem; letter-spacing: 1.2px;
+    text-transform: uppercase; color: var(--ink);
+    margin-bottom: 4px; line-height: 1;
   }
 
-  .tl-desc {
-    font-size: 0.9rem;
-    color: var(--muted);
-    line-height: 1.6;
-  }
+  .tl-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
 
   /* ===== PLAYER GRID ===== */
-  .player-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
+  .player-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
 
   .player-card {
     background: var(--white);
     border: 2.5px solid var(--ink);
     padding: 20px 18px;
-    display: grid;
-    grid-template-columns: 92px 1fr;
-    gap: 20px;
-    align-items: center;
-    position: relative;
+    display: grid; grid-template-columns: 92px 1fr; gap: 20px;
+    align-items: center; position: relative;
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    border-radius: var(--r);
-    overflow: hidden;
+    border-radius: var(--r); overflow: hidden;
   }
 
   .player-card::before {
     content: attr(data-idx);
-    position: absolute;
-    right: 14px; bottom: -14px;
+    position: absolute; right: 14px; bottom: -14px;
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 6rem;
-    line-height: 0.8;
+    font-size: 6rem; line-height: 0.8;
     color: transparent;
     -webkit-text-stroke: 1.5px rgba(10,10,10,0.12);
-    pointer-events: none;
-    transition: all 0.3s;
+    pointer-events: none; transition: all 0.3s;
     letter-spacing: -0.02em;
   }
 
-  .player-card:hover::before {
-    color: var(--accent-2);
-    -webkit-text-stroke: 0;
-    opacity: 0.55;
-  }
+  .player-card:hover::before { color: var(--accent-2); -webkit-text-stroke: 0; opacity: 0.55; }
 
   .player-card:hover {
     transform: translate(-4px, -4px);
@@ -600,101 +444,83 @@
   .player-photo {
     width: 92px; height: 92px;
     border: 2.5px solid var(--ink);
-    overflow: hidden;
-    background: var(--paper-2);
-    border-radius: var(--r);
-    flex-shrink: 0;
-    position: relative;
+    overflow: hidden; background: var(--paper-2);
+    border-radius: var(--r); flex-shrink: 0;
+    position: relative; cursor: pointer;
   }
 
   .player-photo img {
-    width: 100%; height: 100%;
-    object-fit: cover;
+    width: 100%; height: 100%; object-fit: cover;
     filter: grayscale(0.55) contrast(1.15);
     transition: filter 0.35s;
   }
 
-  .player-card:hover .player-photo img {
-    filter: grayscale(0) contrast(1.05);
-  }
+  .player-card:hover .player-photo img { filter: grayscale(0) contrast(1.05); }
 
   .player-info { min-width: 0; position: relative; z-index: 1; }
 
   .player-name {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.75rem;
-    letter-spacing: 1px;
-    line-height: 0.95;
-    color: var(--ink);
-    margin-bottom: 8px;
-    text-transform: uppercase;
+    font-size: 1.75rem; letter-spacing: 1px;
+    line-height: 0.95; color: var(--ink);
+    margin-bottom: 8px; text-transform: uppercase;
     word-break: break-word;
   }
 
   .player-roles {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 1.5px;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-bottom: 12px;
-    font-weight: 700;
+    font-size: 0.6rem; letter-spacing: 1.5px;
+    color: var(--muted); text-transform: uppercase;
+    margin-bottom: 12px; font-weight: 700;
   }
 
-  .id-btn {
+  .player-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .id-btn, .profile-btn {
     display: inline-flex; align-items: center; gap: 7px;
     padding: 8px 14px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.62rem;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    background: var(--ink);
-    color: var(--paper);
+    font-size: 0.62rem; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
     border: 2px solid var(--ink);
-    cursor: pointer;
-    transition: all 0.15s;
+    cursor: pointer; transition: all 0.15s;
     border-radius: var(--r);
   }
 
+  .profile-btn { background: var(--accent); color: var(--white); }
+  .profile-btn:hover {
+    background: var(--ink); color: var(--white);
+    transform: translate(-2px, -2px);
+    box-shadow: 3px 3px 0 var(--accent);
+  }
+
+  .id-btn { background: var(--ink); color: var(--paper); }
   .id-btn:hover {
-    background: var(--accent);
-    color: var(--white);
+    background: var(--accent); color: var(--white);
     transform: translate(-2px, -2px);
     box-shadow: 3px 3px 0 var(--ink);
   }
 
   .player-card .badge-founder {
-    position: absolute;
-    top: -2px; right: -2px;
-    background: var(--accent);
-    color: var(--white);
+    position: absolute; top: -2px; right: -2px;
+    background: var(--accent); color: var(--white);
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.55rem;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    padding: 6px 12px;
+    font-size: 0.55rem; font-weight: 700;
+    letter-spacing: 1.5px; padding: 6px 12px;
     text-transform: uppercase;
     border-left: 2.5px solid var(--ink);
     border-bottom: 2.5px solid var(--ink);
     border-bottom-left-radius: var(--r);
-    transform: rotate(2deg);
-    z-index: 2;
+    transform: rotate(2deg); z-index: 2;
   }
 
   /* ===== ALBUM ===== */
-  .album-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
+  .album-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 
   .album-item {
-    position: relative;
-    aspect-ratio: 1;
+    position: relative; aspect-ratio: 1;
     border: 2.5px solid var(--ink);
-    overflow: hidden;
-    cursor: pointer;
+    overflow: hidden; cursor: pointer;
     background: var(--paper-2);
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     border-radius: var(--r);
@@ -710,8 +536,7 @@
   }
 
   .album-item img {
-    width: 100%; height: 100%;
-    object-fit: cover;
+    width: 100%; height: 100%; object-fit: cover;
     filter: grayscale(0.4) contrast(1.05);
     transition: transform 0.5s, filter 0.3s;
   }
@@ -719,33 +544,24 @@
   .album-item:hover img { transform: scale(1.06); filter: grayscale(0) contrast(1.05); }
 
   .album-num {
-    position: absolute;
-    top: 8px; left: 8px;
-    background: var(--ink);
-    color: var(--paper);
+    position: absolute; top: 8px; left: 8px;
+    background: var(--ink); color: var(--paper);
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.62rem;
-    font-weight: 700;
-    padding: 4px 10px;
-    letter-spacing: 1px;
-    border-radius: var(--r);
-    z-index: 1;
+    font-size: 0.62rem; font-weight: 700;
+    padding: 4px 10px; letter-spacing: 1px;
+    border-radius: var(--r); z-index: 1;
   }
 
   .album-item::after {
     content: '↗';
-    position: absolute;
-    top: 8px; right: 8px;
+    position: absolute; top: 8px; right: 8px;
     width: 28px; height: 28px;
-    background: var(--paper);
-    color: var(--ink);
+    background: var(--paper); color: var(--ink);
     border: 2px solid var(--ink);
-    font-size: 0.9rem;
-    font-weight: 700;
+    font-size: 0.9rem; font-weight: 700;
     display: flex; align-items: center; justify-content: center;
     border-radius: var(--r);
-    opacity: 0;
-    transform: translate(-4px, 4px);
+    opacity: 0; transform: translate(-4px, 4px);
     transition: all 0.25s;
   }
 
@@ -759,48 +575,33 @@
     background: var(--white);
     padding: 24px 22px;
     border-radius: var(--r);
-    position: relative;
-    transition: all 0.2s;
+    position: relative; transition: all 0.2s;
   }
 
-  .roster-card:hover {
-    transform: translate(-3px, -3px);
-    box-shadow: 7px 7px 0 var(--ink);
-  }
+  .roster-card:hover { transform: translate(-3px, -3px); box-shadow: 7px 7px 0 var(--ink); }
 
   .roster-title {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.7rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--ink);
-    padding-bottom: 14px;
-    margin-bottom: 16px;
+    font-size: 1.7rem; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--ink);
+    padding-bottom: 14px; margin-bottom: 16px;
     border-bottom: 2.5px solid var(--ink);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    line-height: 1;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px; line-height: 1;
   }
 
   .roster-title .roster-tag {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.58rem;
-    background: var(--ink);
-    color: var(--paper);
-    padding: 5px 10px;
-    letter-spacing: 1.5px;
-    border-radius: var(--r);
+    font-size: 0.58rem; background: var(--ink);
+    color: var(--paper); padding: 5px 10px;
+    letter-spacing: 1.5px; border-radius: var(--r);
     font-weight: 700;
   }
 
   .roster-list { list-style: none; }
 
   .roster-list li {
-    display: grid;
-    grid-template-columns: 95px 1fr;
-    gap: 16px;
+    display: grid; grid-template-columns: 95px 1fr; gap: 16px;
     padding: 13px 0;
     border-bottom: 1.5px dashed var(--muted-2);
     align-items: center;
@@ -810,44 +611,30 @@
 
   .role-tag {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-weight: 700;
-    color: var(--ink);
-    background: var(--accent-2);
-    padding: 4px 8px;
-    text-align: center;
+    font-size: 0.6rem; letter-spacing: 1px;
+    text-transform: uppercase; font-weight: 700;
+    color: var(--ink); background: var(--accent-2);
+    padding: 4px 8px; text-align: center;
     border: 2px solid var(--ink);
     border-radius: var(--r);
   }
 
   .roster-list li .pname {
-    font-weight: 600;
-    color: var(--ink);
-    font-size: 0.95rem;
+    font-weight: 600; color: var(--ink); font-size: 0.95rem;
   }
 
   .sub-row {
-    margin-top: 16px;
-    padding-top: 16px;
+    margin-top: 16px; padding-top: 16px;
     border-top: 2px dashed var(--ink);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 0.9rem;
-    font-weight: 600;
+    display: flex; align-items: center; gap: 12px;
+    font-size: 0.9rem; font-weight: 600;
   }
 
   .sub-row .sub-tag {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.58rem;
-    letter-spacing: 1.5px;
-    font-weight: 700;
-    background: var(--accent);
-    color: var(--white);
-    padding: 5px 10px;
-    border: 2px solid var(--ink);
+    font-size: 0.58rem; letter-spacing: 1.5px; font-weight: 700;
+    background: var(--accent); color: var(--white);
+    padding: 5px 10px; border: 2px solid var(--ink);
     border-radius: var(--r);
   }
 
@@ -858,33 +645,30 @@
     display: inline-flex; align-items: center; gap: 12px;
     padding: 20px 38px;
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.35rem;
-    letter-spacing: 3px;
+    font-size: 1.35rem; letter-spacing: 3px;
     text-transform: uppercase;
-    background: var(--ink);
-    color: var(--paper);
-    border: 3px solid var(--ink);
-    cursor: pointer;
-    transition: all 0.2s;
-    border-radius: var(--r);
-    position: relative;
+    background: var(--ink); color: var(--paper);
+    border: 3px solid var(--ink); cursor: pointer;
+    transition: all 0.2s; border-radius: var(--r);
   }
 
-  .btn-lock .ln { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 1.5px; color: var(--accent-2); font-weight: 700; }
+  .btn-lock .ln {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 1.5px;
+    color: var(--accent-2); font-weight: 700;
+  }
 
   .btn-lock:hover, .btn-lock:active {
-    background: var(--accent);
-    color: var(--white);
+    background: var(--accent); color: var(--white);
     transform: translate(-4px, -4px);
     box-shadow: 8px 8px 0 var(--ink);
   }
 
   .btn-lock:hover .ln, .btn-lock:active .ln { color: var(--paper); }
 
-  /* ===== MODAL ===== */
+  /* ===== MODAL BASE ===== */
   .modal {
-    display: none;
-    position: fixed; inset: 0;
+    display: none; position: fixed; inset: 0;
     background: rgba(10, 10, 10, 0.82);
     z-index: 1000;
     justify-content: center; align-items: center;
@@ -903,8 +687,7 @@
     box-shadow: 12px 12px 0 var(--accent);
     animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     border-radius: var(--r);
-    max-height: 92vh;
-    overflow-y: auto;
+    max-height: 92vh; overflow-y: auto;
   }
 
   @keyframes modalIn {
@@ -913,13 +696,10 @@
   }
 
   .modal-close {
-    position: absolute;
-    top: -3px; right: -3px;
+    position: absolute; top: -3px; right: -3px;
     width: 44px; height: 44px;
-    background: var(--ink);
-    color: var(--paper);
-    border: none;
-    cursor: pointer;
+    background: var(--ink); color: var(--paper);
+    border: none; cursor: pointer;
     font-size: 1.05rem;
     display: flex; align-items: center; justify-content: center;
     transition: all 0.15s;
@@ -931,121 +711,360 @@
 
   .modal-title {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.2rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--ink);
-    margin-bottom: 6px;
-    line-height: 0.9;
+    font-size: 2.2rem; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--ink);
+    margin-bottom: 6px; line-height: 0.9;
   }
 
   .modal-sub {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.66rem;
-    color: var(--muted);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 26px;
-    font-weight: 700;
+    font-size: 0.66rem; color: var(--muted);
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 26px; font-weight: 700;
   }
 
   .modal-input {
-    width: 100%;
-    padding: 16px 18px;
+    width: 100%; padding: 16px 18px;
     border: 2.5px solid var(--ink);
     background: var(--white);
     font-family: 'JetBrains Mono', monospace;
-    font-size: 1rem;
-    letter-spacing: 3px;
-    text-align: center;
-    color: var(--ink);
-    outline: none;
-    font-weight: 700;
-    border-radius: var(--r);
-    transition: all 0.2s;
+    font-size: 1rem; letter-spacing: 3px;
+    text-align: center; color: var(--ink);
+    outline: none; font-weight: 700;
+    border-radius: var(--r); transition: all 0.2s;
   }
 
-  .modal-input:focus {
-    background: var(--accent-2);
-    box-shadow: 4px 4px 0 var(--ink);
-  }
+  .modal-input:focus { background: var(--accent-2); box-shadow: 4px 4px 0 var(--ink); }
 
   .modal-btn {
-    width: 100%;
-    margin-top: 14px;
-    padding: 16px;
-    background: var(--ink);
-    color: var(--paper);
+    width: 100%; margin-top: 14px; padding: 16px;
+    background: var(--ink); color: var(--paper);
     border: 2.5px solid var(--ink);
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.2rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    cursor: pointer;
+    font-size: 1.2rem; letter-spacing: 3px;
+    text-transform: uppercase; cursor: pointer;
     transition: all 0.2s;
     display: flex; align-items: center; justify-content: center; gap: 10px;
     border-radius: var(--r);
   }
 
-  .modal-btn:hover {
-    background: var(--accent);
-    color: var(--white);
-  }
+  .modal-btn:hover { background: var(--accent); color: var(--white); }
 
   .err-msg {
     color: var(--accent);
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-align: center;
-    margin-top: 14px;
-    min-height: 16px;
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 1px; text-align: center;
+    margin-top: 14px; min-height: 16px;
   }
 
   /* ===== CORE GRID ===== */
-  .core-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-top: 4px;
-  }
+  .core-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px; }
 
   .core-card {
     border: 2.5px solid var(--ink);
     padding: 18px 12px;
-    background: var(--white);
-    text-align: center;
-    border-radius: var(--r);
-    transition: all 0.15s;
+    background: var(--white); text-align: center;
+    border-radius: var(--r); transition: all 0.15s;
   }
 
   .core-card.hl { background: var(--accent-2); }
-
   .core-card:hover { transform: translate(-2px, -2px); box-shadow: 3px 3px 0 var(--ink); }
 
   .core-role {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.58rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--muted);
-    font-weight: 700;
-    margin-bottom: 6px;
+    font-size: 0.58rem; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--muted);
+    font-weight: 700; margin-bottom: 6px;
   }
 
   .core-name {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.35rem;
-    letter-spacing: 1px;
-    line-height: 1;
-    color: var(--ink);
+    font-size: 1.35rem; letter-spacing: 1px;
+    line-height: 1; color: var(--ink);
     text-transform: uppercase;
   }
 
   .core-name.mystery { color: var(--muted-2); letter-spacing: 4px; }
 
-  /* ===== ID MODAL ===== */
+  /* ===== PROFILE MODAL ===== */
+  .profile-modal {
+    max-width: 520px;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .profile-hero {
+    position: relative;
+    background: var(--ink);
+    padding: 30px 26px 24px;
+    color: var(--paper);
+    border-bottom: 3px solid var(--ink);
+  }
+
+  .profile-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(-45deg, rgba(255,59,31,0.08) 0 12px, transparent 12px 24px);
+    pointer-events: none;
+  }
+
+  .profile-hero-inner { position: relative; z-index: 1; display: flex; gap: 18px; align-items: flex-start; }
+
+  .profile-photo {
+    width: 108px; height: 108px;
+    border: 3px solid var(--paper);
+    overflow: hidden;
+    border-radius: var(--r);
+    flex-shrink: 0;
+    background: var(--paper-2);
+    position: relative;
+  }
+
+  .profile-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+  .profile-photo .num-badge {
+    position: absolute;
+    top: -3px; left: -3px;
+    background: var(--accent);
+    color: var(--white);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.15rem;
+    padding: 3px 10px;
+    letter-spacing: 1px;
+    border: 2px solid var(--ink);
+    border-bottom-right-radius: var(--r);
+  }
+
+  .profile-meta { min-width: 0; flex: 1; }
+
+  .profile-nickname {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem; letter-spacing: 1.5px;
+    line-height: 0.9; color: var(--paper);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    word-break: break-word;
+  }
+
+  .profile-realname {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem; letter-spacing: 1.5px;
+    color: var(--accent-2);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+
+  .profile-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  .profile-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem; font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 9px;
+    border: 2px solid var(--paper);
+    border-radius: var(--r);
+    color: var(--paper);
+    background: transparent;
+  }
+
+  .profile-badge.accent { background: var(--accent); border-color: var(--accent); color: var(--white); }
+  .profile-badge.gold { background: var(--accent-2); border-color: var(--accent-2); color: var(--ink); }
+
+  .profile-body { padding: 24px 26px 28px; }
+
+  .profile-section { margin-bottom: 24px; }
+  .profile-section:last-child { margin-bottom: 0; }
+
+  .profile-section-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--muted); font-weight: 700;
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .profile-section-title::before {
+    content: '▸';
+    color: var(--accent);
+    font-size: 0.75rem;
+  }
+
+  .profile-section-title::after {
+    content: '';
+    flex: 1; height: 1.5px;
+    background: var(--ink); opacity: 0.15;
+  }
+
+  .profile-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .profile-stat {
+    background: var(--white);
+    border: 2.5px solid var(--ink);
+    padding: 14px 6px;
+    text-align: center;
+    border-radius: var(--r);
+  }
+
+  .profile-stat .ps-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem; line-height: 1;
+    color: var(--ink);
+  }
+
+  .profile-stat .ps-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.5rem; letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted); font-weight: 700;
+    margin-top: 4px;
+  }
+
+  .profile-row {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1.5px dashed var(--muted-2);
+    align-items: center;
+    font-size: 0.88rem;
+  }
+
+  .profile-row:last-child { border-bottom: none; }
+
+  .profile-row .pr-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem; letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted); font-weight: 700;
+  }
+
+  .profile-row .pr-value {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .hero-chip-list { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  .hero-chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem; font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    background: var(--accent-2);
+    color: var(--ink);
+    border: 2px solid var(--ink);
+    border-radius: var(--r);
+  }
+
+  .hero-chip.primary {
+    background: var(--accent);
+    color: var(--white);
+  }
+
+  .profile-bio {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    background: var(--white);
+    padding: 14px 16px;
+    border: 2px solid var(--ink);
+    border-radius: var(--r);
+    position: relative;
+    font-style: italic;
+  }
+
+  .profile-bio::before {
+    content: '"';
+    position: absolute;
+    top: -8px; left: 10px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    color: var(--accent);
+    background: var(--white);
+    padding: 0 6px;
+    line-height: 1;
+  }
+
+  .profile-id-box {
+    display: flex;
+    align-items: stretch;
+    border: 2.5px solid var(--ink);
+    background: var(--white);
+    border-radius: var(--r);
+    overflow: hidden;
+  }
+
+  .profile-id-box .id-value {
+    flex: 1;
+    padding: 14px 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--ink);
+    word-break: break-all;
+    display: flex; align-items: center;
+    cursor: pointer;
+  }
+
+  .profile-id-box .id-copy {
+    width: 52px;
+    background: var(--ink);
+    color: var(--paper);
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+
+  .profile-id-box .id-copy:hover { background: var(--accent); }
+
+  .profile-id-box .id-copy.copied { background: var(--accent); color: var(--white); }
+
+  .profile-achievements { list-style: none; }
+
+  .profile-achievements li {
+    display: grid;
+    grid-template-columns: 26px 1fr;
+    gap: 10px;
+    padding: 8px 0;
+    font-size: 0.85rem;
+    border-bottom: 1.5px dashed var(--muted-2);
+    align-items: start;
+  }
+
+  .profile-achievements li:last-child { border-bottom: none; }
+
+  .profile-achievements li .ach-icon {
+    width: 22px; height: 22px;
+    background: var(--accent-2);
+    border: 1.5px solid var(--ink);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.6rem;
+    color: var(--ink);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .profile-achievements li .ach-text {
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  .profile-achievements li .ach-text strong { font-weight: 700; }
+
+  /* ===== ID MODAL (existing) ===== */
   .id-modal-head {
     display: flex; align-items: center; gap: 16px;
     padding-bottom: 18px;
@@ -1067,18 +1086,15 @@
 
   .id-modal-name {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.65rem;
-    letter-spacing: 1px;
-    line-height: 0.95;
-    color: var(--ink);
+    font-size: 1.65rem; letter-spacing: 1px;
+    line-height: 0.95; color: var(--ink);
     text-transform: uppercase;
     word-break: break-word;
   }
 
   .id-modal-role {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 1.5px;
+    font-size: 0.6rem; letter-spacing: 1.5px;
     color: var(--muted);
     text-transform: uppercase;
     margin-top: 6px;
@@ -1087,8 +1103,7 @@
 
   .id-label {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 2px;
+    font-size: 0.6rem; letter-spacing: 2px;
     color: var(--muted);
     text-transform: uppercase;
     font-weight: 700;
@@ -1120,8 +1135,7 @@
     width: 58px;
     background: var(--ink);
     color: var(--paper);
-    border: none;
-    cursor: pointer;
+    border: none; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
     font-size: 1.05rem;
     transition: all 0.15s;
@@ -1132,8 +1146,7 @@
 
   .copy-feedback {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.68rem;
-    font-weight: 700;
+    font-size: 0.68rem; font-weight: 700;
     letter-spacing: 1.5px;
     text-transform: uppercase;
     color: var(--accent);
@@ -1162,8 +1175,7 @@
     background: var(--paper);
     border: 3px solid var(--ink);
     padding: 0;
-    max-width: 96vw;
-    width: auto;
+    max-width: 96vw; width: auto;
     box-shadow: 12px 12px 0 var(--accent);
     border-radius: var(--r);
     position: relative;
@@ -1207,8 +1219,7 @@
   }
 
   .album-nav:hover, .album-nav:active {
-    background: var(--ink);
-    color: var(--paper);
+    background: var(--ink); color: var(--paper);
     transform: translateY(-50%) translate(-2px, -2px);
     box-shadow: 4px 4px 0 var(--accent);
   }
@@ -1220,11 +1231,9 @@
     position: absolute;
     bottom: 26px; left: 50%;
     transform: translateX(-50%);
-    background: var(--ink);
-    color: var(--paper);
+    background: var(--ink); color: var(--paper);
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.68rem;
-    font-weight: 700;
+    font-size: 0.68rem; font-weight: 700;
     letter-spacing: 2px;
     padding: 7px 16px;
     border-radius: var(--r);
@@ -1234,8 +1243,7 @@
 
   /* ===== FOOTER ===== */
   .footer {
-    margin-top: 100px;
-    padding: 30px 0 20px;
+    margin-top: 100px; padding: 30px 0 20px;
     border-top: 3px solid var(--ink);
     display: flex; align-items: center; justify-content: space-between;
     gap: 16px;
@@ -1251,19 +1259,14 @@
 
   .footer::before {
     content: '';
-    position: absolute;
-    top: -3px; left: 0;
+    position: absolute; top: -3px; left: 0;
     width: 88px; height: 3px;
     background: var(--accent);
   }
 
   .footer .ft-left { display: flex; align-items: center; gap: 10px; }
-  .footer .ft-left .ft-dot {
-    width: 8px; height: 8px;
-    background: var(--accent);
-  }
+  .footer .ft-left .ft-dot { width: 8px; height: 8px; background: var(--accent); }
 
-  /* Giant footer wordmark */
   .ft-wordmark {
     grid-column: 1 / -1;
     width: 100%;
@@ -1281,22 +1284,16 @@
     white-space: nowrap;
   }
 
-  /* ===== BACK TO TOP ===== */
+  /* ===== BACK TOP ===== */
   .back-top {
-    position: fixed;
-    bottom: 24px; right: 24px;
+    position: fixed; bottom: 24px; right: 24px;
     width: 52px; height: 52px;
-    background: var(--ink);
-    color: var(--paper);
+    background: var(--ink); color: var(--paper);
     border: 2.5px solid var(--ink);
     display: flex; align-items: center; justify-content: center;
-    font-size: 1.05rem;
-    cursor: pointer;
-    z-index: 90;
-    opacity: 0;
-    transform: translateY(20px);
-    pointer-events: none;
-    transition: all 0.25s;
+    font-size: 1.05rem; cursor: pointer; z-index: 90;
+    opacity: 0; transform: translateY(20px);
+    pointer-events: none; transition: all 0.25s;
     border-radius: var(--r);
   }
 
@@ -1317,28 +1314,20 @@
     .wrap { padding: 0 34px 100px; }
 
     .header { padding: 74px 0 26px; }
-    .header-nav {
-      display: flex; gap: 8px;
-      align-items: center;
-    }
+    .header-nav { display: flex; gap: 8px; align-items: center; }
     .header-nav a {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--ink);
-      text-decoration: none;
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--ink); text-decoration: none;
       padding: 8px 12px;
       border: 2px solid transparent;
       transition: all 0.15s;
       border-radius: var(--r);
-      position: relative;
     }
     .header-nav a:hover {
       border-color: var(--ink);
-      background: var(--ink);
-      color: var(--paper);
+      background: var(--ink); color: var(--paper);
       transform: translate(-2px, -2px);
       box-shadow: 4px 4px 0 var(--accent);
     }
@@ -1350,6 +1339,10 @@
     .roster-grid { grid-template-columns: repeat(2, 1fr); }
 
     .section-head h2 { letter-spacing: 2px; }
+
+    .profile-modal { max-width: 560px; }
+    .profile-photo { width: 124px; height: 124px; }
+    .profile-nickname { font-size: 2.4rem; }
   }
 
   @media (min-width: 1024px) {
@@ -1358,20 +1351,18 @@
     .roster-grid { grid-template-columns: repeat(3, 1fr); }
 
     body { cursor: crosshair; }
-    .btn, .id-btn, .btn-lock, .album-item, .player-card, a, button { cursor: pointer; }
+    .btn, .id-btn, .profile-btn, .btn-lock, .album-item, .player-card, a, button { cursor: pointer; }
   }
 </style>
 </head>
 <body>
 
-<!-- ===== TOP TICKER ===== -->
 <div class="topbar">
   <div class="topbar-track" id="topbarTrack"></div>
 </div>
 
 <div class="wrap">
 
-  <!-- ===== HEADER ===== -->
   <header class="header">
     <div class="header-left">
       <div class="logo-mark">
@@ -1390,7 +1381,6 @@
     </nav>
   </header>
 
-  <!-- ===== HERO ===== -->
   <section class="hero">
     <div class="hero-bg-word">DANDRU</div>
     <div class="hero-inner">
@@ -1416,7 +1406,6 @@
     </div>
   </section>
 
-  <!-- ===== STATS ===== -->
   <div class="stats-strip">
     <div class="stat" data-label="//P">
       <div class="stat-num" data-count="9">0</div>
@@ -1432,7 +1421,6 @@
     </div>
   </div>
 
-  <!-- ===== ABOUT ===== -->
   <section class="section" id="about">
     <div class="section-head">
       <h2>Awal <em>Mula</em></h2>
@@ -1447,7 +1435,6 @@
     </div>
   </section>
 
-  <!-- ===== TIMELINE ===== -->
   <section class="section">
     <div class="section-head">
       <h2>Perjalanan <em>Dandru</em></h2>
@@ -1492,7 +1479,6 @@
     </div>
   </section>
 
-  <!-- ===== PLAYERS ===== -->
   <section class="section" id="players">
     <div class="section-head">
       <h2>Player <em>Dandru</em></h2>
@@ -1501,7 +1487,6 @@
     <div class="player-grid" id="playerGrid"></div>
   </section>
 
-  <!-- ===== ALBUM ===== -->
   <section class="section" id="album">
     <div class="section-head">
       <h2>Album <em>Dandru</em></h2>
@@ -1510,7 +1495,6 @@
     <div class="album-grid" id="albumGrid"></div>
   </section>
 
-  <!-- ===== ROSTER ===== -->
   <section class="section" id="roster">
     <div class="section-head">
       <h2>Roster <em>Dandru</em></h2>
@@ -1524,7 +1508,6 @@
     </div>
   </section>
 
-  <!-- ===== FOOTER ===== -->
   <footer class="footer">
     <div class="ft-left">
       <span class="ft-dot"></span>
@@ -1536,7 +1519,6 @@
 
 </div>
 
-<!-- ===== BACK TO TOP ===== -->
 <button class="back-top" id="backTop" aria-label="Kembali ke atas">
   <i class="fas fa-arrow-up"></i>
 </button>
@@ -1570,9 +1552,7 @@
   <div class="modal-box">
     <button class="modal-close" id="btnCloseId"><i class="fas fa-times"></i></button>
     <div class="id-modal-head">
-      <div class="id-modal-photo">
-        <img id="idModalImg" src="" alt="">
-      </div>
+      <div class="id-modal-photo"><img id="idModalImg" src="" alt=""></div>
       <div class="id-modal-info">
         <div class="id-modal-name" id="idModalName"></div>
         <div class="id-modal-role" id="idModalRole"></div>
@@ -1585,6 +1565,70 @@
     </div>
     <div class="copy-feedback" id="copyFeedback">✓ Tersalin!</div>
     <div class="id-note">* ID lain menyusul</div>
+  </div>
+</div>
+
+<!-- ===== PROFILE MODAL ===== -->
+<div class="modal" id="modalProfile">
+  <div class="modal-box profile-modal">
+    <button class="modal-close" id="btnCloseProfile"><i class="fas fa-times"></i></button>
+    <div class="profile-hero">
+      <div class="profile-hero-inner">
+        <div class="profile-photo">
+          <div class="num-badge" id="profileNumber">#00</div>
+          <img id="profileImg" src="" alt="">
+        </div>
+        <div class="profile-meta">
+          <div class="profile-nickname" id="profileNickname"></div>
+          <div class="profile-realname" id="profileRealname"></div>
+          <div class="profile-badges" id="profileBadges"></div>
+        </div>
+      </div>
+    </div>
+    <div class="profile-body">
+      <div class="profile-section">
+        <div class="profile-section-title">PLAYER ID</div>
+        <div class="profile-id-box">
+          <div class="id-value" id="profileIdValue"></div>
+          <button class="id-copy" id="profileIdCopy"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+      <div class="profile-section">
+        <div class="profile-section-title">STATS</div>
+        <div class="profile-stats-grid" id="profileStats"></div>
+      </div>
+      <div class="profile-section">
+        <div class="profile-section-title">ROLE &amp; INFO</div>
+        <div class="profile-row">
+          <span class="pr-label">Primary</span>
+          <span class="pr-value" id="profilePrimary"></span>
+        </div>
+        <div class="profile-row">
+          <span class="pr-label">Secondary</span>
+          <span class="pr-value" id="profileSecondary"></span>
+        </div>
+        <div class="profile-row">
+          <span class="pr-label">Bergabung</span>
+          <span class="pr-value" id="profileJoined"></span>
+        </div>
+        <div class="profile-row">
+          <span class="pr-label">Server</span>
+          <span class="pr-value" id="profileServer"></span>
+        </div>
+      </div>
+      <div class="profile-section">
+        <div class="profile-section-title">SIGNATURE HEROES</div>
+        <div class="hero-chip-list" id="profileHeroes"></div>
+      </div>
+      <div class="profile-section">
+        <div class="profile-section-title">BIO</div>
+        <div class="profile-bio" id="profileBio"></div>
+      </div>
+      <div class="profile-section">
+        <div class="profile-section-title">ACHIEVEMENTS</div>
+        <ul class="profile-achievements" id="profileAchievements"></ul>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1604,17 +1648,189 @@
 </div>
 
 <script>
-  // ===== DATA =====
+  // ===== DATA PLAYERS =====
   const players = [
-    { nickname: "Cahya Mirip Nnael", roles: ["Jungle", "Mid", "Exp", "Roam", "Gold"], photo: "https://c.top4top.io/p_39328ndxy1.jpeg", id: "104721947 (2522)" },
-    { nickname: "Yukki", roles: ["Mid", "Gold"], photo: "https://k.top4top.io/p_3924qwhb32.jpeg", id: "229884014 (9203)" },
-    { nickname: "Ahmed Teymola", roles: ["Jungle", "Roam"], photo: "https://l.top4top.io/p_3924pr2c91.jpeg", id: "137190313 (2676)" },
-    { nickname: "Dann Like Noona", roles: ["Exp", "Roam"], photo: "https://e.top4top.io/p_3924l8l7s2.jpeg", id: "1024256775 (13109)" },
-    { nickname: "Mang Komar", roles: ["Gold"], photo: "https://g.top4top.io/p_392472ny04.jpeg", id: "1561466466 (16565)" },
-    { nickname: "Onic Khairul 969", roles: ["Jungle"], photo: "https://h.top4top.io/p_3924vhutv5.jpeg", id: "320206209 (9658)" },
-    { nickname: "Dyerta │ 05", roles: ["Mid", "Exp"], badge: "founder", photo: "https://l.top4top.io/p_3924jp05s3.jpeg" },
-    { nickname: "Xiao Yan", roles: ["Gold"], photo: "https://b.top4top.io/p_3924uq7sz1.jpeg", id: "963883824 (12833)" },
-    { nickname: "Darkness", roles: ["Roam"], photo: "https://j.top4top.io/p_39244ksa01.jpeg", id: "140534781 (2703)" }
+    {
+      nickname: "Cahya Mirip Nnael",
+      realName: "Cahya Syahputra",
+      number: "07",
+      roles: ["Jungle", "Mid", "Exp", "Roam", "Gold"],
+      primary: "Jungler",
+      secondary: "Mid Laner",
+      status: "Starter",
+      joined: "2020",
+      photo: "https://c.top4top.io/p_39328ndxy1.jpeg",
+      id: "104721947 (2522)",
+      heroes: ["Lukas", "Fanny", "Kaja"],
+      bio: "Jungler serba bisa yang gak kenal takut. Sekali masuk ke base musuh, gak ada kata mundur. Tempo permainan dia yang bikin tim selalu punya inisiatif.",
+      stats: { match: 312, wr: 74, mvp: 48 },
+      achievements: [
+        "Juara 1 — Turnamen RT Jaud Sarja Winata",
+        "MVP Season Dandru 2023",
+        "Top 3 Jungler Regional Jaksel"
+      ]
+    },
+    {
+      nickname: "Yukki",
+      realName: "Ahmad Arfansyah",
+      number: "10",
+      roles: ["Mid", "Gold"],
+      primary: "Mid Laner",
+      secondary: "Gold Laner",
+      status: "Starter",
+      joined: "2020",
+      photo: "https://k.top4top.io/p_3924qwhb32.jpeg",
+      id: "229884014 (9203)",
+      heroes: ["Cyclop", "Lunox", "Zhuxin"],
+      bio: "Midlaner dengan kontrol map yang gila. Rotasi cepet, combo maut, sekali pick-off langsung berubah jadi push tower. Otak strategi di balik setiap draft.",
+      stats: { match: 289, wr: 71, mvp: 52 },
+      achievements: [
+        "Juara 2 — Turnamen Dadakan Jaud",
+        "Best Midlaner Regional Jaksel 2024",
+        "MVP Clash Squad 2024"
+      ]
+    },
+    {
+      nickname: "Ahmed Teymola",
+      realName: "Fadhil Julistira",
+      number: "03",
+      roles: ["Jungle", "Roam"],
+      primary: "Roamer",
+      secondary: "Jungler",
+      status: "Starter",
+      joined: "2020",
+      photo: "https://l.top4top.io/p_3924pr2c91.jpeg",
+      id: "137190313 (2676)",
+      heroes: ["Gusion", "Yi Sun Shin", "Suyou"],
+      bio: "Inisiator utama di setiap war. Gak pernah takut buat buka map duluan, dan selalu tau kapan harus masuk dan kapan harus out. Semangatnya nular ke seluruh tim.",
+      stats: { match: 298, wr: 70, mvp: 41 },
+      achievements: [
+        "Juara 3 — Turnamen Jaksel Open 2024",
+        "Best Roamer Regional Jaksel",
+        "Top 5 Jungler Dandru"
+      ]
+    },
+    {
+      nickname: "Dann Like Noona",
+      realName: "Ramadani",
+      number: "04",
+      roles: ["Exp", "Roam"],
+      primary: "Exp Laner",
+      secondary: "Roamer",
+      status: "Starter",
+      joined: "2021",
+      photo: "https://e.top4top.io/p_3924l8l7s2.jpeg",
+      id: "1024256775 (13109)",
+      heroes: ["Fredrinn", "Freya", "Aulus"],
+      bio: "Exp Laner dengan sustain tinggi. Di lane selalu bisa nahan push, dan di late game berubah jadi tank damage yang susah dibunuh. Selalu tau kapan harus flank.",
+      stats: { match: 276, wr: 69, mvp: 38 },
+      achievements: [
+        "Juara 1 — Turnamen Kecamatan 2023",
+        "Best Exp Laner Dandru Season 2023",
+        "Top 3 Exp Laner Regional"
+      ]
+    },
+    {
+      nickname: "Mang Komar",
+      realName: "Rama Adi Putra",
+      number: "08",
+      roles: ["Gold"],
+      primary: "Gold Laner",
+      secondary: "Mid Laner",
+      status: "Starter",
+      joined: "2022",
+      photo: "https://g.top4top.io/p_392472ny04.jpeg",
+      id: "1561466466 (16565)",
+      heroes: ["Obsidia", "Irithel", "Hanabi"],
+      bio: "Gold laner dengan farm efficiency tinggi. Sekali dapat buff, langsung jadi monster damage di late game. Positioning-nya selalu aman, gak pernah mati konyol.",
+      stats: { match: 248, wr: 68, mvp: 44 },
+      achievements: [
+        "Juara 2 — Turnamen Online 2024",
+        "Best Gold Laner Regional Jaksel 2024",
+        "Top 5 Gold Dandru"
+      ]
+    },
+    {
+      nickname: "Onic Khairul 969",
+      realName: "Fuad",
+      number: "01",
+      roles: ["Jungle"],
+      primary: "Jungler",
+      secondary: "Roamer",
+      status: "Starter",
+      joined: "2022",
+      photo: "https://h.top4top.io/p_3924vhutv5.jpeg",
+      id: "320206209 (9658)",
+      heroes: ["Aamon", "Hayabusa", "Lancelot"],
+      bio: "Jungler dengan insting tinggi. Rotasi cepat, farming efisien, dan selalu muncul di waktu yang tepat. Diam-diam berbahaya, sekali strike fatal.",
+      stats: { match: 234, wr: 72, mvp: 47 },
+      achievements: [
+        "Juara 3 — Turnamen Dadakan Jaud",
+        "Best Jungler Regional Jaksel 2024",
+        "MVP Clash Squad 2025"
+      ]
+    },
+    {
+      nickname: "Dyerta │ 05",
+      realName: "Salva Dwi Putra",
+      number: "00",
+      roles: ["Mid", "Exp"],
+      primary: "Mid Laner",
+      secondary: "Exp Laner",
+      status: "Founder",
+      joined: "2020",
+      photo: "https://l.top4top.io/p_3924jp05s3.jpeg",
+      id: "680441145 (8724)",
+      heroes: ["Ling", "Hirara", "Esmeralda"],
+      bio: "Founder Dandru Familia. Pencetus nama 'Dandru' yang awalnya cuma candaan. Pemain versatile yang bisa main di mana aja, tapi selalu punya visi besar buat tim.",
+      stats: { match: 302, wr: 73, mvp: 51 },
+      achievements: [
+        "Founder Dandru Familia",
+        "Juara 1 — Turnamen Dadakan Jaud Sarja Winata",
+        "Pencetus Nama 'Dandru'"
+      ],
+      badge: "founder"
+    },
+    {
+      nickname: "Xiao Yan",
+      realName: "Muhammad Galih Faturohman",
+      number: "09",
+      roles: ["Gold"],
+      primary: "Gold Laner",
+      secondary: "Mid Laner",
+      status: "Starter",
+      joined: "2020",
+      photo: "https://b.top4top.io/p_3924uq7sz1.jpeg",
+      id: "963883824 (12833)",
+      heroes: ["Miya", "Melissa", "Beatrix"],
+      bio: "Gold laner veteran dengan damage output stabil. Sekali dapat space, langsung tembak terus tanpa kasih napas. Positioning aman, kiting perfect.",
+      stats: { match: 266, wr: 70, mvp: 42 },
+      achievements: [
+        "Juara 2 — Turnamen RT Jaud 2023",
+        "Best Gold Laner Dandru 2024",
+        "Top 3 Gold Regional Jaksel"
+      ]
+    },
+    {
+      nickname: "Darkness",
+      realName: "Sakih",
+      number: "06",
+      roles: ["Roam"],
+      primary: "Roamer",
+      secondary: "Exp Laner",
+      status: "Starter",
+      joined: "2023",
+      photo: "https://j.top4top.io/p_39244ksa01.jpeg",
+      id: "140534781 (2703)",
+      heroes: ["Kaja", "Marcel", "Johnson"],
+      bio: "Roamer paling sabar di tim. Set up war selalu rapi, peeling buat core selalu tepat waktu. Kalau dia udah pegang Kaja, sekali hook langsung berubah jadi team wipe.",
+      stats: { match: 198, wr: 71, mvp: 33 },
+      achievements: [
+        "Juara 3 — Turnamen Online 2024",
+        "Best Roamer Dandru 2024",
+        "Top 5 Roamer Regional"
+      ]
+    }
   ];
 
   const albumImages = [
@@ -1674,7 +1890,8 @@
       ? `<img src="${p.photo}" alt="${p.nickname}" loading="lazy" onerror="this.style.display='none';this.parentNode.innerHTML='<div style=&quot;display:flex;align-items:center;justify-content:center;height:100%;font-family:Bebas Neue,sans-serif;font-size:2.2rem;color:#0a0a0a;&quot;>${initial}</div>';">`
       : `<div style="display:flex;align-items:center;justify-content:center;height:100%;font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:#0a0a0a;">${initial}</div>`;
 
-    const idBtnHTML = p.id ? `<button class="id-btn" data-index="${i}"><i class="fas fa-id-card"></i>Lihat ID</button>` : '';
+    const idBtnHTML = p.id ? `<button class="id-btn" data-index="${i}"><i class="fas fa-id-card"></i>ID</button>` : '';
+    const profileBtnHTML = `<button class="profile-btn" data-index="${i}"><i class="fas fa-user"></i>Profile</button>`;
     const founderHTML = p.badge === "founder" ? `<div class="badge-founder">Founder</div>` : '';
 
     const card = document.createElement("div");
@@ -1686,7 +1903,10 @@
       <div class="player-info">
         <div class="player-name">${p.nickname}</div>
         <div class="player-roles">${p.roles.join(" • ")}</div>
-        ${idBtnHTML}
+        <div class="player-actions">
+          ${profileBtnHTML}
+          ${idBtnHTML}
+        </div>
       </div>
     `;
     playerGrid.appendChild(card);
@@ -1712,17 +1932,9 @@
     const card = document.createElement("div");
     card.className = "roster-card reveal";
     card.innerHTML = `
-      <div class="roster-title">
-        <span>${r.title}</span>
-        <span class="roster-tag">${r.tag}</span>
-      </div>
+      <div class="roster-title"><span>${r.title}</span><span class="roster-tag">${r.tag}</span></div>
       <ul class="roster-list">
-        ${r.players.map(p => `
-          <li>
-            <span class="role-tag">${p.role}</span>
-            <span class="pname">${p.name}</span>
-          </li>
-        `).join("")}
+        ${r.players.map(p => `<li><span class="role-tag">${p.role}</span><span class="pname">${p.name}</span></li>`).join("")}
       </ul>
       ${subHTML}
     `;
@@ -1735,16 +1947,18 @@
     const isMystery = p.name === "??";
     const card = document.createElement("div");
     card.className = "core-card" + (isMystery ? "" : " hl");
-    card.innerHTML = `
-      <div class="core-role">${p.role}</div>
-      <div class="core-name ${isMystery ? 'mystery' : ''}">${p.name}</div>
-    `;
+    card.innerHTML = `<div class="core-role">${p.role}</div><div class="core-name ${isMystery ? 'mystery' : ''}">${p.name}</div>`;
     coreGrid.appendChild(card);
   });
 
-  // ===== ID MODAL =====
+  // ===== MODAL REFS =====
   const modalId = document.getElementById("modalId");
-  const btnCloseId = document.getElementById("btnCloseId");
+  const modalProfile = document.getElementById("modalProfile");
+  const modalAlbum = document.getElementById("modalAlbum");
+  const modalPassword = document.getElementById("modalPassword");
+  const modalCore = document.getElementById("modalCore");
+
+  // ===== ID MODAL =====
   const idModalImg = document.getElementById("idModalImg");
   const idModalName = document.getElementById("idModalName");
   const idModalRole = document.getElementById("idModalRole");
@@ -1769,37 +1983,129 @@
     });
   });
 
-  btnCloseId.addEventListener("click", () => modalId.classList.remove("active"));
+  document.getElementById("btnCloseId").addEventListener("click", () => modalId.classList.remove("active"));
   modalId.addEventListener("click", (e) => { if (e.target === modalId) modalId.classList.remove("active"); });
 
-  function copyId() {
-    if (!currentIdValue) return;
-    const done = () => {
-      copyFeedback.classList.add("show");
-      idCopyIcon.innerHTML = '<i class="fas fa-check"></i>';
-      setTimeout(() => {
-        copyFeedback.classList.remove("show");
-        idCopyIcon.innerHTML = '<i class="fas fa-copy"></i>';
-      }, 1800);
-    };
-    const fb = () => {
+  function copyToClipboard(text, onDone) {
+    const fallback = () => {
       const ta = document.createElement("textarea");
-      ta.value = currentIdValue;
+      ta.value = text;
       ta.style.position = "fixed"; ta.style.opacity = "0";
       document.body.appendChild(ta); ta.select();
       try { document.execCommand("copy"); } catch(e){}
-      document.body.removeChild(ta); done();
+      document.body.removeChild(ta);
+      if (onDone) onDone();
     };
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(currentIdValue).then(done).catch(fb);
-    } else fb();
+      navigator.clipboard.writeText(text).then(onDone).catch(fallback);
+    } else fallback();
   }
 
-  idCopyIcon.addEventListener("click", copyId);
-  idDisplayText.addEventListener("click", copyId);
+  function handleCopyBtn(btn, value, feedbackEl) {
+    copyToClipboard(value, () => {
+      if (feedbackEl) feedbackEl.classList.add("show");
+      btn.classList.add("copied");
+      const origHTML = btn.innerHTML;
+      btn.innerHTML = '<i class="fas fa-check"></i>';
+      setTimeout(() => {
+        if (feedbackEl) feedbackEl.classList.remove("show");
+        btn.classList.remove("copied");
+        btn.innerHTML = origHTML;
+      }, 1800);
+    });
+  }
+
+  idCopyIcon.addEventListener("click", () => handleCopyBtn(idCopyIcon, currentIdValue, copyFeedback));
+  idDisplayText.addEventListener("click", () => handleCopyBtn(idCopyIcon, currentIdValue, copyFeedback));
+
+  // ===== PROFILE MODAL =====
+  const profileNumber = document.getElementById("profileNumber");
+  const profileImg = document.getElementById("profileImg");
+  const profileNickname = document.getElementById("profileNickname");
+  const profileRealname = document.getElementById("profileRealname");
+  const profileBadges = document.getElementById("profileBadges");
+  const profileIdValue = document.getElementById("profileIdValue");
+  const profileIdCopy = document.getElementById("profileIdCopy");
+  const profileStats = document.getElementById("profileStats");
+  const profilePrimary = document.getElementById("profilePrimary");
+  const profileSecondary = document.getElementById("profileSecondary");
+  const profileJoined = document.getElementById("profileJoined");
+  const profileServer = document.getElementById("profileServer");
+  const profileHeroes = document.getElementById("profileHeroes");
+  const profileBio = document.getElementById("profileBio");
+  const profileAchievements = document.getElementById("profileAchievements");
+  let currentProfileId = "";
+
+  document.querySelectorAll(".profile-btn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const p = players[parseInt(btn.dataset.index, 10)];
+
+      profileNumber.textContent = "#" + p.number;
+      profileImg.src = p.photo || "";
+      profileImg.alt = p.nickname;
+      profileNickname.textContent = p.nickname;
+      profileRealname.textContent = "— " + p.realName + " —";
+
+      // Badges
+      let badgesHTML = `<span class="profile-badge accent">${p.status}</span>`;
+      if (p.badge === "founder") badgesHTML += `<span class="profile-badge gold">Founder</span>`;
+      badgesHTML += `<span class="profile-badge">ID ${p.number}</span>`;
+      profileBadges.innerHTML = badgesHTML;
+
+      // ID
+      currentProfileId = p.id || "—";
+      profileIdValue.textContent = p.id || "—";
+
+      // Stats
+      if (p.stats) {
+        profileStats.innerHTML = `
+          <div class="profile-stat"><div class="ps-num">${p.stats.match}</div><div class="ps-label">Match</div></div>
+          <div class="profile-stat"><div class="ps-num">${p.stats.wr}%</div><div class="ps-label">Win Rate</div></div>
+          <div class="profile-stat"><div class="ps-num">${p.stats.mvp}</div><div class="ps-label">MVP</div></div>
+        `;
+      } else {
+        profileStats.innerHTML = `<div class="profile-stat" style="grid-column:1/-1;"><div class="ps-num">—</div><div class="ps-label">Belum ada data</div></div>`;
+      }
+
+      profilePrimary.textContent = p.primary || "—";
+      profileSecondary.textContent = p.secondary || "—";
+      profileJoined.textContent = p.joined || "—";
+      profileServer.textContent = "Indonesia";
+
+      // Heroes
+      profileHeroes.innerHTML = (p.heroes || []).map((h, idx) =>
+        `<span class="hero-chip${idx === 0 ? ' primary' : ''}">${h}</span>`
+      ).join("");
+
+      profileBio.textContent = p.bio || "Belum ada bio.";
+
+      // Achievements
+      if (p.achievements && p.achievements.length) {
+        profileAchievements.innerHTML = p.achievements.map(a =>
+          `<li><span class="ach-icon"><i class="fas fa-trophy"></i></span><span class="ach-text">${a}</span></li>`
+        ).join("");
+      } else {
+        profileAchievements.innerHTML = `<li><span class="ach-icon"><i class="fas fa-minus"></i></span><span class="ach-text">Belum ada prestasi tercatat.</span></li>`;
+      }
+
+      modalProfile.classList.add("active");
+    });
+  });
+
+  document.getElementById("btnCloseProfile").addEventListener("click", () => modalProfile.classList.remove("active"));
+  modalProfile.addEventListener("click", (e) => { if (e.target === modalProfile) modalProfile.classList.remove("active"); });
+
+  profileIdCopy.addEventListener("click", () => {
+    if (!currentProfileId || currentProfileId === "—") return;
+    handleCopyBtn(profileIdCopy, currentProfileId, null);
+  });
+  profileIdValue.addEventListener("click", () => {
+    if (!currentProfileId || currentProfileId === "—") return;
+    handleCopyBtn(profileIdCopy, currentProfileId, null);
+  });
 
   // ===== ALBUM MODAL =====
-  const modalAlbum = document.getElementById("modalAlbum");
   const albumImage = document.getElementById("albumImage");
   const albumPrev = document.getElementById("albumPrev");
   const albumNext = document.getElementById("albumNext");
@@ -1852,8 +2158,6 @@
   }, { passive: true });
 
   // ===== PASSWORD MODAL =====
-  const modalPassword = document.getElementById("modalPassword");
-  const modalCore = document.getElementById("modalCore");
   const btnLockedRoster = document.getElementById("btnLockedRoster");
   const btnClosePassword = document.getElementById("btnClosePassword");
   const btnCloseCore = document.getElementById("btnCloseCore");
@@ -1888,7 +2192,16 @@
   btnCloseCore.addEventListener("click", () => modalCore.classList.remove("active"));
   modalCore.addEventListener("click", (e) => { if (e.target === modalCore) modalCore.classList.remove("active"); });
 
-  // ===== SCROLL =====
+  // Escape close all
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      [modalPassword, modalCore, modalId, modalProfile, modalAlbum].forEach(m => {
+        if (m.classList.contains("active")) m.classList.remove("active");
+      });
+    }
+  });
+
+  // ===== SCROLL / BACK TOP =====
   const backTop = document.getElementById("backTop");
   function onScroll() {
     if (window.pageYOffset > 500) backTop.classList.add("visible");
