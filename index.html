@@ -7,1212 +7,1828 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
   :root {
-    --paper: #f2f0ea;
-    --paper-2: #e6e3d9;
-    --paper-3: #dcd8ca;
-    --ink: #0a0a0a;
-    --ink-soft: #1f1f1f;
-    --muted: #6b6b6b;
-    --muted-2: #a8a8a8;
-    --accent: #ff3b1f;
-    --accent-2: #ffc93c;
-    --white: #ffffff;
-    --r: 8px;
+    --bg: #f6f5f0;
+    --bg-2: #ecebe4;
+    --bg-3: #e0dfd6;
+    --surface: #ffffff;
+    --surface-2: #faf9f4;
+    --line: #d4d2c7;
+    --line-2: #b8b6a8;
+    --ink: #0f0f10;
+    --ink-2: #2a2a2e;
+    --text: #0f0f10;
+    --text-dim: #6b6b6b;
+    --text-dimmer: #a0a0a0;
+    --lime: #a3e635;
+    --lime-2: #84cc16;
+    --lime-dark: #3f6212;
+    --lime-soft: #ecfccb;
+    --lime-glow: rgba(163, 230, 53, 0.5);
+    --violet: #7c3aed;
+    --r: 12px;
   }
 
-  html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+  html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'Space Grotesk', sans-serif;
-    background: var(--paper);
-    color: var(--ink);
+    font-family: 'Archivo', sans-serif;
+    background: var(--bg);
+    color: var(--text);
     line-height: 1.5;
     min-height: 100vh;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     position: relative;
+    font-size: 15px;
   }
 
-  body::before {
-    content: '';
+  .atmos {
     position: fixed; inset: 0;
-    background-image:
-      linear-gradient(rgba(10,10,10,0.045) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(10,10,10,0.045) 1px, transparent 1px);
-    background-size: 44px 44px;
     pointer-events: none;
     z-index: 0;
+    overflow: hidden;
   }
 
-  body::after {
+  .atmos::before {
     content: '';
+    position: absolute;
+    top: -20%; left: -10%;
+    width: 70vw; height: 70vw;
+    background: radial-gradient(circle, rgba(163, 230, 53, 0.18), transparent 60%);
+    filter: blur(90px);
+  }
+  .atmos::after {
+    content: '';
+    position: absolute;
+    bottom: -20%; right: -10%;
+    width: 60vw; height: 60vw;
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.09), transparent 60%);
+    filter: blur(90px);
+  }
+
+  .grid-bg {
     position: fixed; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.14 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
     pointer-events: none;
-    z-index: 1;
-    opacity: 0.55;
+    z-index: 0;
+    background-image:
+      linear-gradient(rgba(15,15,16,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15,15,16,0.045) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 100% 80% at 50% 30%, black, transparent 90%);
+    -webkit-mask-image: radial-gradient(ellipse 100% 80% at 50% 30%, black, transparent 90%);
+  }
+
+  .noise {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
     mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   img { max-width: 100%; display: block; }
-  ::selection { background: var(--ink); color: var(--paper); }
+  ::selection { background: var(--lime); color: var(--ink); }
 
   ::-webkit-scrollbar { width: 10px; }
-  ::-webkit-scrollbar-track { background: var(--paper-2); }
-  ::-webkit-scrollbar-thumb { background: var(--ink); border: 2px solid var(--paper-2); border-radius: var(--r); }
+  ::-webkit-scrollbar-track { background: var(--bg-2); }
+  ::-webkit-scrollbar-thumb { background: var(--line-2); border: 2px solid var(--bg-2); border-radius: 8px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--lime); }
 
-  .topbar {
-    position: fixed; top: 0; left: 0; right: 0;
-    height: 44px;
-    background: var(--ink);
-    color: var(--paper);
-    display: flex; align-items: center;
-    z-index: 200;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.68rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    overflow: hidden;
-    border-bottom: 3px solid var(--ink);
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    max-width: 1440px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
   }
 
-  .topbar-track {
-    display: flex;
-    animation: topscroll 40s linear infinite;
-    white-space: nowrap;
-    width: max-content;
+  .main {
+    padding: 0 20px 100px;
+    max-width: 100%;
+    overflow-x: hidden;
   }
 
-  .topbar-track span {
-    padding: 0 26px;
-    display: inline-flex;
-    align-items: center;
+  .sidebar { display: none; }
+
+  .mobile-bar {
+    position: sticky; top: 0;
+    z-index: 90;
+    background: rgba(246, 245, 240, 0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--line);
+    margin: 0 -20px;
+    padding: 14px 20px;
+    display: flex; align-items: center; justify-content: space-between;
     gap: 12px;
   }
 
-  .topbar-track span::before {
-    content: '◆';
-    color: var(--accent);
-    font-size: 0.7rem;
-    margin-right: 4px;
-  }
+  .mobile-brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
 
-  @keyframes topscroll {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-
-  .wrap { max-width: 1280px; margin: 0 auto; padding: 0 22px 80px; position: relative; z-index: 2; }
-
-  .header {
-    padding: 66px 0 22px;
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 16px;
-    border-bottom: 3px solid var(--ink);
+  .brand-mark {
+    width: 38px; height: 38px;
     position: relative;
+    flex-shrink: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--ink);
   }
-
-  .header::after {
+  .brand-mark::before {
     content: '';
     position: absolute;
-    bottom: -3px; left: 0;
-    width: 88px; height: 3px;
-    background: var(--accent);
+    inset: -2px;
+    background: conic-gradient(from 0deg, #a3e635, #0f0f10, #a3e635, #7c3aed, #a3e635);
+    z-index: -1;
+    animation: spin 6s linear infinite;
+    filter: blur(6px);
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .brand-mark img {
+    width: 100%; height: 100%; object-fit: cover;
+    border-radius: 8px;
+    position: relative; z-index: 1;
   }
 
-  .header-left { display: flex; align-items: center; gap: 14px; }
-
-  .logo-mark {
-    width: 58px; height: 58px;
-    border: 3px solid var(--ink);
-    background: var(--accent);
-    display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
-    flex-shrink: 0;
-    border-radius: var(--r);
-    position: relative;
-    transition: transform 0.2s;
-  }
-
-  .logo-mark:hover { transform: rotate(-4deg) scale(1.05); }
-  .logo-mark img { width: 100%; height: 100%; object-fit: cover; }
-
-  .header-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.85rem;
-    letter-spacing: 2px;
-    line-height: 0.9;
-    color: var(--ink);
-  }
-
-  .header-title small {
-    display: block;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.58rem;
-    letter-spacing: 3px;
-    color: var(--muted);
-    margin-top: 5px;
-    font-weight: 700;
-  }
-
-  .header-nav { display: none; }
-
-  .hero { padding: 80px 0 50px; position: relative; overflow: hidden; }
-
-  .hero-bg-word {
-    position: absolute;
-    top: 55%; left: -4%;
-    transform: translateY(-50%);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 20vw;
-    line-height: 0.8;
-    color: transparent;
-    -webkit-text-stroke: 1.5px rgba(10,10,10,0.07);
-    letter-spacing: -0.02em;
-    pointer-events: none;
-    z-index: 0;
-    white-space: nowrap;
-    user-select: none;
-  }
-
-  .hero-inner { position: relative; z-index: 1; }
-
-  .hero-tag {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--ink);
-    color: var(--paper);
-    padding: 7px 14px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.66rem;
-    letter-spacing: 2px;
+  .brand-text {
+    font-family: 'Anton', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
     text-transform: uppercase;
-    margin-bottom: 30px;
+    color: var(--text);
+    line-height: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .brand-text small {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 2px;
+    color: var(--lime-dark);
+    margin-top: 3px;
     font-weight: 700;
-    border-radius: var(--r);
-    transform: rotate(-1deg);
   }
 
-  .hero-tag .dot {
-    width: 6px; height: 6px;
-    background: var(--accent);
+  .mobile-menu-btn {
+    width: 40px; height: 40px;
+    border: 1px solid var(--ink);
+    background: var(--surface);
+    color: var(--text);
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+  }
+  .mobile-menu-btn:active {
+    background: var(--ink);
+    color: var(--lime);
+  }
+
+  .drawer-overlay {
+    position: fixed; inset: 0;
+    background: rgba(15,15,16,0.5);
+    backdrop-filter: blur(8px);
+    z-index: 200;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .drawer-overlay.open { opacity: 1; pointer-events: auto; }
+
+  .drawer {
+    position: fixed; top: 0; right: 0; bottom: 0;
+    width: min(88vw, 340px);
+    background: var(--bg);
+    border-left: 1px solid var(--line);
+    z-index: 201;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 24px 22px;
+    overflow-y: auto;
+    display: flex; flex-direction: column;
+  }
+  .drawer.open { transform: translateX(0); }
+
+  .drawer-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 24px;
+  }
+
+  .drawer-head h3 {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .drawer-close {
+    width: 36px; height: 36px;
+    background: var(--surface);
+    border: 1px solid var(--ink);
+    color: var(--text);
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .drawer-close:active {
+    background: var(--ink);
+    color: var(--lime);
+  }
+
+  .drawer-nav { display: flex; flex-direction: column; gap: 4px; }
+
+  .drawer-nav a {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 14px;
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+    font-family: 'Anton', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+  }
+  .drawer-nav a .dnum {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-dimmer);
+    font-weight: 700;
+  }
+  .drawer-nav a i {
+    color: var(--lime-dark);
+    font-size: 0.95rem;
+    margin-left: auto;
+    opacity: 0;
+    transition: all 0.25s;
+  }
+  .drawer-nav a:hover, .drawer-nav a:active {
+    background: var(--surface);
+    border-color: var(--ink);
+    padding-left: 20px;
+  }
+  .drawer-nav a:hover i, .drawer-nav a:active i { opacity: 1; }
+
+  .drawer-footer {
+    margin-top: auto;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--text-dimmer);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    line-height: 1.8;
+  }
+
+  .hero { padding: 50px 0 40px; position: relative; }
+
+  .hero-eyebrow {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--lime-dark);
+    font-weight: 700;
+    margin-bottom: 22px;
+  }
+
+  .hero-eyebrow .dot {
+    width: 7px; height: 7px;
+    background: var(--lime-2);
     border-radius: 50%;
-    animation: pulse 1.2s infinite;
+    box-shadow: 0 0 12px var(--lime-2);
+    animation: pulse 1.3s infinite;
   }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
 
-  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+  .hero-eyebrow .line {
+    flex: 1; height: 1px; background: var(--line);
+    max-width: 80px;
+  }
 
   .hero-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(4.5rem, 20vw, 13rem);
-    line-height: 0.78;
-    letter-spacing: 0.005em;
-    color: var(--ink);
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(3.8rem, 15vw, 9rem);
+    line-height: 0.86;
+    letter-spacing: -0.02em;
     text-transform: uppercase;
-    margin-bottom: 32px;
+    margin-bottom: 26px;
   }
 
   .hero-title .row { display: block; position: relative; }
   .hero-title .row-1 { color: var(--ink); }
-  .hero-title .row-2 { color: transparent; -webkit-text-stroke: 2.5px var(--ink); font-style: italic; padding-left: 6%; }
-  .hero-title .row-3 { color: var(--accent); font-style: italic; padding-left: 12%; }
-  .hero-title .row-3::after { content: '●'; color: var(--ink); font-size: 0.25em; vertical-align: super; margin-left: 12px; -webkit-text-stroke: 0; }
-  .hero-title .row-4 {
-    font-size: 0.16em; color: var(--muted); letter-spacing: 0.42em;
-    font-weight: 400; margin-top: 26px; padding-left: 6px;
-    font-family: 'JetBrains Mono', monospace;
-    -webkit-text-stroke: 0; font-style: normal;
+  .hero-title .row-2 { color: var(--lime-2); padding-left: 8%; }
+  .hero-title .row-3 { color: var(--ink); padding-left: 8%; font-style: italic; position: relative; }
+  .hero-title .row-3::after {
+    content: '★';
+    font-size: 0.35em;
+    vertical-align: super;
+    color: var(--lime-2);
+    margin-left: 16px;
   }
 
-  .hero-info {
-    display: grid; grid-template-columns: 1fr; gap: 26px;
-    padding-top: 28px; border-top: 2px dashed var(--ink);
-    position: relative;
+  .hero-desc {
+    font-size: 0.98rem;
+    line-height: 1.75;
+    color: var(--text-dim);
+    max-width: 540px;
+    margin-bottom: 28px;
   }
 
-  .hero-info::before {
-    content: 'INFO';
-    position: absolute; top: -12px; left: 20px;
-    background: var(--paper); padding: 0 10px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.58rem; letter-spacing: 3px;
-    font-weight: 700; color: var(--muted);
+  .hero-desc strong {
+    color: var(--ink);
+    font-weight: 700;
+    background: var(--lime);
+    padding: 1px 6px;
+    border-radius: 4px;
   }
 
-  .hero-desc { font-size: 1rem; color: var(--ink-soft); max-width: 560px; line-height: 1.7; }
-  .hero-desc strong { background: var(--accent-2); padding: 0 4px; font-weight: 700; }
-
-  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 
   .btn {
-    display: inline-flex; align-items: center; gap: 9px;
-    padding: 15px 24px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem; font-weight: 700;
-    letter-spacing: 2px; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 15px 26px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
     text-decoration: none;
-    border: 2.5px solid var(--ink);
-    background: var(--paper); color: var(--ink);
-    transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
-    cursor: pointer; border-radius: var(--r);
+    border-radius: 10px;
+    border: 1.5px solid var(--ink);
+    background: var(--surface);
+    color: var(--ink);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
   }
+
+  .btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--ink);
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 0;
+  }
+
+  .btn > * { position: relative; z-index: 1; }
 
   .btn:hover, .btn:active {
-    background: var(--ink); color: var(--paper);
-    transform: translate(-3px, -3px);
-    box-shadow: 6px 6px 0 var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(15,15,16,0.15);
   }
 
-  .btn.primary { background: var(--accent); color: var(--white); border-color: var(--ink); }
-  .btn.primary:hover { background: var(--ink); color: var(--white); box-shadow: 6px 6px 0 var(--accent); }
+  .btn:hover::before, .btn:active::before { transform: translateY(0); }
+  .btn:hover, .btn:active { color: var(--lime); }
 
-  .stats-strip {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    border: 3px solid var(--ink); margin-top: 60px;
-    background: var(--ink); gap: 3px;
-    border-radius: var(--r); overflow: hidden;
+  .btn.primary {
+    background: var(--lime);
+    color: var(--ink);
+    border-color: var(--ink);
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+  .btn.primary::before { background: var(--ink); }
+  .btn.primary:hover, .btn.primary:active {
+    color: var(--lime);
+    box-shadow: 6px 6px 0 var(--ink);
+    transform: translate(-2px, -2px);
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 40px;
   }
 
   .stat {
-    background: var(--paper); padding: 30px 10px;
-    text-align: center; position: relative;
-    transition: background 0.25s;
+    background: var(--surface);
+    border: 1.5px solid var(--ink);
+    border-radius: var(--r);
+    padding: 22px 12px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
   }
 
-  .stat:hover { background: var(--accent-2); }
-
-  .stat::before {
-    content: attr(data-label);
-    position: absolute; top: 8px; left: 10px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.52rem; letter-spacing: 2px;
-    color: var(--muted); font-weight: 700;
+  .stat:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 var(--lime-2);
   }
 
   .stat-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 3.6rem; line-height: 1;
-    color: var(--ink); letter-spacing: 1px;
+    font-family: 'Anton', sans-serif;
+    font-size: 2.6rem;
+    line-height: 1;
+    color: var(--ink);
+    letter-spacing: 0.5px;
   }
 
   .stat-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.58rem; letter-spacing: 2px;
-    text-transform: uppercase; color: var(--muted);
-    margin-top: 8px; font-weight: 700;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 8px;
+    font-weight: 700;
   }
 
-  .section { padding: 90px 0 20px; position: relative; }
+  .section { padding: 70px 0 10px; }
 
   .section-head {
-    display: flex; align-items: flex-end; justify-content: space-between;
-    gap: 16px;
-    border-bottom: 3px solid var(--ink);
-    padding-bottom: 18px; margin-bottom: 40px;
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 30px;
+    padding-bottom: 18px;
+    border-bottom: 1.5px solid var(--ink);
     position: relative;
+  }
+
+  .section-head::after {
+    content: '';
+    position: absolute;
+    bottom: -1.5px; left: 0;
+    width: 60px; height: 3px;
+    background: var(--lime-2);
+  }
+
+  .section-title-block { display: flex; align-items: baseline; gap: 12px; }
+
+  .section-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--lime-dark);
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding-top: 6px;
   }
 
   .section-head h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2.4rem, 9vw, 4.4rem);
-    line-height: 0.85; letter-spacing: 1.5px;
-    text-transform: uppercase; color: var(--ink);
-    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(1.9rem, 7vw, 3.2rem);
+    line-height: 0.9;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: var(--ink);
   }
 
-  .section-head h2 em { color: var(--accent); font-style: italic; position: relative; }
-  .section-head h2 em::after {
-    content: '';
-    position: absolute; bottom: 8%; left: 0; right: 0;
-    height: 3px; background: var(--ink);
+  .section-head h2 em { font-style: italic; color: var(--lime-2); }
+
+  .section-meta {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text-dimmer);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-align: right;
+    flex-shrink: 0;
+    padding-top: 6px;
+    font-weight: 700;
   }
 
-  .section-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 5rem; line-height: 0.7;
-    color: transparent;
-    -webkit-text-stroke: 1.5px var(--ink);
-    letter-spacing: 1px; flex-shrink: 0;
-    padding-bottom: 4px; user-select: none;
-  }
-
-  .about-text {
-    background: var(--white);
-    border: 3px solid var(--ink);
-    padding: 34px 28px;
-    font-size: 1rem; color: var(--ink-soft); line-height: 1.8;
-    position: relative;
-    box-shadow: 10px 10px 0 var(--ink);
+  .about-card {
+    background: var(--surface);
+    border: 1.5px solid var(--ink);
     border-radius: var(--r);
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--ink-2);
+    box-shadow: 6px 6px 0 var(--ink);
   }
 
-  .about-text::before {
+  .about-card::before {
     content: '';
-    position: absolute; top: 0; right: 0;
-    width: 100px; height: 100px;
-    background: repeating-linear-gradient(45deg, var(--accent) 0 6px, transparent 6px 12px);
-    opacity: 0.15; pointer-events: none;
-    border-bottom-left-radius: var(--r);
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--lime-2);
   }
 
-  .about-text .quote-mark {
-    position: absolute; top: -26px; left: 22px;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 6rem; color: var(--accent);
-    line-height: 1; background: var(--paper);
-    padding: 0 12px; font-style: italic;
+  .about-card p { margin-bottom: 14px; position: relative; z-index: 1; }
+  .about-card p:last-child { margin-bottom: 0; }
+  .about-card strong {
+    color: var(--ink);
+    font-weight: 700;
+    background: var(--lime);
+    padding: 1px 6px;
+    border-radius: 4px;
   }
+  .about-card em { color: var(--lime-dark); font-style: normal; font-weight: 700; }
 
-  .about-text p { margin-bottom: 16px; }
-  .about-text p:last-child { margin-bottom: 0; }
-  .about-text strong { color: var(--ink); font-weight: 700; background: var(--accent-2); padding: 1px 5px; border-radius: 3px; }
-  .about-text em { color: var(--accent); font-style: normal; font-weight: 700; }
-
-  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .timeline {
+    display: flex; flex-direction: column;
+    border-left: 2px solid var(--ink);
+    padding-left: 22px;
+    margin-left: 6px;
+  }
 
   .tl-item {
-    display: grid; grid-template-columns: 80px 1fr; gap: 22px;
-    padding: 26px 0; border-bottom: 2px solid var(--ink);
-    transition: all 0.2s; align-items: center;
+    position: relative;
+    padding: 0 0 26px 0;
+    display: grid; grid-template-columns: 32px 1fr; gap: 14px;
+    align-items: start;
   }
 
-  .tl-item:last-child { border-bottom: none; }
-  .tl-item:hover { padding-left: 10px; background: var(--paper-2); }
+  .tl-item:last-child { padding-bottom: 0; }
+
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -30px; top: 6px;
+    width: 14px; height: 14px;
+    background: var(--lime);
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+    z-index: 1;
+  }
 
   .tl-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 3rem; line-height: 1;
-    color: var(--ink); border-left: 4px solid var(--accent);
-    padding-left: 12px; transition: all 0.25s;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--lime-dark);
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding-top: 2px;
   }
 
-  .tl-item:hover .tl-num { color: var(--accent); border-left-color: var(--ink); }
-
-  .tl-body { padding-top: 2px; }
+  .tl-body { padding-top: 0; }
 
   .tl-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.6rem; letter-spacing: 1.2px;
-    text-transform: uppercase; color: var(--ink);
-    margin-bottom: 4px; line-height: 1;
+    font-family: 'Anton', sans-serif;
+    font-size: 1.15rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 3px;
+    line-height: 1;
   }
 
-  .tl-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+  .tl-desc {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    line-height: 1.55;
+  }
 
-  .player-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+  .player-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
 
   .player-card {
-    background: var(--white);
-    border: 2.5px solid var(--ink);
-    padding: 20px 18px;
-    display: grid; grid-template-columns: 92px 1fr; gap: 20px;
-    align-items: center; position: relative;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    border-radius: var(--r); overflow: hidden;
+    background: var(--surface);
+    border: 1.5px solid var(--ink);
+    border-radius: var(--r);
+    padding: 16px;
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    gap: 14px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   }
-
-  .player-card::before {
-    content: attr(data-idx);
-    position: absolute; right: 14px; bottom: -14px;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 6rem; line-height: 0.8;
-    color: transparent;
-    -webkit-text-stroke: 1.5px rgba(10,10,10,0.12);
-    pointer-events: none; transition: all 0.3s;
-    letter-spacing: -0.02em;
-  }
-
-  .player-card:hover::before { color: var(--accent-2); -webkit-text-stroke: 0; opacity: 0.55; }
 
   .player-card:hover {
-    transform: translate(-4px, -4px);
-    box-shadow: 8px 8px 0 var(--ink);
+    transform: translate(-3px, -3px);
+    box-shadow: 6px 6px 0 var(--lime-2);
   }
 
-  .player-photo {
-    width: 92px; height: 92px;
-    border: 2.5px solid var(--ink);
-    overflow: hidden; background: var(--paper-2);
-    border-radius: var(--r); flex-shrink: 0;
+  .player-idx {
+    font-family: 'Anton', sans-serif;
+    font-size: 2.2rem;
+    line-height: 1;
+    color: var(--text-dimmer);
+    letter-spacing: -0.02em;
+    transition: color 0.3s;
+    min-width: 44px;
+    text-align: center;
     position: relative;
+    z-index: 1;
   }
 
-  .player-photo img {
-    width: 100%; height: 100%; object-fit: cover;
-    filter: grayscale(0.55) contrast(1.15);
-    transition: filter 0.35s;
-  }
-
-  .player-card:hover .player-photo img { filter: grayscale(0) contrast(1.05); }
+  .player-card:hover .player-idx { color: var(--lime-2); }
 
   .player-info { min-width: 0; position: relative; z-index: 1; }
 
   .player-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.75rem; letter-spacing: 1px;
-    line-height: 0.95; color: var(--ink);
-    margin-bottom: 8px; text-transform: uppercase;
+    font-family: 'Anton', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    color: var(--ink);
+    margin-bottom: 5px;
+    text-transform: uppercase;
     word-break: break-word;
   }
 
   .player-roles {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.6rem; letter-spacing: 1.5px;
-    color: var(--muted); text-transform: uppercase;
-    margin-bottom: 12px; font-weight: 700;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 1.5px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    font-weight: 700;
+    display: flex; flex-wrap: wrap; gap: 4px;
+    align-items: center;
   }
 
-  .player-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .player-roles .role-dot {
+    color: var(--lime-2);
+    margin: 0 2px;
+    font-size: 0.8rem;
+  }
+
+  .player-photo-wrap {
+    position: relative;
+    width: 66px; height: 66px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1.5px solid var(--ink);
+    z-index: 1;
+    transition: all 0.35s;
+  }
+
+  .player-card:hover .player-photo-wrap {
+    transform: rotate(-3deg) scale(1.05);
+    box-shadow: 3px 3px 0 var(--lime-2);
+  }
+
+  .player-photo-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: grayscale(0.4) contrast(1.05);
+    transition: filter 0.4s;
+  }
+
+  .player-card:hover .player-photo-wrap img { filter: grayscale(0) contrast(1); }
+
+  .player-photo-wrap .avatar-initial {
+    display: flex; align-items: center; justify-content: center;
+    width: 100%; height: 100%;
+    font-family: 'Anton', sans-serif;
+    font-size: 1.8rem;
+    color: var(--text-dimmer);
+    background: var(--bg-3);
+  }
+
+  .player-actions {
+    display: flex;
+    gap: 6px;
+    flex-direction: column;
+    z-index: 1;
+  }
 
   .id-btn {
-    display: inline-flex; align-items: center; gap: 7px;
-    padding: 8px 14px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.62rem; font-weight: 700;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    border: 2px solid var(--ink);
-    cursor: pointer; transition: all 0.15s;
-    border-radius: var(--r);
-    background: var(--ink); color: var(--paper);
+    padding: 8px 12px;
+    background: var(--bg-2);
+    color: var(--ink);
+    border: 1.5px solid var(--ink);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 5px;
+    white-space: nowrap;
   }
-
-  .id-btn:hover {
-    background: var(--accent); color: var(--white);
+  .id-btn i { font-size: 0.65rem; }
+  .id-btn:hover, .id-btn:active {
+    background: var(--lime);
+    border-color: var(--ink);
     transform: translate(-2px, -2px);
     box-shadow: 3px 3px 0 var(--ink);
   }
 
-  .player-card .badge-founder {
-    position: absolute; top: -2px; right: -2px;
-    background: var(--accent); color: var(--white);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.55rem; font-weight: 700;
-    letter-spacing: 1.5px; padding: 6px 12px;
+  .badge-founder {
+    position: absolute;
+    top: 0; right: 0;
+    background: var(--lime);
+    color: var(--ink);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 4px 10px;
     text-transform: uppercase;
-    border-left: 2.5px solid var(--ink);
-    border-bottom: 2.5px solid var(--ink);
-    border-bottom-left-radius: var(--r);
-    transform: rotate(2deg); z-index: 2;
-  }
-
-  .album-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-
-  .album-item {
-    position: relative; aspect-ratio: 1;
-    border: 2.5px solid var(--ink);
-    overflow: hidden; cursor: pointer;
-    background: var(--paper-2);
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    border-radius: var(--r);
-  }
-
-  .album-item:nth-child(3n) { aspect-ratio: 1 / 1.3; }
-  .album-item:nth-child(4n) { aspect-ratio: 1.3 / 1; }
-
-  .album-item:hover {
-    transform: translate(-4px, -4px);
-    box-shadow: 8px 8px 0 var(--accent);
+    border-left: 1.5px solid var(--ink);
+    border-bottom: 1.5px solid var(--ink);
+    border-bottom-left-radius: 8px;
     z-index: 2;
   }
 
-  .album-item img {
-    width: 100%; height: 100%; object-fit: cover;
-    filter: grayscale(0.4) contrast(1.05);
-    transition: transform 0.5s, filter 0.3s;
+  .badge-reserve {
+    position: absolute;
+    top: 0; right: 0;
+    background: var(--ink);
+    color: var(--lime);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 4px 10px;
+    text-transform: uppercase;
+    border-left: 1.5px solid var(--ink);
+    border-bottom: 1.5px solid var(--ink);
+    border-bottom-left-radius: 8px;
+    z-index: 2;
   }
 
-  .album-item:hover img { transform: scale(1.06); filter: grayscale(0) contrast(1.05); }
+  .album-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .album-item {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: var(--r);
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--bg-3);
+    border: 1.5px solid var(--ink);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .album-item:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 6px 6px 0 var(--lime-2);
+  }
+
+  .album-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: grayscale(0.3) contrast(1.05);
+    transition: all 0.4s;
+  }
+
+  .album-item:hover img {
+    filter: grayscale(0) contrast(1);
+    transform: scale(1.06);
+  }
 
   .album-num {
-    position: absolute; top: 8px; left: 8px;
-    background: var(--ink); color: var(--paper);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.62rem; font-weight: 700;
-    padding: 4px 10px; letter-spacing: 1px;
-    border-radius: var(--r); z-index: 1;
+    position: absolute;
+    top: 8px; left: 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--ink);
+    background: var(--lime);
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1.5px solid var(--ink);
+    z-index: 2;
   }
 
   .album-item::after {
     content: '↗';
-    position: absolute; top: 8px; right: 8px;
-    width: 28px; height: 28px;
-    background: var(--paper); color: var(--ink);
-    border: 2px solid var(--ink);
-    font-size: 0.9rem; font-weight: 700;
+    position: absolute;
+    bottom: 8px; right: 8px;
+    width: 26px; height: 26px;
+    background: var(--ink);
+    color: var(--lime);
+    border-radius: 7px;
     display: flex; align-items: center; justify-content: center;
-    border-radius: var(--r);
-    opacity: 0; transform: translate(-4px, 4px);
-    transition: all 0.25s;
+    font-weight: 700;
+    font-size: 0.85rem;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.3s;
+    z-index: 2;
   }
+  .album-item:hover::after { opacity: 1; transform: translateY(0); }
 
-  .album-item:hover::after { opacity: 1; transform: translate(0,0); }
-
-  .roster-grid { display: grid; grid-template-columns: 1fr; gap: 22px; }
+  .roster-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
 
   .roster-card {
-    border: 2.5px solid var(--ink);
-    background: var(--white);
-    padding: 24px 22px;
+    background: var(--surface);
+    border: 1.5px solid var(--ink);
     border-radius: var(--r);
-    position: relative; transition: all 0.2s;
+    padding: 22px 20px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    box-shadow: 4px 4px 0 var(--ink);
   }
 
-  .roster-card:hover { transform: translate(-3px, -3px); box-shadow: 7px 7px 0 var(--ink); }
+  .roster-card:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 7px 7px 0 var(--lime-2);
+  }
+
+  .roster-card.highlight {
+    background: var(--lime-soft);
+  }
+
+  .roster-head {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 14px;
+    margin-bottom: 14px;
+    border-bottom: 1.5px solid var(--ink);
+  }
 
   .roster-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.7rem; letter-spacing: 1.5px;
-    text-transform: uppercase; color: var(--ink);
-    padding-bottom: 14px; margin-bottom: 16px;
-    border-bottom: 2.5px solid var(--ink);
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 10px; line-height: 1;
+    font-family: 'Anton', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--ink);
+    line-height: 1;
   }
 
-  .roster-title .roster-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.58rem; background: var(--ink);
-    color: var(--paper); padding: 5px 10px;
-    letter-spacing: 1.5px; border-radius: var(--r);
+  .roster-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
     font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--ink);
+    background: var(--lime);
+    border: 1.5px solid var(--ink);
+    padding: 4px 10px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    flex-shrink: 0;
   }
 
   .roster-list { list-style: none; }
 
   .roster-list li {
-    display: grid; grid-template-columns: 95px 1fr; gap: 16px;
-    padding: 13px 0;
-    border-bottom: 1.5px dashed var(--muted-2);
+    display: grid;
+    grid-template-columns: 88px 1fr;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--line-2);
     align-items: center;
   }
 
   .roster-list li:last-child { border-bottom: none; }
 
   .role-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.6rem; letter-spacing: 1px;
-    text-transform: uppercase; font-weight: 700;
-    color: var(--ink); background: var(--accent-2);
-    padding: 4px 8px; text-align: center;
-    border: 2px solid var(--ink);
-    border-radius: var(--r);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.56rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--ink);
+    background: var(--bg-2);
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--line-2);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
-  .roster-list li .pname { font-weight: 600; color: var(--ink); font-size: 0.95rem; }
+  .roster-list li .pname {
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 0.88rem;
+  }
 
   .sub-row {
-    margin-top: 16px; padding-top: 16px;
-    border-top: 2px dashed var(--ink);
-    display: flex; align-items: center; gap: 12px;
-    font-size: 0.9rem; font-weight: 600;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1.5px dashed var(--ink);
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink);
   }
 
-  .sub-row .sub-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.58rem; letter-spacing: 1.5px; font-weight: 700;
-    background: var(--accent); color: var(--white);
-    padding: 5px 10px; border: 2px solid var(--ink);
-    border-radius: var(--r);
+  .sub-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--lime);
+    padding: 3px 8px;
+    border-radius: 5px;
   }
 
-  .lock-wrap { display: flex; justify-content: center; margin: 50px 0 20px; }
+  .lock-wrap { display: flex; justify-content: center; margin: 40px 0 10px; }
 
   .btn-lock {
     display: inline-flex; align-items: center; gap: 12px;
-    padding: 20px 38px;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.35rem; letter-spacing: 3px;
+    padding: 16px 32px;
+    background: var(--ink);
+    color: var(--lime);
+    border: 1.5px solid var(--ink);
+    font-family: 'Anton', sans-serif;
+    font-size: 1.05rem;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    background: var(--ink); color: var(--paper);
-    border: 3px solid var(--ink); cursor: pointer;
-    transition: all 0.2s; border-radius: var(--r);
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 4px 4px 0 var(--lime-2);
   }
 
+  .btn-lock i { color: var(--lime); font-size: 0.95rem; }
   .btn-lock .ln {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem; letter-spacing: 1.5px;
-    color: var(--accent-2); font-weight: 700;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--lime);
+    letter-spacing: 1.2px;
+    font-weight: 700;
   }
 
   .btn-lock:hover, .btn-lock:active {
-    background: var(--accent); color: var(--white);
-    transform: translate(-4px, -4px);
-    box-shadow: 8px 8px 0 var(--ink);
+    transform: translate(-3px, -3px);
+    box-shadow: 7px 7px 0 var(--lime-2);
   }
-
-  .btn-lock:hover .ln, .btn-lock:active .ln { color: var(--paper); }
-
-  .modal {
-    display: none; position: fixed; inset: 0;
-    background: rgba(10, 10, 10, 0.82);
-    z-index: 1000;
-    justify-content: center; align-items: center;
-    padding: 20px;
-    backdrop-filter: blur(4px);
-  }
-
-  .modal.active { display: flex; }
-
-  .modal-box {
-    background: var(--paper);
-    border: 3px solid var(--ink);
-    max-width: 440px; width: 100%;
-    padding: 38px 28px 28px;
-    position: relative;
-    box-shadow: 12px 12px 0 var(--accent);
-    animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    border-radius: var(--r);
-    max-height: 92vh; overflow-y: auto;
-  }
-
-  @keyframes modalIn {
-    from { opacity: 0; transform: translate(14px, 14px); }
-    to { opacity: 1; transform: translate(0, 0); }
-  }
-
-  .modal-close {
-    position: absolute; top: -3px; right: -3px;
-    width: 44px; height: 44px;
-    background: var(--ink); color: var(--paper);
-    border: none; cursor: pointer;
-    font-size: 1.05rem;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.15s;
-    border-top-right-radius: var(--r);
-    border-bottom-left-radius: var(--r);
-  }
-
-  .modal-close:hover { background: var(--accent); transform: rotate(90deg); }
-
-  .modal-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.2rem; letter-spacing: 2px;
-    text-transform: uppercase; color: var(--ink);
-    margin-bottom: 6px; line-height: 0.9;
-  }
-
-  .modal-sub {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.66rem; color: var(--muted);
-    letter-spacing: 2px; text-transform: uppercase;
-    margin-bottom: 26px; font-weight: 700;
-  }
-
-  .modal-input {
-    width: 100%; padding: 16px 18px;
-    border: 2.5px solid var(--ink);
-    background: var(--white);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 1rem; letter-spacing: 3px;
-    text-align: center; color: var(--ink);
-    outline: none; font-weight: 700;
-    border-radius: var(--r); transition: all 0.2s;
-  }
-
-  .modal-input:focus { background: var(--accent-2); box-shadow: 4px 4px 0 var(--ink); }
-
-  .modal-btn {
-    width: 100%; margin-top: 14px; padding: 16px;
-    background: var(--ink); color: var(--paper);
-    border: 2.5px solid var(--ink);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.2rem; letter-spacing: 3px;
-    text-transform: uppercase; cursor: pointer;
-    transition: all 0.2s;
-    display: flex; align-items: center; justify-content: center; gap: 10px;
-    border-radius: var(--r);
-  }
-
-  .modal-btn:hover { background: var(--accent); color: var(--white); }
-
-  .err-msg {
-    color: var(--accent);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem; font-weight: 700;
-    letter-spacing: 1px; text-align: center;
-    margin-top: 14px; min-height: 16px;
-  }
-
-  .core-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px; }
-
-  .core-card {
-    border: 2.5px solid var(--ink);
-    padding: 18px 12px;
-    background: var(--white); text-align: center;
-    border-radius: var(--r); transition: all 0.15s;
-  }
-
-  .core-card.hl { background: var(--accent-2); }
-  .core-card:hover { transform: translate(-2px, -2px); box-shadow: 3px 3px 0 var(--ink); }
-
-  .core-role {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.58rem; letter-spacing: 1.5px;
-    text-transform: uppercase; color: var(--muted);
-    font-weight: 700; margin-bottom: 6px;
-  }
-
-  .core-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.35rem; letter-spacing: 1px;
-    line-height: 1; color: var(--ink);
-    text-transform: uppercase;
-  }
-
-  .core-name.mystery { color: var(--muted-2); letter-spacing: 4px; }
-
-  .id-modal-head {
-    display: flex; align-items: center; gap: 16px;
-    padding-bottom: 18px; margin-bottom: 20px;
-    border-bottom: 2.5px solid var(--ink);
-  }
-
-  .id-modal-photo {
-    width: 68px; height: 68px;
-    border: 2.5px solid var(--ink);
-    overflow: hidden; border-radius: var(--r);
-    flex-shrink: 0;
-  }
-
-  .id-modal-photo img { width: 100%; height: 100%; object-fit: cover; }
-
-  .id-modal-info { min-width: 0; }
-
-  .id-modal-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.65rem; letter-spacing: 1px;
-    line-height: 0.95; color: var(--ink);
-    text-transform: uppercase; word-break: break-word;
-  }
-
-  .id-modal-role {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.6rem; letter-spacing: 1.5px;
-    color: var(--muted); text-transform: uppercase;
-    margin-top: 6px; font-weight: 700;
-  }
-
-  .id-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.6rem; letter-spacing: 2px;
-    color: var(--muted); text-transform: uppercase;
-    font-weight: 700; margin-bottom: 10px;
-  }
-
-  .id-box {
-    display: flex; align-items: stretch;
-    border: 2.5px solid var(--ink);
-    background: var(--white);
-    border-radius: var(--r); overflow: hidden;
-  }
-
-  .id-box .id-value {
-    flex: 1; padding: 18px 16px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.95rem; font-weight: 700;
-    letter-spacing: 1.5px; color: var(--ink);
-    word-break: break-all;
-    display: flex; align-items: center;
-    cursor: pointer;
-  }
-
-  .id-box .id-copy {
-    width: 58px; background: var(--ink); color: var(--paper);
-    border: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.05rem; transition: all 0.15s;
-    flex-shrink: 0;
-  }
-
-  .id-box .id-copy:hover { background: var(--accent); }
-
-  .copy-feedback {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.68rem; font-weight: 700;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    color: var(--accent); text-align: center;
-    margin-top: 12px; min-height: 16px;
-    opacity: 0; transition: opacity 0.2s;
-  }
-
-  .copy-feedback.show { opacity: 1; }
-
-  .id-note {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.62rem; color: var(--muted);
-    text-align: center; margin-top: 20px;
-    padding-top: 16px;
-    border-top: 1.5px dashed var(--muted-2);
-    font-style: italic;
-  }
-
-  .album-modal-box {
-    background: var(--paper);
-    border: 3px solid var(--ink);
-    padding: 0; max-width: 96vw; width: auto;
-    box-shadow: 12px 12px 0 var(--accent);
-    border-radius: var(--r); position: relative;
-    animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .album-modal-box .modal-close { top: -3px; right: -3px; }
-
-  .album-viewer {
-    position: relative;
-    display: flex; align-items: center; justify-content: center;
-    padding: 16px;
-  }
-
-  .album-viewer img {
-    max-width: 100%; max-height: 78vh;
-    width: auto; height: auto;
-    object-fit: contain;
-    border-radius: var(--r);
-    border: 2.5px solid var(--ink);
-    background: var(--paper-2);
-    transition: opacity 0.2s;
-  }
-
-  .album-viewer img.loading { opacity: 0.4; }
-
-  .album-nav {
-    position: absolute; top: 50%; transform: translateY(-50%);
-    width: 48px; height: 48px;
-    background: var(--paper); border: 2.5px solid var(--ink);
-    color: var(--ink);
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer; font-size: 1rem;
-    transition: all 0.15s; z-index: 5;
-    border-radius: var(--r);
-  }
-
-  .album-nav:hover, .album-nav:active {
-    background: var(--ink); color: var(--paper);
-    transform: translateY(-50%) translate(-2px, -2px);
-    box-shadow: 4px 4px 0 var(--accent);
-  }
-
-  .album-nav.prev { left: 6px; }
-  .album-nav.next { right: 6px; }
-
-  .album-counter {
-    position: absolute; bottom: 26px; left: 50%;
-    transform: translateX(-50%);
-    background: var(--ink); color: var(--paper);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.68rem; font-weight: 700;
-    letter-spacing: 2px; padding: 7px 16px;
-    border-radius: var(--r);
-  }
-
-  .album-counter .current { color: var(--accent-2); }
 
   .footer {
-    margin-top: 100px; padding: 30px 0 20px;
-    border-top: 3px solid var(--ink);
+    margin-top: 90px;
+    padding: 30px 0 20px;
+    border-top: 1.5px solid var(--ink);
     display: flex; align-items: center; justify-content: space-between;
-    gap: 16px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.68rem; letter-spacing: 1.5px;
-    text-transform: uppercase; font-weight: 700;
-    color: var(--muted); flex-wrap: wrap;
+    gap: 14px; flex-wrap: wrap;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--text-dim);
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    font-weight: 700;
     position: relative;
   }
 
   .footer::before {
     content: '';
-    position: absolute; top: -3px; left: 0;
-    width: 88px; height: 3px;
-    background: var(--accent);
+    position: absolute;
+    top: -1.5px; left: 0;
+    width: 60px; height: 3px;
+    background: var(--lime-2);
   }
 
-  .footer .ft-left { display: flex; align-items: center; gap: 10px; }
-  .footer .ft-left .ft-dot { width: 8px; height: 8px; background: var(--accent); }
+  .ft-left { display: flex; align-items: center; gap: 8px; }
+  .ft-dot { width: 6px; height: 6px; background: var(--lime-2); border-radius: 50%; }
 
   .ft-wordmark {
-    grid-column: 1 / -1; width: 100%;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(4rem, 22vw, 16rem);
-    line-height: 0.75; letter-spacing: -0.02em;
+    grid-column: 1 / -1;
+    width: 100%;
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(3rem, 16vw, 11rem);
+    line-height: 0.8;
+    letter-spacing: -0.03em;
     color: transparent;
-    -webkit-text-stroke: 1.5px var(--ink);
+    -webkit-text-stroke: 1.5px rgba(15,15,16,0.15);
     text-transform: uppercase;
-    text-align: center; padding: 40px 0 0;
-    user-select: none; overflow: hidden;
+    text-align: center;
+    padding: 30px 0 0;
+    user-select: none;
+    overflow: hidden;
     white-space: nowrap;
   }
 
-  .back-top {
-    position: fixed; bottom: 24px; right: 24px;
-    width: 52px; height: 52px;
-    background: var(--ink); color: var(--paper);
-    border: 2.5px solid var(--ink);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.05rem; cursor: pointer; z-index: 90;
-    opacity: 0; transform: translateY(20px);
-    pointer-events: none; transition: all 0.25s;
-    border-radius: var(--r);
+  .modal {
+    display: none; position: fixed; inset: 0;
+    background: rgba(15,15,16,0.6);
+    backdrop-filter: blur(12px);
+    z-index: 1000;
+    justify-content: center; align-items: center;
+    padding: 20px;
+  }
+  .modal.active { display: flex; }
+
+  .modal-box {
+    background: var(--bg);
+    border: 2px solid var(--ink);
+    border-radius: 16px;
+    max-width: 440px; width: 100%;
+    padding: 32px 24px 24px;
+    position: relative;
+    animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    max-height: 92vh;
+    overflow-y: auto;
+    box-shadow: 8px 8px 0 var(--lime-2);
   }
 
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .modal-close {
+    position: absolute;
+    top: -2px; right: -2px;
+    width: 40px; height: 40px;
+    background: var(--ink);
+    color: var(--lime);
+    border: none;
+    border-top-right-radius: 14px;
+    border-bottom-left-radius: 14px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    z-index: 5;
+  }
+  .modal-close:hover, .modal-close:active {
+    background: var(--lime);
+    color: var(--ink);
+    transform: rotate(90deg);
+  }
+
+  .modal-title {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .modal-title span { color: var(--lime-2); }
+
+  .modal-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--text-dim);
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+
+  .modal-input {
+    width: 100%;
+    padding: 15px 16px;
+    background: var(--surface);
+    border: 1.5px solid var(--ink);
+    border-radius: 10px;
+    color: var(--text);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.95rem;
+    letter-spacing: 2px;
+    text-align: center;
+    font-weight: 700;
+    outline: none;
+    transition: all 0.2s;
+  }
+  .modal-input:focus {
+    border-color: var(--ink);
+    box-shadow: 4px 4px 0 var(--lime-2);
+  }
+  .modal-input::placeholder { color: var(--text-dimmer); }
+
+  .modal-btn {
+    width: 100%;
+    margin-top: 12px;
+    padding: 15px;
+    background: var(--lime);
+    color: var(--ink);
+    border: 1.5px solid var(--ink);
+    border-radius: 10px;
+    font-family: 'Anton', sans-serif;
+    font-size: 1.05rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+  .modal-btn:hover, .modal-btn:active {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+
+  .err-msg {
+    color: #dc2626;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-align: center;
+    margin-top: 12px;
+    min-height: 16px;
+    text-transform: uppercase;
+  }
+
+  .core-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .core-card {
+    background: var(--surface);
+    border: 1.5px solid var(--ink);
+    border-radius: 12px;
+    padding: 18px 12px;
+    text-align: center;
+    transition: all 0.25s;
+  }
+  .core-card.hl {
+    background: var(--lime-soft);
+    border-color: var(--ink);
+  }
+  .core-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+
+  .core-role {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.56rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--lime-dark);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .core-name {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.15rem;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    color: var(--ink);
+    text-transform: uppercase;
+  }
+  .core-name.mystery { color: var(--text-dimmer); letter-spacing: 4px; }
+
+  .id-head {
+    display: flex; align-items: center; gap: 14px;
+    padding-bottom: 18px;
+    margin-bottom: 20px;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  .id-photo {
+    width: 64px; height: 64px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1.5px solid var(--ink);
+    flex-shrink: 0;
+  }
+  .id-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .id-name {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--ink);
+    word-break: break-word;
+  }
+  .id-role {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 1.5px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-top: 5px;
+  }
+
+  .id-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .id-display {
+    display: flex; align-items: stretch;
+    background: var(--surface);
+    border: 1.5px solid var(--ink);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .id-value {
+    flex: 1;
+    padding: 15px 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    color: var(--ink);
+    word-break: break-all;
+    display: flex; align-items: center;
+    cursor: pointer;
+  }
+  .id-copy {
+    width: 52px;
+    background: var(--lime);
+    color: var(--ink);
+    border: none;
+    border-left: 1.5px solid var(--ink);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .id-copy:hover { background: var(--ink); color: var(--lime); }
+
+  .copy-feedback {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--lime-dark);
+    text-align: center;
+    margin-top: 10px;
+    min-height: 16px;
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  .copy-feedback.show { opacity: 1; }
+
+  .id-note {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text-dimmer);
+    text-align: center;
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--line-2);
+    font-style: italic;
+    letter-spacing: 1px;
+  }
+
+  .album-modal-box {
+    background: var(--bg);
+    border: 2px solid var(--ink);
+    border-radius: 16px;
+    padding: 0;
+    max-width: 96vw; width: auto;
+    position: relative;
+    animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 8px 8px 0 var(--lime-2);
+  }
+
+  .album-viewer {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    padding: 14px;
+  }
+
+  .album-viewer img {
+    max-width: 100%;
+    max-height: 78vh;
+    width: auto; height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+    border: 1.5px solid var(--ink);
+    background: var(--bg-2);
+    transition: opacity 0.25s;
+  }
+
+  .album-viewer img.loading { opacity: 0.3; }
+
+  .album-nav {
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    width: 44px; height: 44px;
+    background: var(--surface);
+    border: 1.5px solid var(--ink);
+    color: var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 0.95rem;
+    border-radius: 50%;
+    transition: all 0.2s;
+    z-index: 5;
+  }
+  .album-nav:hover, .album-nav:active {
+    background: var(--lime);
+    transform: translateY(-50%) scale(1.1) translate(-2px, -2px);
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+  .album-nav.prev { left: 6px; }
+  .album-nav.next { right: 6px; }
+
+  .album-counter {
+    position: absolute;
+    bottom: 24px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--ink);
+    color: var(--lime);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+  .album-counter .current { color: var(--lime); }
+
+  .back-top {
+    position: fixed;
+    bottom: 22px; right: 22px;
+    width: 48px; height: 48px;
+    background: var(--surface);
+    color: var(--ink);
+    border: 1.5px solid var(--ink);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+    z-index: 90;
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition: all 0.3s;
+    box-shadow: 3px 3px 0 var(--ink);
+  }
   .back-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
-  .back-top:hover { background: var(--accent); transform: translate(-3px, -3px); box-shadow: 5px 5px 0 var(--accent-2); }
+  .back-top:hover, .back-top:active {
+    background: var(--lime);
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 var(--ink);
+  }
 
   .reveal {
     opacity: 0;
     transform: translateY(24px);
-    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
   }
-
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  @media (min-width: 720px) {
-    .wrap { padding: 0 34px 100px; }
+  @media (min-width: 768px) {
+    body { font-size: 16px; }
+    .main { padding: 0 40px 100px; }
+    .mobile-bar { margin: 0 -40px; padding: 16px 40px; }
 
-    .header { padding: 74px 0 26px; }
-    .header-nav { display: flex; gap: 8px; align-items: center; }
-    .header-nav a {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem; font-weight: 700;
-      letter-spacing: 1.5px; text-transform: uppercase;
-      color: var(--ink); text-decoration: none;
-      padding: 8px 12px;
-      border: 2px solid transparent;
-      transition: all 0.15s;
-      border-radius: var(--r);
-    }
-    .header-nav a:hover {
-      border-color: var(--ink);
-      background: var(--ink); color: var(--paper);
-      transform: translate(-2px, -2px);
-      box-shadow: 4px 4px 0 var(--accent);
-    }
+    .hero { padding: 70px 0 50px; }
+    .hero-title { font-size: clamp(4.5rem, 12vw, 8rem); }
+    .hero-desc { font-size: 1.02rem; }
 
-    .hero-info { grid-template-columns: 1.2fr 1fr; align-items: end; }
+    .stats { gap: 14px; margin-top: 50px; }
+    .stat { padding: 26px 16px; }
+    .stat-num { font-size: 3rem; }
 
-    .player-grid { grid-template-columns: repeat(2, 1fr); }
-    .album-grid { grid-template-columns: repeat(3, 1fr); }
-    .roster-grid { grid-template-columns: repeat(2, 1fr); }
+    .section { padding: 90px 0 10px; }
 
-    .section-head h2 { letter-spacing: 2px; }
+    .about-card { padding: 34px 32px; font-size: 1rem; }
+
+    .player-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .player-card { padding: 20px 20px; }
+    .player-idx { font-size: 2.6rem; min-width: 50px; }
+    .player-name { font-size: 1.5rem; }
+    .player-photo-wrap { width: 78px; height: 78px; }
+
+    .album-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
+    .roster-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
   }
 
-  @media (min-width: 1024px) {
-    .player-grid { grid-template-columns: repeat(3, 1fr); }
-    .album-grid { grid-template-columns: repeat(4, 1fr); }
-    .roster-grid { grid-template-columns: repeat(3, 1fr); }
+  @media (min-width: 1100px) {
+    .layout {
+      grid-template-columns: 280px 1fr;
+      gap: 40px;
+      padding: 0 40px;
+    }
 
-    body { cursor: crosshair; }
-    .btn, .id-btn, .btn-lock, .album-item, .player-card, a, button { cursor: pointer; }
+    .mobile-bar { display: none; }
+    .drawer, .drawer-overlay { display: none !important; }
+
+    .sidebar {
+      display: flex; flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 40px 0 30px;
+      border-right: 1.5px solid var(--ink);
+      padding-right: 32px;
+    }
+
+    .sidebar-brand {
+      display: flex; align-items: center; gap: 14px;
+      padding-bottom: 26px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 30px;
+    }
+
+    .sidebar-brand-mark {
+      width: 52px; height: 52px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1.5px solid var(--ink);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .sidebar-brand-mark::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      background: conic-gradient(from 0deg, #a3e635, #0f0f10, #a3e635, #7c3aed, #a3e635);
+      z-index: -1;
+      animation: spin 6s linear infinite;
+      filter: blur(8px);
+    }
+
+    .sidebar-brand-mark img {
+      width: 100%; height: 100%; object-fit: cover;
+      position: relative; z-index: 1;
+      border-radius: 12px;
+    }
+
+    .sidebar-brand-text {
+      font-family: 'Anton', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      line-height: 1;
+      color: var(--ink);
+    }
+    .sidebar-brand-text small {
+      display: block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 2px;
+      color: var(--lime-dark);
+      margin-top: 4px;
+      font-weight: 700;
+    }
+
+    .sidebar-nav {
+      display: flex; flex-direction: column;
+      gap: 4px;
+      flex: 1;
+    }
+
+    .sidebar-nav a {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 14px;
+      color: var(--text-dim);
+      text-decoration: none;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .sidebar-nav a .navnum {
+      color: var(--text-dimmer);
+      font-size: 0.62rem;
+      min-width: 22px;
+    }
+
+    .sidebar-nav a i {
+      margin-left: auto;
+      font-size: 0.7rem;
+      opacity: 0;
+      transition: all 0.25s;
+      color: var(--lime-dark);
+    }
+
+    .sidebar-nav a:hover, .sidebar-nav a.active {
+      color: var(--ink);
+      background: var(--surface);
+      border-color: var(--ink);
+    }
+
+    .sidebar-nav a:hover i { opacity: 1; }
+
+    .sidebar-nav a.active {
+      background: var(--lime-soft);
+      border-color: var(--ink);
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+    .sidebar-nav a.active .navnum { color: var(--lime-dark); }
+
+    .sidebar-footer {
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      color: var(--text-dimmer);
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      line-height: 1.9;
+      font-weight: 700;
+    }
+
+    .sidebar-footer .status-line {
+      display: flex; align-items: center; gap: 8px;
+      color: var(--lime-dark);
+      margin-bottom: 8px;
+    }
+    .sidebar-footer .status-line .dot {
+      width: 6px; height: 6px;
+      background: var(--lime-2);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--lime-2);
+      animation: pulse 1.3s infinite;
+    }
+
+    .main { padding: 0 0 100px; }
+
+    .player-grid { grid-template-columns: repeat(2, 1fr); }
+    .album-grid { grid-template-columns: repeat(4, 1fr); }
+    .roster-grid { grid-template-columns: repeat(2, 1fr); }
+
+    .hero { padding: 80px 0 60px; }
+    .hero-title { font-size: clamp(5rem, 9vw, 9rem); }
+
+    .back-top { right: 40px; bottom: 40px; }
   }
 </style>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="topbar-track" id="topbarTrack"></div>
-</div>
+<div class="atmos"></div>
+<div class="grid-bg"></div>
+<div class="noise"></div>
 
-<div class="wrap">
+<div class="layout">
 
-  <header class="header">
-    <div class="header-left">
-      <div class="logo-mark">
-        <img src="https://d.top4top.io/p_3923pfwc71.jpeg" alt="Logo Dandru Familia">
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-mark">
+        <img src="https://d.top4top.io/p_3923pfwc71.jpeg" alt="Logo">
       </div>
-      <div class="header-title">
-        Dandru Familia
-        <small>Esport Team</small>
+      <div class="sidebar-brand-text">
+        Dandru
+        <small>FAMILIA</small>
       </div>
     </div>
-    <nav class="header-nav">
-      <a href="#about">Tentang</a>
-      <a href="#players">Player</a>
-      <a href="#album">Album</a>
-      <a href="#roster">Roster</a>
-    </nav>
-  </header>
 
-  <section class="hero">
-    <div class="hero-bg-word">DANDRU</div>
-    <div class="hero-inner">
-      <div class="hero-tag">
+    <nav class="sidebar-nav">
+      <a href="#top" class="active"><span class="navnum">01</span>Home<i class="fas fa-arrow-right"></i></a>
+      <a href="#about"><span class="navnum">02</span>Tentang<i class="fas fa-arrow-right"></i></a>
+      <a href="#journey"><span class="navnum">03</span>Journey<i class="fas fa-arrow-right"></i></a>
+      <a href="#players"><span class="navnum">04</span>Player<i class="fas fa-arrow-right"></i></a>
+      <a href="#album"><span class="navnum">05</span>Album<i class="fas fa-arrow-right"></i></a>
+      <a href="#roster"><span class="navnum">06</span>Roster<i class="fas fa-arrow-right"></i></a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="status-line">
+        <span class="dot"></span>
+        <span>Team Active</span>
+      </div>
+      © 2025 Dandru<br>
+      Esport Team<br>
+      Since Day One
+    </div>
+  </aside>
+
+  <main class="main" id="top">
+
+    <div class="mobile-bar">
+      <div class="mobile-brand">
+        <div class="brand-mark">
+          <img src="https://d.top4top.io/p_3923pfwc71.jpeg" alt="Logo">
+        </div>
+        <div class="brand-text">
+          Dandru
+          <small>FAMILIA</small>
+        </div>
+      </div>
+      <button class="mobile-menu-btn" id="menuOpen" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+
+    <section class="hero">
+      <div class="hero-eyebrow">
         <span class="dot"></span>
         Official Team • Active • 2025
+        <span class="line"></span>
       </div>
+
       <h1 class="hero-title">
         <span class="row row-1">Dandru</span>
         <span class="row row-2">Familia</span>
         <span class="row row-3">Esport</span>
-        <span class="row row-4">— Since Day One —</span>
       </h1>
-      <div class="hero-info">
-        <p class="hero-desc">
-          Lahir dari sebuah <strong>candaan</strong>, tumbuh menjadi keluarga. Dari turnamen dadakan di Jaud Sarja Winata, hingga menjadi tim yang solid di setiap kompetisi.
-        </p>
-        <div class="hero-actions">
-          <a href="#players" class="btn primary"><i class="fas fa-users"></i>Lihat Squad</a>
-          <a href="#about" class="btn"><i class="fas fa-book-open"></i>Cerita Kami</a>
-        </div>
+
+      <p class="hero-desc">
+        Lahir dari sebuah <strong>candaan</strong>, tumbuh menjadi keluarga. Dari turnamen dadakan di Jaud Sarja Winata, hingga menjadi tim yang solid di setiap kompetisi.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#players" class="btn primary"><i class="fas fa-users"></i>Lihat Squad</a>
+        <a href="#about" class="btn"><i class="fas fa-book-open"></i>Cerita Kami</a>
+      </div>
+    </section>
+
+    <div class="stats reveal">
+      <div class="stat">
+        <div class="stat-num" data-count="10">0</div>
+        <div class="stat-label">Pemain</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" data-count="4">0</div>
+        <div class="stat-label">Roster</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" data-count="14">0</div>
+        <div class="stat-label">Album</div>
       </div>
     </div>
-  </section>
 
-  <div class="stats-strip">
-    <div class="stat" data-label="//P">
-      <div class="stat-num" data-count="9">0</div>
-      <div class="stat-label">Pemain</div>
-    </div>
-    <div class="stat" data-label="//R">
-      <div class="stat-num" data-count="3">0</div>
-      <div class="stat-label">Roster</div>
-    </div>
-    <div class="stat" data-label="//A">
-      <div class="stat-num" data-count="14">0</div>
-      <div class="stat-label">Album</div>
-    </div>
+    <section class="section" id="about">
+      <div class="section-head">
+        <div class="section-title-block">
+          <span class="section-num">01</span>
+          <h2>Awal <em>Mula</em></h2>
+        </div>
+        <span class="section-meta">Chapter<br>Origin</span>
+      </div>
+      <div class="about-card reveal">
+        <p>Dandru Familia berawal dari sebuah ide sederhana yang awalnya hanya dianggap sebagai candaan. Nama <em>"Dandru"</em> sendiri pertama kali dicetuskan oleh <strong>Dyerta 05</strong>, yang kemudian menjadi sosok di balik lahirnya nama Dandru hingga akhirnya dikenal seperti sekarang.</p>
+        <p>Pada awalnya, Dandru bukanlah sebuah tim yang dibentuk dengan tujuan besar. Semuanya bermula dari sekumpulan pemain yang sering bermain dan menghabiskan waktu bersama. Sampai pada suatu saat, muncul sebuah turnamen dadakan yang diadakan di <strong>Jaud Sarja Winata</strong>. Momen tersebut menjadi awal terbentuknya Dandru Familia sebagai sebuah tim.</p>
+        <p>Seiring berjalannya waktu, yang awalnya hanya sekadar bercanda dan ikut turnamen untuk seru-seruan mulai berkembang. Semakin banyak pemain yang bergabung, dan Dandru pun mulai lebih sering mengikuti berbagai turnamen, baik secara offline maupun online.</p>
+        <p>Dari sinilah perjalanan Dandru Familia dimulai. Berawal dari sebuah nama yang dicetuskan oleh Dyerta 05 dan sebuah turnamen dadakan, Dandru perlahan tumbuh menjadi sebuah keluarga yang diisi oleh banyak pemain dengan karakter dan cerita masing-masing.</p>
+      </div>
+    </section>
+
+    <section class="section" id="journey">
+      <div class="section-head">
+        <div class="section-title-block">
+          <span class="section-num">02</span>
+          <h2>Perjalanan <em>Dandru</em></h2>
+        </div>
+        <span class="section-meta">Timeline<br>05 Chapters</span>
+      </div>
+      <div class="timeline reveal">
+        <div class="tl-item">
+          <div class="tl-num">01</div>
+          <div class="tl-body">
+            <div class="tl-title">Awal Ide</div>
+            <div class="tl-desc">Nama "Dandru" dicetuskan oleh Dyerta 05 — awalnya cuma candaan biasa.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-num">02</div>
+          <div class="tl-body">
+            <div class="tl-title">Turnamen Dadakan</div>
+            <div class="tl-desc">Turnamen offline di Jaud Sarja Winata menjadi titik awal lahirnya tim.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-num">03</div>
+          <div class="tl-body">
+            <div class="tl-title">Bertumbuh</div>
+            <div class="tl-desc">Pemain-pemain lama mulai bergabung: Ahmed, Yukki, Xiao Yan, Dann, dan lainnya.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-num">04</div>
+          <div class="tl-body">
+            <div class="tl-title">Era Turnamen</div>
+            <div class="tl-desc">Dandru mulai rutin ikut berbagai turnamen online maupun offline.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-num">05</div>
+          <div class="tl-body">
+            <div class="tl-title">Generasi Baru</div>
+            <div class="tl-desc">Member baru bergabung: Darkness, Onic Khairul 969, Mang Komar, dan Shima Rin.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="players">
+      <div class="section-head">
+        <div class="section-title-block">
+          <span class="section-num">03</span>
+          <h2>Player <em>Dandru</em></h2>
+        </div>
+        <span class="section-meta">Active<br>Roster 10</span>
+      </div>
+      <div class="player-grid" id="playerGrid"></div>
+    </section>
+
+    <section class="section" id="album">
+      <div class="section-head">
+        <div class="section-title-block">
+          <span class="section-num">04</span>
+          <h2>Album <em>Dandru</em></h2>
+        </div>
+        <span class="section-meta">Gallery<br>14 Photos</span>
+      </div>
+      <div class="album-grid" id="albumGrid"></div>
+    </section>
+
+    <section class="section" id="roster">
+      <div class="section-head">
+        <div class="section-title-block">
+          <span class="section-num">05</span>
+          <h2>Roster <em>Dandru</em></h2>
+        </div>
+        <span class="section-meta">Squad<br>Formations</span>
+      </div>
+      <div class="roster-grid" id="rosterGrid"></div>
+      <div class="lock-wrap">
+        <button class="btn-lock" id="btnLockedRoster">
+          <i class="fas fa-lock"></i>Roster Inti
+          <span class="ln">// LOCKED</span>
+        </button>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="ft-left">
+        <span class="ft-dot"></span>
+        <span>© 2025 Dandru Familia</span>
+      </div>
+      <span>Esport Team — Since Day One</span>
+      <div class="ft-wordmark">DANDRU</div>
+    </footer>
+
+  </main>
+
+</div>
+
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-head">
+    <h3>Menu</h3>
+    <button class="drawer-close" id="drawerClose"><i class="fas fa-times"></i></button>
   </div>
-
-  <section class="section" id="about">
-    <div class="section-head">
-      <h2>Awal <em>Mula</em></h2>
-      <span class="section-num">01</span>
-    </div>
-    <div class="about-text reveal">
-      <div class="quote-mark">“</div>
-      <p>Dandru Familia berawal dari sebuah ide sederhana yang awalnya hanya dianggap sebagai candaan. Nama <em>"Dandru"</em> sendiri pertama kali dicetuskan oleh <strong>Dyerta 05</strong>, yang kemudian menjadi sosok di balik lahirnya nama Dandru hingga akhirnya dikenal seperti sekarang.</p>
-      <p>Pada awalnya, Dandru bukanlah sebuah tim yang dibentuk dengan tujuan besar. Semuanya bermula dari sekumpulan pemain yang sering bermain dan menghabiskan waktu bersama. Sampai pada suatu saat, muncul sebuah turnamen dadakan yang diadakan di <strong>Jaud Sarja Winata</strong>. Momen tersebut menjadi awal terbentuknya Dandru Familia sebagai sebuah tim.</p>
-      <p>Seiring berjalannya waktu, yang awalnya hanya sekadar bercanda dan ikut turnamen untuk seru-seruan mulai berkembang. Semakin banyak pemain yang bergabung, dan Dandru pun mulai lebih sering mengikuti berbagai turnamen, baik secara offline maupun online.</p>
-      <p>Dari sinilah perjalanan Dandru Familia dimulai. Berawal dari sebuah nama yang dicetuskan oleh Dyerta 05 dan sebuah turnamen dadakan, Dandru perlahan tumbuh menjadi sebuah keluarga yang diisi oleh banyak pemain dengan karakter dan cerita masing-masing.</p>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-head">
-      <h2>Perjalanan <em>Dandru</em></h2>
-      <span class="section-num">02</span>
-    </div>
-    <div class="timeline reveal">
-      <div class="tl-item">
-        <div class="tl-num">01</div>
-        <div class="tl-body">
-          <div class="tl-title">Awal Ide</div>
-          <div class="tl-desc">Nama "Dandru" dicetuskan oleh Dyerta 05 — awalnya cuma candaan biasa.</div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-num">02</div>
-        <div class="tl-body">
-          <div class="tl-title">Turnamen Dadakan</div>
-          <div class="tl-desc">Turnamen offline di Jaud Sarja Winata menjadi titik awal lahirnya tim.</div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-num">03</div>
-        <div class="tl-body">
-          <div class="tl-title">Bertumbuh</div>
-          <div class="tl-desc">Pemain-pemain lama mulai bergabung: Ahmed, Yukki, Xiao Yan, Dann, dan lainnya.</div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-num">04</div>
-        <div class="tl-body">
-          <div class="tl-title">Era Turnamen</div>
-          <div class="tl-desc">Dandru mulai rutin ikut berbagai turnamen online maupun offline.</div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-num">05</div>
-        <div class="tl-body">
-          <div class="tl-title">Generasi Baru</div>
-          <div class="tl-desc">Member baru bergabung: Darkness, Onic Khairul 969, dan Mang Komar.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="players">
-    <div class="section-head">
-      <h2>Player <em>Dandru</em></h2>
-      <span class="section-num">03</span>
-    </div>
-    <div class="player-grid" id="playerGrid"></div>
-  </section>
-
-  <section class="section" id="album">
-    <div class="section-head">
-      <h2>Album <em>Dandru</em></h2>
-      <span class="section-num">04</span>
-    </div>
-    <div class="album-grid" id="albumGrid"></div>
-  </section>
-
-  <section class="section" id="roster">
-    <div class="section-head">
-      <h2>Roster <em>Dandru</em></h2>
-      <span class="section-num">05</span>
-    </div>
-    <div class="roster-grid" id="rosterGrid"></div>
-    <div class="lock-wrap">
-      <button class="btn-lock" id="btnLockedRoster">
-        <i class="fas fa-lock"></i>Roster Inti <span class="ln">// locked</span>
-      </button>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <div class="ft-left">
-      <span class="ft-dot"></span>
-      <span>© 2025 Dandru Familia</span>
-    </div>
-    <span>Esport Team — Since Day One</span>
-    <div class="ft-wordmark">DANDRU</div>
-  </footer>
-
+  <nav class="drawer-nav">
+    <a href="#top"><span class="dnum">01</span>Home<i class="fas fa-arrow-right"></i></a>
+    <a href="#about"><span class="dnum">02</span>Tentang<i class="fas fa-arrow-right"></i></a>
+    <a href="#journey"><span class="dnum">03</span>Journey<i class="fas fa-arrow-right"></i></a>
+    <a href="#players"><span class="dnum">04</span>Player<i class="fas fa-arrow-right"></i></a>
+    <a href="#album"><span class="dnum">05</span>Album<i class="fas fa-arrow-right"></i></a>
+    <a href="#roster"><span class="dnum">06</span>Roster<i class="fas fa-arrow-right"></i></a>
+  </nav>
+  <div class="drawer-footer">
+    © 2025 Dandru Familia<br>
+    Esport Team — Since Day One
+  </div>
 </div>
 
 <button class="back-top" id="backTop" aria-label="Kembali ke atas">
   <i class="fas fa-arrow-up"></i>
 </button>
 
-<!-- PASSWORD MODAL -->
 <div class="modal" id="modalPassword">
   <div class="modal-box">
     <button class="modal-close" id="btnClosePassword"><i class="fas fa-times"></i></button>
-    <div class="modal-title">Akses<br>Terkunci</div>
-    <div class="modal-sub">— Password dibutuhkan —</div>
+    <div class="modal-title">Akses <span>Terkunci</span></div>
+    <div class="modal-sub">// Password dibutuhkan</div>
     <input type="password" class="modal-input" id="passwordInput" placeholder="••••••••" autocomplete="off">
     <button class="modal-btn" id="btnSubmitPassword"><i class="fas fa-unlock"></i>Buka</button>
     <div class="err-msg" id="errorMsg"></div>
   </div>
 </div>
 
-<!-- CORE ROSTER MODAL -->
 <div class="modal" id="modalCore">
   <div class="modal-box">
     <button class="modal-close" id="btnCloseCore"><i class="fas fa-times"></i></button>
-    <div class="modal-title">Roster Inti</div>
-    <div class="modal-sub">— Dandru Familia Core Squad —</div>
+    <div class="modal-title">Roster <span>Inti</span></div>
+    <div class="modal-sub">// Dandru Familia Core Squad</div>
     <div class="core-grid" id="coreGrid"></div>
   </div>
 </div>
 
-<!-- ID MODAL -->
 <div class="modal" id="modalId">
   <div class="modal-box">
     <button class="modal-close" id="btnCloseId"><i class="fas fa-times"></i></button>
-    <div class="id-modal-head">
-      <div class="id-modal-photo"><img id="idModalImg" src="" alt=""></div>
-      <div class="id-modal-info">
-        <div class="id-modal-name" id="idModalName"></div>
-        <div class="id-modal-role" id="idModalRole"></div>
+    <div class="id-head">
+      <div class="id-photo"><img id="idModalImg" src="" alt=""></div>
+      <div>
+        <div class="id-name" id="idModalName"></div>
+        <div class="id-role" id="idModalRole"></div>
       </div>
     </div>
-    <div class="id-label">Player ID</div>
-    <div class="id-box">
+    <div class="id-label">PLAYER ID</div>
+    <div class="id-display">
       <div class="id-value" id="idDisplayText"></div>
       <button class="id-copy" id="idCopyIcon"><i class="fas fa-copy"></i></button>
     </div>
@@ -1221,13 +1837,12 @@
   </div>
 </div>
 
-<!-- ALBUM MODAL -->
 <div class="modal" id="modalAlbum">
   <div class="album-modal-box">
     <button class="modal-close" id="btnCloseAlbum"><i class="fas fa-times"></i></button>
     <div class="album-viewer">
       <button class="album-nav prev" id="albumPrev" aria-label="Sebelumnya"><i class="fas fa-chevron-left"></i></button>
-      <img id="albumImage" src="" alt="Album Dandru">
+      <img id="albumImage" src="" alt="Album">
       <button class="album-nav next" id="albumNext" aria-label="Selanjutnya"><i class="fas fa-chevron-right"></i></button>
       <div class="album-counter">
         <span class="current" id="albumCurrent">1</span> / <span id="albumTotal">14</span>
@@ -1247,7 +1862,8 @@
     { nickname: "Onic Khairul 969", roles: ["Jungle"], photo: "https://h.top4top.io/p_3924vhutv5.jpeg", id: "320206209 (9658)" },
     { nickname: "Dyerta │ 05", roles: ["Mid", "Exp"], badge: "founder", photo: "https://j.top4top.io/p_39331q1rf1.jpeg", id: "680441145 (8724)" },
     { nickname: "Xiao Yan", roles: ["Gold"], photo: "https://b.top4top.io/p_3924uq7sz1.jpeg", id: "963883824 (12833)" },
-    { nickname: "Darkness", roles: ["Roam"], photo: "https://j.top4top.io/p_39244ksa01.jpeg", id: "140534781 (2703)" }
+    { nickname: "Darkness", roles: ["Roam"], photo: "https://j.top4top.io/p_39244ksa01.jpeg", id: "140534781 (2703)" },
+    { nickname: "Shima Rin", roles: ["Jungle", "Gold"], badge: "reserve", photo: "https://i.top4top.io/p_3934ic9021.jpeg" }
   ];
 
   const albumImages = [
@@ -1258,6 +1874,7 @@
     "https://a.top4top.io/p_3923qs3ol1.jpeg","https://b.top4top.io/p_3924hduan1.jpeg"
   ];
 
+  // ===== ROSTERS (4 total: 2 regular + 2 Jaksel) =====
   const rosters = [
     { title: "Roster 1", tag: "#01", players: [
       { role: "Jungler", name: "Onic Khairul 969" },
@@ -1273,54 +1890,57 @@
       { role: "Mid Laner", name: "Cahya Mirip Nnael" },
       { role: "Roamer", name: "Darkness" }
     ]},
-    { title: "Turnamen Jaksel", tag: "★", players: [
+    { title: "Jaksel 1", tag: "★", highlight: true, players: [
       { role: "Jungler", name: "Ahmed Teymola" },
-      { role: "Exp Laner", name: "Dann Like Noona" },
       { role: "Gold Laner", name: "Shima Rin" },
-      { role: "Mid Laner", name: "Dyerta 05" },
+      { role: "Mid Laner", name: "Dyerta │ 05" },
+      { role: "Exp Laner", name: "Dann Like Noona" },
       { role: "Roamer", name: "Cahya Mirip Nnael" }
-    ], substitute: "-" }
+    ]},
+    { title: "Jaksel 2", tag: "★", highlight: true, players: [
+      { role: "Jungler", name: "Shima Rin" },
+      { role: "Gold Laner", name: "Cahya Mirip Nnael" },
+      { role: "Mid Laner", name: "Dyerta │ 05" },
+      { role: "Exp Laner", name: "Dann Like Noona" },
+      { role: "Roamer", name: "Ahmed Teymola" }
+    ]}
   ];
 
   const coreRoster = [
     { role: "Jungle", name: "Ahmed Teymola" },
     { role: "Exp Lane", name: "Dann Like Noona" },
-    { role: "Roamer", name: "Darkness" },
+    { role: "Roamer", name: "Cahya Mirip Nnael" },
     { role: "Gold Lane", name: "Mang Komar" },
-    { role: "Mid Lane", name: "Cahya Mirip Nnael" }
+    { role: "Mid Lane", name: "??" }
   ];
 
   const CORRECT_PASSWORD = "cahyadanpadil";
-
-  // ===== TICKER =====
-  const topbarTrack = document.getElementById("topbarTrack");
-  const topbarItems = ["Dandru Familia","Esport Team","Since Day One","Solidarity","Never Give Up","Jaud Sarja Winata","Official Team 2025"];
-  let topbarHTML = "";
-  for (let k = 0; k < 2; k++) topbarItems.forEach(t => topbarHTML += `<span>${t}</span>`);
-  topbarTrack.innerHTML = topbarHTML;
 
   // ===== PLAYERS =====
   const playerGrid = document.getElementById("playerGrid");
   players.forEach((p, i) => {
     const initial = p.nickname.trim().charAt(0).toUpperCase();
-    const avatarContent = p.photo
-      ? `<img src="${p.photo}" alt="${p.nickname}" loading="lazy" onerror="this.style.display='none';this.parentNode.innerHTML='<div style=&quot;display:flex;align-items:center;justify-content:center;height:100%;font-family:Bebas Neue,sans-serif;font-size:2.2rem;color:#0a0a0a;&quot;>${initial}</div>';">`
-      : `<div style="display:flex;align-items:center;justify-content:center;height:100%;font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:#0a0a0a;">${initial}</div>`;
+    const photoHTML = p.photo
+      ? `<img src="${p.photo}" alt="${p.nickname}" loading="lazy" onerror="this.style.display='none';this.parentNode.innerHTML='<div class=&quot;avatar-initial&quot;>${initial}</div>';">`
+      : `<div class="avatar-initial">${initial}</div>`;
 
-    const idBtnHTML = p.id ? `<button class="id-btn" data-index="${i}"><i class="fas fa-id-card"></i>Lihat ID</button>` : '';
-    const founderHTML = p.badge === "founder" ? `<div class="badge-founder">Founder</div>` : '';
+    const rolesHTML = p.roles.map(r => r).join(' <span class="role-dot">·</span> ');
+    const idBtnHTML = p.id ? `<button class="id-btn" data-index="${i}"><i class="fas fa-id-card"></i>ID</button>` : '';
+    let badgeHTML = '';
+    if (p.badge === "founder") badgeHTML = `<div class="badge-founder">Founder</div>`;
+    else if (p.badge === "reserve") badgeHTML = `<div class="badge-reserve">Reserve</div>`;
 
     const card = document.createElement("div");
     card.className = "player-card reveal";
-    card.dataset.idx = String(i + 1).padStart(2, '0');
     card.innerHTML = `
-      ${founderHTML}
-      <div class="player-photo">${avatarContent}</div>
+      ${badgeHTML}
+      <div class="player-idx">${String(i + 1).padStart(2, '0')}</div>
       <div class="player-info">
         <div class="player-name">${p.nickname}</div>
-        <div class="player-roles">${p.roles.join(" • ")}</div>
-        <div class="player-actions">${idBtnHTML}</div>
+        <div class="player-roles">${rolesHTML}</div>
       </div>
+      <div class="player-photo-wrap">${photoHTML}</div>
+      <div class="player-actions">${idBtnHTML}</div>
     `;
     playerGrid.appendChild(card);
   });
@@ -1343,9 +1963,12 @@
   rosters.forEach(r => {
     const subHTML = r.substitute ? `<div class="sub-row"><span class="sub-tag">Cadangan</span><span>${r.substitute}</span></div>` : '';
     const card = document.createElement("div");
-    card.className = "roster-card reveal";
+    card.className = "roster-card reveal" + (r.highlight ? " highlight" : "");
     card.innerHTML = `
-      <div class="roster-title"><span>${r.title}</span><span class="roster-tag">${r.tag}</span></div>
+      <div class="roster-head">
+        <div class="roster-title">${r.title}</div>
+        <div class="roster-tag">${r.tag}</div>
+      </div>
       <ul class="roster-list">
         ${r.players.map(p => `<li><span class="role-tag">${p.role}</span><span class="pname">${p.name}</span></li>`).join("")}
       </ul>
@@ -1364,14 +1987,8 @@
     coreGrid.appendChild(card);
   });
 
-  // ===== MODAL REFS =====
-  const modalId = document.getElementById("modalId");
-  const modalProfile = null;
-  const modalAlbum = document.getElementById("modalAlbum");
-  const modalPassword = document.getElementById("modalPassword");
-  const modalCore = document.getElementById("modalCore");
-
   // ===== ID MODAL =====
+  const modalId = document.getElementById("modalId");
   const idModalImg = document.getElementById("idModalImg");
   const idModalName = document.getElementById("idModalName");
   const idModalRole = document.getElementById("idModalRole");
@@ -1414,33 +2031,28 @@
     } else fallback();
   }
 
-  idCopyIcon.addEventListener("click", () => {
+  function handleCopy() {
     copyToClipboard(currentIdValue, () => {
       copyFeedback.classList.add("show");
-      const origHTML = idCopyIcon.innerHTML;
+      const orig = idCopyIcon.innerHTML;
       idCopyIcon.innerHTML = '<i class="fas fa-check"></i>';
       setTimeout(() => {
         copyFeedback.classList.remove("show");
-        idCopyIcon.innerHTML = origHTML;
+        idCopyIcon.innerHTML = orig;
       }, 1800);
     });
-  });
+  }
 
-  idDisplayText.addEventListener("click", () => {
-    copyToClipboard(currentIdValue, () => {
-      copyFeedback.classList.add("show");
-      setTimeout(() => copyFeedback.classList.remove("show"), 1800);
-    });
-  });
+  idCopyIcon.addEventListener("click", handleCopy);
+  idDisplayText.addEventListener("click", handleCopy);
 
   // ===== ALBUM MODAL =====
+  const modalAlbum = document.getElementById("modalAlbum");
   const albumImage = document.getElementById("albumImage");
   const albumPrev = document.getElementById("albumPrev");
   const albumNext = document.getElementById("albumNext");
   const albumCurrent = document.getElementById("albumCurrent");
   const albumTotal = document.getElementById("albumTotal");
-  const btnCloseAlbum = document.getElementById("btnCloseAlbum");
-
   let currentAlbumIdx = 0;
   albumTotal.textContent = albumImages.length;
 
@@ -1467,14 +2079,68 @@
 
   albumPrev.addEventListener("click", (e) => { e.stopPropagation(); prevAlbum(); });
   albumNext.addEventListener("click", (e) => { e.stopPropagation(); nextAlbum(); });
-  btnCloseAlbum.addEventListener("click", () => modalAlbum.classList.remove("active"));
+  document.getElementById("btnCloseAlbum").addEventListener("click", () => modalAlbum.classList.remove("active"));
   modalAlbum.addEventListener("click", (e) => { if (e.target === modalAlbum) modalAlbum.classList.remove("active"); });
 
+  // ===== PASSWORD MODAL =====
+  const modalPassword = document.getElementById("modalPassword");
+  const modalCore = document.getElementById("modalCore");
+
+  document.getElementById("btnLockedRoster").addEventListener("click", () => {
+    modalPassword.classList.add("active");
+    document.getElementById("passwordInput").value = "";
+    document.getElementById("errorMsg").textContent = "";
+    setTimeout(() => document.getElementById("passwordInput").focus(), 200);
+  });
+
+  document.getElementById("btnClosePassword").addEventListener("click", () => modalPassword.classList.remove("active"));
+  modalPassword.addEventListener("click", (e) => { if (e.target === modalPassword) modalPassword.classList.remove("active"); });
+
+  function checkPw() {
+    const inp = document.getElementById("passwordInput");
+    if (inp.value.trim() === CORRECT_PASSWORD) {
+      modalPassword.classList.remove("active");
+      modalCore.classList.add("active");
+    } else {
+      document.getElementById("errorMsg").textContent = "Password salah. Coba lagi.";
+      inp.value = "";
+      inp.focus();
+    }
+  }
+
+  document.getElementById("btnSubmitPassword").addEventListener("click", checkPw);
+  document.getElementById("passwordInput").addEventListener("keydown", e => { if (e.key === "Enter") checkPw(); });
+
+  document.getElementById("btnCloseCore").addEventListener("click", () => modalCore.classList.remove("active"));
+  modalCore.addEventListener("click", (e) => { if (e.target === modalCore) modalCore.classList.remove("active"); });
+
+  // ===== DRAWER =====
+  const drawer = document.getElementById("drawer");
+  const drawerOverlay = document.getElementById("drawerOverlay");
+
+  document.getElementById("menuOpen").addEventListener("click", () => {
+    drawer.classList.add("open");
+    drawerOverlay.classList.add("open");
+  });
+
+  function closeDrawer() {
+    drawer.classList.remove("open");
+    drawerOverlay.classList.remove("open");
+  }
+
+  document.getElementById("drawerClose").addEventListener("click", closeDrawer);
+  drawerOverlay.addEventListener("click", closeDrawer);
+  document.querySelectorAll(".drawer-nav a").forEach(a => a.addEventListener("click", closeDrawer));
+
+  // ===== ESC =====
   document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      [modalPassword, modalCore, modalId, modalAlbum].forEach(m => m.classList.remove("active"));
+      closeDrawer();
+    }
     if (modalAlbum.classList.contains("active")) {
       if (e.key === "ArrowLeft") prevAlbum();
       if (e.key === "ArrowRight") nextAlbum();
-      if (e.key === "Escape") modalAlbum.classList.remove("active");
     }
   });
 
@@ -1485,51 +2151,21 @@
     if (Math.abs(dx) > 60) { dx > 0 ? prevAlbum() : nextAlbum(); }
   }, { passive: true });
 
-  // ===== PASSWORD MODAL =====
-  const btnLockedRoster = document.getElementById("btnLockedRoster");
-  const btnClosePassword = document.getElementById("btnClosePassword");
-  const btnCloseCore = document.getElementById("btnCloseCore");
-  const btnSubmitPassword = document.getElementById("btnSubmitPassword");
-  const passwordInput = document.getElementById("passwordInput");
-  const errorMsg = document.getElementById("errorMsg");
+  // ===== SIDEBAR ACTIVE =====
+  const sidebarLinks = document.querySelectorAll(".sidebar-nav a");
+  const sections = ["top","about","journey","players","album","roster"].map(id => document.getElementById(id));
 
-  btnLockedRoster.addEventListener("click", () => {
-    modalPassword.classList.add("active");
-    passwordInput.value = "";
-    errorMsg.textContent = "";
-    setTimeout(() => passwordInput.focus(), 200);
-  });
+  window.addEventListener("scroll", () => {
+    let current = "top";
+    sections.forEach(sec => {
+      if (sec && window.pageYOffset >= sec.offsetTop - 200) current = sec.id;
+    });
+    sidebarLinks.forEach(link => {
+      link.classList.toggle("active", link.getAttribute("href") === "#" + current);
+    });
+  }, { passive: true });
 
-  btnClosePassword.addEventListener("click", () => modalPassword.classList.remove("active"));
-  modalPassword.addEventListener("click", (e) => { if (e.target === modalPassword) modalPassword.classList.remove("active"); });
-
-  function checkPw() {
-    if (passwordInput.value.trim() === CORRECT_PASSWORD) {
-      modalPassword.classList.remove("active");
-      modalCore.classList.add("active");
-    } else {
-      errorMsg.textContent = "Password salah. Coba lagi.";
-      passwordInput.value = "";
-      passwordInput.focus();
-    }
-  }
-
-  btnSubmitPassword.addEventListener("click", checkPw);
-  passwordInput.addEventListener("keydown", e => { if (e.key === "Enter") checkPw(); });
-
-  btnCloseCore.addEventListener("click", () => modalCore.classList.remove("active"));
-  modalCore.addEventListener("click", (e) => { if (e.target === modalCore) modalCore.classList.remove("active"); });
-
-  // Escape close all
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      [modalPassword, modalCore, modalId, modalAlbum].forEach(m => {
-        if (m && m.classList.contains("active")) m.classList.remove("active");
-      });
-    }
-  });
-
-  // ===== SCROLL / BACK TOP =====
+  // ===== BACK TOP =====
   const backTop = document.getElementById("backTop");
   function onScroll() {
     if (window.pageYOffset > 500) backTop.classList.add("visible");
@@ -1540,7 +2176,6 @@
   onScroll();
 
   // ===== REVEAL =====
-  const revealEls = document.querySelectorAll(".reveal");
   const revealObs = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
@@ -1548,11 +2183,10 @@
         revealObs.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
-  revealEls.forEach(el => revealObs.observe(el));
+  }, { threshold: 0.08, rootMargin: "0px 0px -30px 0px" });
+  document.querySelectorAll(".reveal").forEach(el => revealObs.observe(el));
 
   // ===== COUNTER =====
-  const counters = document.querySelectorAll(".stat-num");
   const counterObs = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -1569,7 +2203,7 @@
       }
     });
   }, { threshold: 0.5 });
-  counters.forEach(el => counterObs.observe(el));
+  document.querySelectorAll(".stat-num").forEach(el => counterObs.observe(el));
 
   // ===== SMOOTH SCROLL =====
   document.querySelectorAll('a[href^="#"]').forEach(a => {
