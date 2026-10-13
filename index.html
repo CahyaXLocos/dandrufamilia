@@ -12,28 +12,30 @@
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
   :root {
-    --bg: #f6f5f0;
-    --bg-2: #ecebe4;
-    --bg-3: #e0dfd6;
-    --surface: #ffffff;
-    --surface-2: #faf9f4;
-    --line: #d4d2c7;
-    --line-2: #b8b6a8;
-    --ink: #0f0f10;
-    --ink-2: #2a2a2e;
-    --text: #0f0f10;
-    --text-dim: #6b6b6b;
-    --text-dimmer: #a0a0a0;
-    --lime: #a3e635;
-    --lime-2: #84cc16;
-    --lime-dark: #3f6212;
-    --lime-soft: #ecfccb;
-    --lime-glow: rgba(163, 230, 53, 0.5);
-    --violet: #7c3aed;
-    --r: 12px;
+    --bg: #0d0d0f;
+    --bg-2: #141418;
+    --bg-3: #1c1c22;
+    --surface: rgba(255,255,255,0.04);
+    --surface-2: rgba(255,255,255,0.07);
+    --line: rgba(255,255,255,0.08);
+    --line-2: rgba(255,255,255,0.16);
+    --chrome-1: #f0f0f5;
+    --chrome-2: #b0b0bc;
+    --chrome-3: #6a6a78;
+    --text: #f0f0f5;
+    --text-dim: #8a8a96;
+    --text-dimmer: #55555e;
+    --lime: #c6ff3d;
+    --lime-2: #9fe000;
+    --lime-soft: rgba(198,255,61,0.12);
+    --lime-dark: #8fbc1e;
+    --violet: #a78bfa;
+    --pink: #ff3d94;
+    --r: 14px;
+    --r-sm: 10px;
   }
 
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scroll-padding-top: 70px; }
 
   body {
     font-family: 'Archivo', sans-serif;
@@ -47,6 +49,7 @@
     font-size: 15px;
   }
 
+  /* ===== ATMOSPHERE ===== */
   .atmos {
     position: fixed; inset: 0;
     pointer-events: none;
@@ -57,17 +60,17 @@
   .atmos::before {
     content: '';
     position: absolute;
-    top: -20%; left: -10%;
-    width: 70vw; height: 70vw;
-    background: radial-gradient(circle, rgba(163, 230, 53, 0.18), transparent 60%);
+    top: -20%; left: -20%;
+    width: 80vw; height: 80vw;
+    background: radial-gradient(circle, rgba(198,255,61,0.10), transparent 55%);
     filter: blur(90px);
   }
   .atmos::after {
     content: '';
     position: absolute;
-    bottom: -20%; right: -10%;
-    width: 60vw; height: 60vw;
-    background: radial-gradient(circle, rgba(124, 58, 237, 0.09), transparent 60%);
+    bottom: -20%; right: -20%;
+    width: 70vw; height: 70vw;
+    background: radial-gradient(circle, rgba(167,139,250,0.09), transparent 55%);
     filter: blur(90px);
   }
 
@@ -76,9 +79,9 @@
     pointer-events: none;
     z-index: 0;
     background-image:
-      linear-gradient(rgba(15,15,16,0.045) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(15,15,16,0.045) 1px, transparent 1px);
-    background-size: 64px 64px;
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 56px 56px;
     mask-image: radial-gradient(ellipse 100% 80% at 50% 30%, black, transparent 90%);
     -webkit-mask-image: radial-gradient(ellipse 100% 80% at 50% 30%, black, transparent 90%);
   }
@@ -87,469 +90,514 @@
     position: fixed; inset: 0;
     pointer-events: none;
     z-index: 1000;
-    opacity: 0.4;
-    mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.06;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   img { max-width: 100%; display: block; }
-  ::selection { background: var(--lime); color: var(--ink); }
+  ::selection { background: var(--lime); color: var(--bg); }
 
-  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar { width: 8px; }
   ::-webkit-scrollbar-track { background: var(--bg-2); }
-  ::-webkit-scrollbar-thumb { background: var(--line-2); border: 2px solid var(--bg-2); border-radius: 8px; }
+  ::-webkit-scrollbar-thumb { background: var(--line-2); border-radius: 4px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--lime); }
 
-  .layout {
-    display: grid;
-    grid-template-columns: 1fr;
-    max-width: 1440px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 2;
-    min-height: 100vh;
-  }
-
-  .main {
-    padding: 0 20px 100px;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  .sidebar { display: none; }
-
-  .mobile-bar {
-    position: sticky; top: 0;
-    z-index: 90;
-    background: rgba(246, 245, 240, 0.85);
+  /* ===== TOP BAR ===== */
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: 40px;
+    background: rgba(13,13,15,0.85);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
     border-bottom: 1px solid var(--line);
-    margin: 0 -20px;
-    padding: 14px 20px;
+    z-index: 200;
+    display: flex; align-items: center;
+    overflow: hidden;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--lime);
+  }
+
+  .topbar-track {
+    display: flex;
+    animation: topscroll 35s linear infinite;
+    white-space: nowrap;
+    width: max-content;
+  }
+
+  .topbar-track span {
+    padding: 0 22px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .topbar-track span::before {
+    content: '◆';
+    color: var(--lime);
+    font-size: 0.55rem;
+  }
+
+  .topbar-track span:nth-child(even) { color: var(--text-dim); }
+  .topbar-track span:nth-child(even)::before { color: var(--lime); }
+
+  @keyframes topscroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 52px 16px 100px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    padding: 20px 0 18px;
     display: flex; align-items: center; justify-content: space-between;
     gap: 12px;
   }
 
-  .mobile-brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .brand {
+    display: flex; align-items: center; gap: 12px;
+    min-width: 0;
+  }
 
-  .brand-mark {
-    width: 38px; height: 38px;
+  .brand-logo {
+    width: 46px; height: 46px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1.5px solid var(--line-2);
     position: relative;
     flex-shrink: 0;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid var(--ink);
   }
-  .brand-mark::before {
+
+  .brand-logo::before {
     content: '';
     position: absolute;
-    inset: -2px;
-    background: conic-gradient(from 0deg, #a3e635, #0f0f10, #a3e635, #7c3aed, #a3e635);
+    inset: -3px;
+    background: conic-gradient(from 0deg, var(--lime), #f0f0f5, var(--lime), #a78bfa, var(--lime));
     z-index: -1;
     animation: spin 6s linear infinite;
-    filter: blur(6px);
+    filter: blur(8px);
   }
+
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  .brand-mark img {
+  .brand-logo img {
     width: 100%; height: 100%; object-fit: cover;
-    border-radius: 8px;
     position: relative; z-index: 1;
+    border-radius: 12px;
   }
 
   .brand-text {
+    min-width: 0;
+  }
+
+  .brand-name {
     font-family: 'Anton', sans-serif;
-    font-size: 1rem;
+    font-size: 1.05rem;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    color: var(--text);
     line-height: 1;
+    background: linear-gradient(135deg, #f0f0f5 40%, var(--lime) 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .brand-text small {
-    display: block;
+
+  .brand-tag {
     font-family: 'Space Mono', monospace;
     font-size: 0.55rem;
     letter-spacing: 2px;
-    color: var(--lime-dark);
+    color: var(--lime);
     margin-top: 3px;
     font-weight: 700;
+    text-transform: uppercase;
   }
 
-  .mobile-menu-btn {
-    width: 40px; height: 40px;
-    border: 1px solid var(--ink);
-    background: var(--surface);
-    color: var(--text);
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.9rem;
-    transition: all 0.2s;
+  .nav-desktop { display: none; }
+
+  /* ===== HERO ===== */
+  .hero {
+    padding: 40px 0 30px;
+    position: relative;
   }
-  .mobile-menu-btn:active {
-    background: var(--ink);
+
+  .hero-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(198,255,61,0.08);
+    border: 1px solid rgba(198,255,61,0.3);
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
     color: var(--lime);
-  }
-
-  .drawer-overlay {
-    position: fixed; inset: 0;
-    background: rgba(15,15,16,0.5);
-    backdrop-filter: blur(8px);
-    z-index: 200;
-    opacity: 0; pointer-events: none;
-    transition: opacity 0.3s;
-  }
-  .drawer-overlay.open { opacity: 1; pointer-events: auto; }
-
-  .drawer {
-    position: fixed; top: 0; right: 0; bottom: 0;
-    width: min(88vw, 340px);
-    background: var(--bg);
-    border-left: 1px solid var(--line);
-    z-index: 201;
-    transform: translateX(100%);
-    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    padding: 24px 22px;
-    overflow-y: auto;
-    display: flex; flex-direction: column;
-  }
-  .drawer.open { transform: translateX(0); }
-
-  .drawer-head {
-    display: flex; align-items: center; justify-content: space-between;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--line);
-    margin-bottom: 24px;
-  }
-
-  .drawer-head h3 {
-    font-family: 'Anton', sans-serif;
-    font-size: 1.4rem;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-  }
-
-  .drawer-close {
-    width: 36px; height: 36px;
-    background: var(--surface);
-    border: 1px solid var(--ink);
-    color: var(--text);
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s;
-  }
-  .drawer-close:active {
-    background: var(--ink);
-    color: var(--lime);
-  }
-
-  .drawer-nav { display: flex; flex-direction: column; gap: 4px; }
-
-  .drawer-nav a {
-    display: flex; align-items: center; gap: 14px;
-    padding: 16px 14px;
-    color: var(--text);
-    text-decoration: none;
-    border-radius: 10px;
-    border: 1px solid transparent;
-    transition: all 0.2s;
-    font-family: 'Anton', sans-serif;
-    font-size: 1.1rem;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-  }
-  .drawer-nav a .dnum {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--text-dimmer);
-    font-weight: 700;
-  }
-  .drawer-nav a i {
-    color: var(--lime-dark);
-    font-size: 0.95rem;
-    margin-left: auto;
-    opacity: 0;
-    transition: all 0.25s;
-  }
-  .drawer-nav a:hover, .drawer-nav a:active {
-    background: var(--surface);
-    border-color: var(--ink);
-    padding-left: 20px;
-  }
-  .drawer-nav a:hover i, .drawer-nav a:active i { opacity: 1; }
-
-  .drawer-footer {
-    margin-top: auto;
-    padding-top: 24px;
-    border-top: 1px solid var(--line);
-    font-family: 'Space Mono', monospace;
-    font-size: 0.62rem;
-    color: var(--text-dimmer);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    line-height: 1.8;
-  }
-
-  .hero { padding: 50px 0 40px; position: relative; }
-
-  .hero-eyebrow {
-    display: flex; align-items: center; gap: 10px;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.62rem;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--lime-dark);
     font-weight: 700;
     margin-bottom: 22px;
   }
 
-  .hero-eyebrow .dot {
-    width: 7px; height: 7px;
-    background: var(--lime-2);
+  .hero-pill .dot {
+    width: 6px; height: 6px;
+    background: var(--lime);
     border-radius: 50%;
-    box-shadow: 0 0 12px var(--lime-2);
+    box-shadow: 0 0 8px var(--lime);
     animation: pulse 1.3s infinite;
   }
-  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
 
-  .hero-eyebrow .line {
-    flex: 1; height: 1px; background: var(--line);
-    max-width: 80px;
-  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
 
   .hero-title {
     font-family: 'Anton', sans-serif;
-    font-size: clamp(3.8rem, 15vw, 9rem);
-    line-height: 0.86;
+    font-size: clamp(3.4rem, 17vw, 8rem);
+    line-height: 0.84;
     letter-spacing: -0.02em;
     text-transform: uppercase;
-    margin-bottom: 26px;
+    margin-bottom: 22px;
   }
 
-  .hero-title .row { display: block; position: relative; }
-  .hero-title .row-1 { color: var(--ink); }
-  .hero-title .row-2 { color: var(--lime-2); padding-left: 8%; }
-  .hero-title .row-3 { color: var(--ink); padding-left: 8%; font-style: italic; position: relative; }
-  .hero-title .row-3::after {
-    content: '★';
-    font-size: 0.35em;
-    vertical-align: super;
-    color: var(--lime-2);
-    margin-left: 16px;
+  .hero-title .row { display: block; }
+  .hero-title .row-1 {
+    background: linear-gradient(135deg, #f0f0f5 0%, #b0b0bc 30%, #f0f0f5 50%, #6a6a78 70%, #f0f0f5 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: chromeShift 6s ease infinite;
+  }
+
+  @keyframes chromeShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  .hero-title .row-2 {
+    color: var(--lime);
+    padding-left: 6%;
+    font-style: italic;
+  }
+
+  .hero-title .row-3 {
+    font-size: 0.2em;
+    color: var(--text-dim);
+    letter-spacing: 0.35em;
+    font-weight: 400;
+    margin-top: 22px;
+    padding-left: 4px;
+    font-family: 'Space Mono', monospace;
+    -webkit-text-fill-color: var(--text-dim);
   }
 
   .hero-desc {
-    font-size: 0.98rem;
-    line-height: 1.75;
+    font-size: 0.9rem;
+    line-height: 1.7;
     color: var(--text-dim);
-    max-width: 540px;
-    margin-bottom: 28px;
+    max-width: 520px;
+    margin-bottom: 24px;
   }
 
-  .hero-desc strong {
-    color: var(--ink);
-    font-weight: 700;
-    background: var(--lime);
-    padding: 1px 6px;
-    border-radius: 4px;
-  }
+  .hero-desc strong { color: var(--lime); font-weight: 700; }
 
-  .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .hero-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
   .btn {
-    display: inline-flex; align-items: center; gap: 10px;
-    padding: 15px 26px;
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 20px;
     font-family: 'Space Mono', monospace;
-    font-size: 0.72rem;
+    font-size: 0.65rem;
     font-weight: 700;
-    letter-spacing: 1.8px;
+    letter-spacing: 1.6px;
     text-transform: uppercase;
     text-decoration: none;
-    border-radius: 10px;
-    border: 1.5px solid var(--ink);
+    border-radius: var(--r-sm);
+    border: 1px solid var(--line-2);
     background: var(--surface);
-    color: var(--ink);
+    color: var(--text);
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     cursor: pointer;
-    position: relative;
-    overflow: hidden;
   }
-
-  .btn::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--ink);
-    transform: translateY(100%);
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 0;
-  }
-
-  .btn > * { position: relative; z-index: 1; }
 
   .btn:hover, .btn:active {
+    background: var(--surface-2);
+    border-color: var(--lime);
+    color: var(--lime);
     transform: translateY(-2px);
-    box-shadow: 0 12px 30px rgba(15,15,16,0.15);
   }
-
-  .btn:hover::before, .btn:active::before { transform: translateY(0); }
-  .btn:hover, .btn:active { color: var(--lime); }
 
   .btn.primary {
     background: var(--lime);
-    color: var(--ink);
-    border-color: var(--ink);
-    box-shadow: 4px 4px 0 var(--ink);
-  }
-  .btn.primary::before { background: var(--ink); }
-  .btn.primary:hover, .btn.primary:active {
-    color: var(--lime);
-    box-shadow: 6px 6px 0 var(--ink);
-    transform: translate(-2px, -2px);
+    color: var(--bg);
+    border-color: var(--lime);
+    box-shadow: 0 8px 24px rgba(198,255,61,0.3);
   }
 
+  .btn.primary:hover, .btn.primary:active {
+    background: #d4ff5c;
+    box-shadow: 0 12px 32px rgba(198,255,61,0.5);
+  }
+
+  /* ===== STATS ===== */
   .stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-top: 40px;
+    gap: 8px;
+    margin-top: 30px;
   }
 
   .stat {
     background: var(--surface);
-    border: 1.5px solid var(--ink);
+    border: 1px solid var(--line);
     border-radius: var(--r);
-    padding: 22px 12px;
+    padding: 18px 8px;
     text-align: center;
+    backdrop-filter: blur(10px);
     position: relative;
     overflow: hidden;
-    transition: all 0.3s;
   }
 
-  .stat:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 4px 4px 0 var(--lime-2);
+  .stat::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 20%; right: 20%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--lime), transparent);
+    opacity: 0.5;
   }
 
   .stat-num {
     font-family: 'Anton', sans-serif;
-    font-size: 2.6rem;
+    font-size: 2.2rem;
     line-height: 1;
-    color: var(--ink);
+    color: var(--text);
     letter-spacing: 0.5px;
   }
 
   .stat-label {
     font-family: 'Space Mono', monospace;
-    font-size: 0.58rem;
-    letter-spacing: 2px;
+    font-size: 0.52rem;
+    letter-spacing: 1.8px;
     text-transform: uppercase;
-    color: var(--text-dim);
-    margin-top: 8px;
+    color: var(--text-dimmer);
+    margin-top: 6px;
     font-weight: 700;
   }
 
-  .section { padding: 70px 0 10px; }
+  /* ===== WELCOME BANNER ===== */
+  .welcome {
+    margin-top: 40px;
+    position: relative;
+    background: linear-gradient(135deg, rgba(198,255,61,0.15) 0%, rgba(167,139,250,0.1) 100%);
+    border: 1.5px solid rgba(198,255,61,0.35);
+    border-radius: var(--r);
+    padding: 24px 20px;
+    overflow: hidden;
+    animation: welcomeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes welcomeIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .welcome::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(-45deg, rgba(198,255,61,0.08) 0 10px, transparent 10px 20px);
+    pointer-events: none;
+  }
+
+  .welcome::after {
+    content: '';
+    position: absolute;
+    top: -50%; right: -20%;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(198,255,61,0.25), transparent 65%);
+    filter: blur(40px);
+    pointer-events: none;
+  }
+
+  .welcome-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .welcome-photo {
+    width: 76px; height: 76px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid var(--lime);
+    flex-shrink: 0;
+    position: relative;
+    box-shadow: 0 0 30px rgba(198,255,61,0.4);
+    animation: photoPop 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes photoPop {
+    from { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+    to { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+
+  .welcome-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+  .welcome-photo::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 14px;
+    border: 1.5px dashed rgba(198,255,61,0.5);
+    animation: spin 8s linear infinite;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .welcome-content { min-width: 0; flex: 1; }
+
+  .welcome-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--lime);
+    color: var(--bg);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 4px 10px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .welcome-title {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .welcome-title span { color: var(--lime); }
+
+  .welcome-text {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    line-height: 1.55;
+  }
+
+  .welcome-text em {
+    color: var(--lime);
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  /* ===== SECTION ===== */
+  .section { padding: 60px 0 10px; }
 
   .section-head {
-    display: flex; align-items: flex-start; justify-content: space-between;
-    gap: 14px;
-    margin-bottom: 30px;
-    padding-bottom: 18px;
-    border-bottom: 1.5px solid var(--ink);
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 26px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line-2);
     position: relative;
   }
 
   .section-head::after {
     content: '';
     position: absolute;
-    bottom: -1.5px; left: 0;
-    width: 60px; height: 3px;
-    background: var(--lime-2);
+    bottom: -1px; left: 0;
+    width: 60px; height: 2px;
+    background: var(--lime);
+    box-shadow: 0 0 10px var(--lime);
   }
 
-  .section-title-block { display: flex; align-items: baseline; gap: 12px; }
+  .section-title-block { display: flex; align-items: baseline; gap: 10px; }
 
   .section-num {
     font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--lime-dark);
+    font-size: 0.65rem;
+    color: var(--lime);
     font-weight: 700;
     letter-spacing: 1.5px;
-    padding-top: 6px;
   }
 
   .section-head h2 {
     font-family: 'Anton', sans-serif;
-    font-size: clamp(1.9rem, 7vw, 3.2rem);
+    font-size: clamp(1.8rem, 8vw, 3rem);
     line-height: 0.9;
     letter-spacing: -0.01em;
     text-transform: uppercase;
-    color: var(--ink);
+    color: var(--text);
   }
 
-  .section-head h2 em { font-style: italic; color: var(--lime-2); }
+  .section-head h2 em { font-style: italic; color: var(--lime); }
 
   .section-meta {
     font-family: 'Space Mono', monospace;
-    font-size: 0.6rem;
+    font-size: 0.55rem;
     color: var(--text-dimmer);
     letter-spacing: 1.5px;
     text-transform: uppercase;
     text-align: right;
     flex-shrink: 0;
-    padding-top: 6px;
+    padding-bottom: 3px;
     font-weight: 700;
   }
 
+  /* ===== ABOUT ===== */
   .about-card {
     background: var(--surface);
-    border: 1.5px solid var(--ink);
+    border: 1px solid var(--line);
     border-radius: var(--r);
-    padding: 28px 24px;
+    padding: 24px 20px;
     position: relative;
     overflow: hidden;
-    font-size: 0.95rem;
-    line-height: 1.8;
-    color: var(--ink-2);
-    box-shadow: 6px 6px 0 var(--ink);
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: var(--text-dim);
+    backdrop-filter: blur(10px);
   }
 
   .about-card::before {
     content: '';
     position: absolute;
     top: 0; left: 0;
-    width: 4px; height: 100%;
-    background: var(--lime-2);
+    width: 3px; height: 100%;
+    background: linear-gradient(to bottom, var(--lime), transparent);
   }
 
-  .about-card p { margin-bottom: 14px; position: relative; z-index: 1; }
+  .about-card p { margin-bottom: 12px; position: relative; z-index: 1; }
   .about-card p:last-child { margin-bottom: 0; }
-  .about-card strong {
-    color: var(--ink);
-    font-weight: 700;
-    background: var(--lime);
-    padding: 1px 6px;
-    border-radius: 4px;
-  }
-  .about-card em { color: var(--lime-dark); font-style: normal; font-weight: 700; }
+  .about-card strong { color: var(--text); font-weight: 700; }
+  .about-card em { color: var(--lime); font-style: normal; font-weight: 700; }
 
+  /* ===== TIMELINE ===== */
   .timeline {
     display: flex; flex-direction: column;
-    border-left: 2px solid var(--ink);
-    padding-left: 22px;
-    margin-left: 6px;
+    border-left: 1px solid var(--line-2);
+    padding-left: 20px;
+    margin-left: 8px;
   }
 
   .tl-item {
     position: relative;
-    padding: 0 0 26px 0;
-    display: grid; grid-template-columns: 32px 1fr; gap: 14px;
+    padding: 0 0 22px 0;
+    display: grid; grid-template-columns: 32px 1fr; gap: 12px;
     align-items: start;
   }
 
@@ -558,206 +606,220 @@
   .tl-item::before {
     content: '';
     position: absolute;
-    left: -30px; top: 6px;
-    width: 14px; height: 14px;
-    background: var(--lime);
-    border: 2px solid var(--ink);
+    left: -26px; top: 5px;
+    width: 10px; height: 10px;
+    background: var(--bg);
+    border: 1.5px solid var(--lime);
     border-radius: 50%;
+    box-shadow: 0 0 10px rgba(198,255,61,0.5);
     z-index: 1;
   }
 
   .tl-num {
     font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--lime-dark);
+    font-size: 0.65rem;
+    color: var(--lime);
     font-weight: 700;
     letter-spacing: 1px;
-    padding-top: 2px;
+    padding-top: 3px;
   }
-
-  .tl-body { padding-top: 0; }
 
   .tl-title {
     font-family: 'Anton', sans-serif;
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    color: var(--ink);
+    color: var(--text);
     margin-bottom: 3px;
     line-height: 1;
   }
 
   .tl-desc {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     color: var(--text-dim);
-    line-height: 1.55;
+    line-height: 1.5;
   }
 
-  .player-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  /* ===== PLAYER GRID ===== */
+  .player-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
 
   .player-card {
     background: var(--surface);
-    border: 1.5px solid var(--ink);
+    border: 1px solid var(--line);
     border-radius: var(--r);
-    padding: 16px;
-    display: grid;
-    grid-template-columns: auto 1fr auto auto;
-    gap: 14px;
-    align-items: center;
-    position: relative;
     overflow: hidden;
+    position: relative;
+    backdrop-filter: blur(10px);
     transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
   }
 
   .player-card:hover {
-    transform: translate(-3px, -3px);
-    box-shadow: 6px 6px 0 var(--lime-2);
+    border-color: rgba(198,255,61,0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.5), 0 0 30px rgba(198,255,61,0.15);
   }
 
-  .player-idx {
-    font-family: 'Anton', sans-serif;
-    font-size: 2.2rem;
-    line-height: 1;
-    color: var(--text-dimmer);
-    letter-spacing: -0.02em;
-    transition: color 0.3s;
-    min-width: 44px;
-    text-align: center;
+  .player-photo {
     position: relative;
-    z-index: 1;
-  }
-
-  .player-card:hover .player-idx { color: var(--lime-2); }
-
-  .player-info { min-width: 0; position: relative; z-index: 1; }
-
-  .player-name {
-    font-family: 'Anton', sans-serif;
-    font-size: 1.3rem;
-    letter-spacing: 0.5px;
-    line-height: 1;
-    color: var(--ink);
-    margin-bottom: 5px;
-    text-transform: uppercase;
-    word-break: break-word;
-  }
-
-  .player-roles {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.58rem;
-    letter-spacing: 1.5px;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    font-weight: 700;
-    display: flex; flex-wrap: wrap; gap: 4px;
-    align-items: center;
-  }
-
-  .player-roles .role-dot {
-    color: var(--lime-2);
-    margin: 0 2px;
-    font-size: 0.8rem;
-  }
-
-  .player-photo-wrap {
-    position: relative;
-    width: 66px; height: 66px;
-    flex-shrink: 0;
-    border-radius: 10px;
+    aspect-ratio: 1;
     overflow: hidden;
-    border: 1.5px solid var(--ink);
-    z-index: 1;
-    transition: all 0.35s;
+    background: var(--bg-3);
   }
 
-  .player-card:hover .player-photo-wrap {
-    transform: rotate(-3deg) scale(1.05);
-    box-shadow: 3px 3px 0 var(--lime-2);
-  }
-
-  .player-photo-wrap img {
+  .player-photo img {
     width: 100%; height: 100%;
     object-fit: cover;
     filter: grayscale(0.4) contrast(1.05);
-    transition: filter 0.4s;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .player-card:hover .player-photo-wrap img { filter: grayscale(0) contrast(1); }
+  .player-card:hover .player-photo img {
+    filter: grayscale(0) contrast(1);
+    transform: scale(1.08);
+  }
 
-  .player-photo-wrap .avatar-initial {
+  .player-photo::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(13,13,15,0.9) 0%, rgba(13,13,15,0.2) 40%, transparent 60%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .player-photo .avatar-initial {
     display: flex; align-items: center; justify-content: center;
     width: 100%; height: 100%;
     font-family: 'Anton', sans-serif;
-    font-size: 1.8rem;
+    font-size: 3rem;
     color: var(--text-dimmer);
     background: var(--bg-3);
   }
 
-  .player-actions {
+  .role-badge {
+    position: absolute;
+    top: 8px; left: 8px;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(198,255,61,0.95);
+    color: var(--bg);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(198,255,61,0.4);
+    line-height: 1;
+  }
+
+  .role-badge i {
+    font-size: 0.55rem;
+  }
+
+  .role-badge.jungle { background: #c6ff3d; }
+  .role-badge.gold { background: #ffc93c; }
+  .role-badge.mid { background: #a78bfa; color: #ffffff; }
+  .role-badge.exp { background: #ff6b9d; color: #ffffff; }
+  .role-badge.roam { background: #4dd4ff; color: var(--bg); }
+
+  .badge-founder, .badge-reserve {
+    position: absolute;
+    top: 8px; right: 8px;
+    z-index: 3;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.48rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .badge-founder {
+    background: linear-gradient(135deg, var(--lime), var(--lime-2));
+    color: var(--bg);
+    box-shadow: 0 4px 14px rgba(198,255,61,0.5);
+  }
+
+  .badge-reserve {
+    background: var(--bg-3);
+    color: var(--lime);
+    border: 1px solid var(--lime);
+  }
+
+  .player-info {
+    padding: 12px 12px 14px;
+    position: relative;
+    z-index: 2;
     display: flex;
-    gap: 6px;
     flex-direction: column;
-    z-index: 1;
+    gap: 6px;
+  }
+
+  .player-name {
+    font-family: 'Anton', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.4px;
+    line-height: 1.05;
+    color: var(--text);
+    text-transform: uppercase;
+    word-break: break-word;
+    min-height: 2em;
+    display: flex;
+    align-items: center;
+  }
+
+  .player-roles {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.52rem;
+    letter-spacing: 1.2px;
+    color: var(--text-dimmer);
+    text-transform: uppercase;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .id-btn {
-    padding: 8px 12px;
-    background: var(--bg-2);
-    color: var(--ink);
-    border: 1.5px solid var(--ink);
+    width: 100%;
+    padding: 8px 10px;
+    background: var(--bg-3);
+    color: var(--text);
+    border: 1px solid var(--line-2);
     font-family: 'Space Mono', monospace;
-    font-size: 0.58rem;
+    font-size: 0.55rem;
     font-weight: 700;
-    letter-spacing: 1.2px;
+    letter-spacing: 1.3px;
     text-transform: uppercase;
     cursor: pointer;
     border-radius: 8px;
     transition: all 0.2s;
-    display: flex; align-items: center; gap: 5px;
-    white-space: nowrap;
+    display: flex; align-items: center; justify-content: center; gap: 5px;
+    margin-top: 2px;
   }
-  .id-btn i { font-size: 0.65rem; }
+
+  .id-btn i { font-size: 0.6rem; }
+
   .id-btn:hover, .id-btn:active {
     background: var(--lime);
-    border-color: var(--ink);
-    transform: translate(-2px, -2px);
-    box-shadow: 3px 3px 0 var(--ink);
+    color: var(--bg);
+    border-color: var(--lime);
+    box-shadow: 0 0 16px rgba(198,255,61,0.4);
   }
 
-  .badge-founder {
-    position: absolute;
-    top: 0; right: 0;
-    background: var(--lime);
-    color: var(--ink);
-    font-family: 'Space Mono', monospace;
-    font-size: 0.5rem;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    padding: 4px 10px;
-    text-transform: uppercase;
-    border-left: 1.5px solid var(--ink);
-    border-bottom: 1.5px solid var(--ink);
-    border-bottom-left-radius: 8px;
-    z-index: 2;
-  }
-
-  .badge-reserve {
-    position: absolute;
-    top: 0; right: 0;
-    background: var(--ink);
-    color: var(--lime);
-    font-family: 'Space Mono', monospace;
-    font-size: 0.5rem;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    padding: 4px 10px;
-    text-transform: uppercase;
-    border-left: 1.5px solid var(--ink);
-    border-bottom: 1.5px solid var(--ink);
-    border-bottom-left-radius: 8px;
-    z-index: 2;
-  }
-
+  /* ===== ALBUM ===== */
   .album-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -771,214 +833,304 @@
     overflow: hidden;
     cursor: pointer;
     background: var(--bg-3);
-    border: 1.5px solid var(--ink);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid var(--line);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .album-item:hover {
-    transform: translate(-3px, -3px);
-    box-shadow: 6px 6px 0 var(--lime-2);
+    transform: translateY(-3px);
+    border-color: rgba(198,255,61,0.5);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.5), 0 0 30px rgba(198,255,61,0.15);
   }
 
   .album-item img {
     width: 100%; height: 100%;
     object-fit: cover;
-    filter: grayscale(0.3) contrast(1.05);
-    transition: all 0.4s;
+    filter: grayscale(0.5) brightness(0.9);
+    transition: all 0.45s;
   }
 
   .album-item:hover img {
-    filter: grayscale(0) contrast(1);
-    transform: scale(1.06);
+    filter: grayscale(0) brightness(1);
+    transform: scale(1.08);
   }
 
   .album-num {
     position: absolute;
-    top: 8px; left: 8px;
+    top: 6px; left: 6px;
     font-family: 'Space Mono', monospace;
-    font-size: 0.58rem;
+    font-size: 0.52rem;
     font-weight: 700;
     letter-spacing: 1px;
-    color: var(--ink);
-    background: var(--lime);
-    padding: 4px 8px;
-    border-radius: 6px;
-    border: 1.5px solid var(--ink);
+    color: var(--lime);
+    background: rgba(13,13,15,0.85);
+    backdrop-filter: blur(6px);
+    padding: 3px 7px;
+    border-radius: 5px;
+    border: 1px solid var(--line-2);
     z-index: 2;
   }
 
   .album-item::after {
     content: '↗';
     position: absolute;
-    bottom: 8px; right: 8px;
-    width: 26px; height: 26px;
-    background: var(--ink);
-    color: var(--lime);
-    border-radius: 7px;
+    bottom: 6px; right: 6px;
+    width: 22px; height: 22px;
+    background: var(--lime);
+    color: var(--bg);
+    border-radius: 6px;
     display: flex; align-items: center; justify-content: center;
     font-weight: 700;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(6px);
     transition: all 0.3s;
     z-index: 2;
   }
   .album-item:hover::after { opacity: 1; transform: translateY(0); }
 
-  .roster-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+  /* ===== ROSTER CARDS (NEW DESIGN) ===== */
+  .roster-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
 
-  .roster-card {
+  .roster-block {
     background: var(--surface);
-    border: 1.5px solid var(--ink);
+    border: 1px solid var(--line);
     border-radius: var(--r);
-    padding: 22px 20px;
+    padding: 16px;
+    backdrop-filter: blur(10px);
     position: relative;
     overflow: hidden;
-    transition: all 0.3s;
-    box-shadow: 4px 4px 0 var(--ink);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .roster-card:hover {
-    transform: translate(-3px, -3px);
-    box-shadow: 7px 7px 0 var(--lime-2);
+  .roster-block:hover {
+    border-color: rgba(198,255,61,0.35);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 40px rgba(198,255,61,0.08);
   }
 
-  .roster-card.highlight {
-    background: var(--lime-soft);
+  .roster-block.highlight {
+    background: linear-gradient(135deg, rgba(198,255,61,0.08), rgba(167,139,250,0.05));
+    border-color: rgba(198,255,61,0.3);
+  }
+
+  .roster-block.highlight::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--lime), var(--violet), var(--lime));
   }
 
   .roster-head {
     display: flex; align-items: center; justify-content: space-between;
     gap: 12px;
-    padding-bottom: 14px;
     margin-bottom: 14px;
-    border-bottom: 1.5px solid var(--ink);
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
   }
 
   .roster-title {
     font-family: 'Anton', sans-serif;
-    font-size: 1.3rem;
+    font-size: 1.15rem;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    color: var(--ink);
+    color: var(--text);
     line-height: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .roster-title i {
+    color: var(--lime);
+    font-size: 0.85rem;
   }
 
   .roster-tag {
     font-family: 'Space Mono', monospace;
-    font-size: 0.58rem;
+    font-size: 0.52rem;
     font-weight: 700;
-    letter-spacing: 1.5px;
-    color: var(--ink);
-    background: var(--lime);
-    border: 1.5px solid var(--ink);
-    padding: 4px 10px;
-    border-radius: 6px;
+    letter-spacing: 1.3px;
+    color: var(--lime);
+    background: rgba(198,255,61,0.12);
+    border: 1px solid rgba(198,255,61,0.35);
+    padding: 3px 8px;
+    border-radius: 5px;
     text-transform: uppercase;
     flex-shrink: 0;
   }
 
-  .roster-list { list-style: none; }
-
-  .roster-list li {
+  /* NEW: Card-style player row */
+  .roster-players {
     display: grid;
-    grid-template-columns: 88px 1fr;
-    gap: 14px;
-    padding: 10px 0;
-    border-bottom: 1px dashed var(--line-2);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .roster-player {
+    position: relative;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-  }
-
-  .roster-list li:last-child { border-bottom: none; }
-
-  .role-tag {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.56rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-weight: 700;
-    color: var(--ink);
-    background: var(--bg-2);
-    padding: 4px 8px;
-    border-radius: 6px;
-    border: 1px solid var(--line-2);
     text-align: center;
-    white-space: nowrap;
+    gap: 6px;
+    padding: 4px 0;
+  }
+
+  .rp-photo {
+    width: 100%;
+    aspect-ratio: 1;
+    max-width: 84px;
+    border-radius: 10px;
     overflow: hidden;
-    text-overflow: ellipsis;
+    position: relative;
+    border: 1.5px solid var(--line-2);
+    background: var(--bg-3);
+    transition: all 0.3s;
   }
 
-  .roster-list li .pname {
-    color: var(--ink);
-    font-weight: 600;
-    font-size: 0.88rem;
+  .rp-photo img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: grayscale(0.35) contrast(1.05);
+    transition: all 0.4s;
   }
 
-  .sub-row {
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1.5px dashed var(--ink);
-    display: flex; align-items: center; gap: 10px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--ink);
+  .roster-player:hover .rp-photo {
+    border-color: var(--lime);
+    box-shadow: 0 0 20px rgba(198,255,61,0.3);
+    transform: translateY(-2px);
   }
 
-  .sub-tag {
+  .roster-player:hover .rp-photo img {
+    filter: grayscale(0) contrast(1);
+  }
+
+  .rp-photo .rp-initial {
+    position: absolute;
+    inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Anton', sans-serif;
+    font-size: 1.4rem;
+    color: var(--text-dimmer);
+  }
+
+  /* Role badge overlay ON TOP of photo */
+  .rp-role {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    z-index: 3;
     font-family: 'Space Mono', monospace;
-    font-size: 0.55rem;
+    font-size: 0.42rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 3px 6px;
+    border-radius: 4px;
+    line-height: 1;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    color: var(--bg);
+  }
+
+  .rp-role.jungle { background: var(--lime); }
+  .rp-role.gold { background: #ffc93c; }
+  .rp-role.mid { background: #a78bfa; color: #ffffff; }
+  .rp-role.exp { background: #ff6b9d; color: #ffffff; }
+  .rp-role.roam { background: #4dd4ff; }
+
+  .rp-name {
+    font-family: 'Anton', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.3px;
+    line-height: 1.1;
+    color: var(--text);
+    text-transform: uppercase;
+    word-break: break-word;
+    width: 100%;
+  }
+
+  .roster-sub {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--line);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .roster-sub .sub-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.5rem;
     font-weight: 700;
     letter-spacing: 1.2px;
     text-transform: uppercase;
-    background: var(--ink);
-    color: var(--lime);
+    background: var(--lime);
+    color: var(--bg);
     padding: 3px 8px;
-    border-radius: 5px;
+    border-radius: 4px;
   }
 
-  .lock-wrap { display: flex; justify-content: center; margin: 40px 0 10px; }
+  .roster-sub .sub-name {
+    font-family: 'Anton', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.3px;
+    color: var(--lime);
+    text-transform: uppercase;
+  }
+
+  /* ===== LOCKED ===== */
+  .lock-wrap { display: flex; justify-content: center; margin: 36px 0 10px; }
 
   .btn-lock {
-    display: inline-flex; align-items: center; gap: 12px;
-    padding: 16px 32px;
-    background: var(--ink);
-    color: var(--lime);
-    border: 1.5px solid var(--ink);
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 26px;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--line-2);
     font-family: 'Anton', sans-serif;
-    font-size: 1.05rem;
-    letter-spacing: 2px;
+    font-size: 0.95rem;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
     cursor: pointer;
-    border-radius: 10px;
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    position: relative;
-    overflow: hidden;
-    box-shadow: 4px 4px 0 var(--lime-2);
+    border-radius: var(--r-sm);
+    transition: all 0.25s;
   }
 
-  .btn-lock i { color: var(--lime); font-size: 0.95rem; }
+  .btn-lock i { color: var(--lime); font-size: 0.85rem; }
   .btn-lock .ln {
     font-family: 'Space Mono', monospace;
-    font-size: 0.6rem;
-    color: var(--lime);
+    font-size: 0.55rem;
+    color: var(--text-dimmer);
     letter-spacing: 1.2px;
     font-weight: 700;
   }
 
   .btn-lock:hover, .btn-lock:active {
-    transform: translate(-3px, -3px);
-    box-shadow: 7px 7px 0 var(--lime-2);
+    background: var(--lime);
+    color: var(--bg);
+    border-color: var(--lime);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(198,255,61,0.4);
   }
+  .btn-lock:hover i, .btn-lock:active i { color: var(--bg); }
+  .btn-lock:hover .ln, .btn-lock:active .ln { color: rgba(0,0,0,0.6); }
 
+  /* ===== FOOTER ===== */
   .footer {
-    margin-top: 90px;
-    padding: 30px 0 20px;
-    border-top: 1.5px solid var(--ink);
+    margin-top: 70px;
+    padding: 24px 0 20px;
+    border-top: 1px solid var(--line);
     display: flex; align-items: center; justify-content: space-between;
-    gap: 14px; flex-wrap: wrap;
+    gap: 12px; flex-wrap: wrap;
     font-family: 'Space Mono', monospace;
-    font-size: 0.62rem;
-    color: var(--text-dim);
+    font-size: 0.58rem;
+    color: var(--text-dimmer);
     letter-spacing: 1.2px;
     text-transform: uppercase;
     font-weight: 700;
@@ -988,52 +1140,54 @@
   .footer::before {
     content: '';
     position: absolute;
-    top: -1.5px; left: 0;
-    width: 60px; height: 3px;
-    background: var(--lime-2);
+    top: -1px; left: 0;
+    width: 60px; height: 2px;
+    background: var(--lime);
+    box-shadow: 0 0 10px var(--lime);
   }
 
   .ft-left { display: flex; align-items: center; gap: 8px; }
-  .ft-dot { width: 6px; height: 6px; background: var(--lime-2); border-radius: 50%; }
+  .ft-dot { width: 6px; height: 6px; background: var(--lime); border-radius: 50%; box-shadow: 0 0 8px var(--lime); }
 
   .ft-wordmark {
     grid-column: 1 / -1;
     width: 100%;
     font-family: 'Anton', sans-serif;
-    font-size: clamp(3rem, 16vw, 11rem);
+    font-size: clamp(2.8rem, 18vw, 11rem);
     line-height: 0.8;
     letter-spacing: -0.03em;
     color: transparent;
-    -webkit-text-stroke: 1.5px rgba(15,15,16,0.15);
+    -webkit-text-stroke: 1px rgba(255,255,255,0.06);
     text-transform: uppercase;
     text-align: center;
-    padding: 30px 0 0;
+    padding: 26px 0 0;
     user-select: none;
     overflow: hidden;
     white-space: nowrap;
   }
 
+  /* ===== MODAL ===== */
   .modal {
     display: none; position: fixed; inset: 0;
-    background: rgba(15,15,16,0.6);
+    background: rgba(0,0,0,0.8);
     backdrop-filter: blur(12px);
     z-index: 1000;
     justify-content: center; align-items: center;
-    padding: 20px;
+    padding: 16px;
   }
   .modal.active { display: flex; }
 
   .modal-box {
-    background: var(--bg);
-    border: 2px solid var(--ink);
+    background: var(--bg-2);
+    border: 1px solid var(--line-2);
     border-radius: 16px;
-    max-width: 440px; width: 100%;
-    padding: 32px 24px 24px;
+    max-width: 420px; width: 100%;
+    padding: 28px 20px 22px;
     position: relative;
     animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     max-height: 92vh;
     overflow-y: auto;
-    box-shadow: 8px 8px 0 var(--lime-2);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.9), 0 0 60px rgba(198,255,61,0.1);
   }
 
   @keyframes modalIn {
@@ -1043,55 +1197,55 @@
 
   .modal-close {
     position: absolute;
-    top: -2px; right: -2px;
-    width: 40px; height: 40px;
-    background: var(--ink);
-    color: var(--lime);
-    border: none;
-    border-top-right-radius: 14px;
-    border-bottom-left-radius: 14px;
+    top: 10px; right: 10px;
+    width: 34px; height: 34px;
+    background: var(--surface);
+    border: 1px solid var(--line-2);
+    color: var(--text);
+    border-radius: 50%;
     cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     transition: all 0.2s;
     z-index: 5;
   }
   .modal-close:hover, .modal-close:active {
     background: var(--lime);
-    color: var(--ink);
+    color: var(--bg);
+    border-color: var(--lime);
     transform: rotate(90deg);
   }
 
   .modal-title {
     font-family: 'Anton', sans-serif;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    color: var(--ink);
+    color: var(--text);
     line-height: 1;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
   }
-  .modal-title span { color: var(--lime-2); }
+  .modal-title span { color: var(--lime); }
 
   .modal-sub {
     font-family: 'Space Mono', monospace;
-    font-size: 0.62rem;
-    color: var(--text-dim);
-    letter-spacing: 1.8px;
+    font-size: 0.55rem;
+    color: var(--text-dimmer);
+    letter-spacing: 1.6px;
     text-transform: uppercase;
     font-weight: 700;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
   }
 
   .modal-input {
     width: 100%;
-    padding: 15px 16px;
-    background: var(--surface);
-    border: 1.5px solid var(--ink);
+    padding: 14px 14px;
+    background: var(--bg-3);
+    border: 1px solid var(--line-2);
     border-radius: 10px;
     color: var(--text);
     font-family: 'Space Mono', monospace;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     letter-spacing: 2px;
     text-align: center;
     font-weight: 700;
@@ -1099,121 +1253,122 @@
     transition: all 0.2s;
   }
   .modal-input:focus {
-    border-color: var(--ink);
-    box-shadow: 4px 4px 0 var(--lime-2);
+    border-color: var(--lime);
+    box-shadow: 0 0 0 3px rgba(198,255,61,0.15);
   }
   .modal-input::placeholder { color: var(--text-dimmer); }
 
   .modal-btn {
     width: 100%;
-    margin-top: 12px;
-    padding: 15px;
+    margin-top: 10px;
+    padding: 14px;
     background: var(--lime);
-    color: var(--ink);
-    border: 1.5px solid var(--ink);
+    color: var(--bg);
+    border: 1px solid var(--lime);
     border-radius: 10px;
     font-family: 'Anton', sans-serif;
-    font-size: 1.05rem;
-    letter-spacing: 2px;
+    font-size: 0.95rem;
+    letter-spacing: 1.8px;
     text-transform: uppercase;
     cursor: pointer;
     transition: all 0.25s;
-    display: flex; align-items: center; justify-content: center; gap: 10px;
-    box-shadow: 4px 4px 0 var(--ink);
+    display: flex; align-items: center; justify-content: center; gap: 8px;
   }
   .modal-btn:hover, .modal-btn:active {
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0 var(--ink);
+    background: #d4ff5c;
+    box-shadow: 0 0 30px rgba(198,255,61,0.4);
   }
 
   .err-msg {
-    color: #dc2626;
+    color: #ff5577;
     font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
+    font-size: 0.62rem;
     font-weight: 700;
     letter-spacing: 1px;
     text-align: center;
-    margin-top: 12px;
-    min-height: 16px;
+    margin-top: 10px;
+    min-height: 14px;
     text-transform: uppercase;
   }
 
-  .core-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  /* ===== CORE GRID ===== */
+  .core-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 
   .core-card {
     background: var(--surface);
-    border: 1.5px solid var(--ink);
-    border-radius: 12px;
-    padding: 18px 12px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 10px;
     text-align: center;
     transition: all 0.25s;
   }
   .core-card.hl {
-    background: var(--lime-soft);
-    border-color: var(--ink);
+    background: rgba(198,255,61,0.08);
+    border-color: rgba(198,255,61,0.3);
   }
   .core-card:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 3px 3px 0 var(--ink);
+    border-color: var(--lime);
+    transform: translateY(-2px);
   }
 
   .core-role {
     font-family: 'Space Mono', monospace;
-    font-size: 0.56rem;
-    letter-spacing: 1.5px;
+    font-size: 0.52rem;
+    letter-spacing: 1.4px;
     text-transform: uppercase;
-    color: var(--lime-dark);
+    color: var(--lime);
     font-weight: 700;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
   }
   .core-name {
     font-family: 'Anton', sans-serif;
-    font-size: 1.15rem;
-    letter-spacing: 0.5px;
+    font-size: 1rem;
+    letter-spacing: 0.4px;
     line-height: 1;
-    color: var(--ink);
+    color: var(--text);
     text-transform: uppercase;
   }
-  .core-name.mystery { color: var(--text-dimmer); letter-spacing: 4px; }
+  .core-name.mystery { color: var(--text-dimmer); letter-spacing: 3px; }
 
+  /* ===== ID MODAL ===== */
   .id-head {
-    display: flex; align-items: center; gap: 14px;
-    padding-bottom: 18px;
-    margin-bottom: 20px;
-    border-bottom: 1.5px solid var(--ink);
+    display: flex; align-items: center; gap: 12px;
+    padding-bottom: 16px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid var(--line);
   }
   .id-photo {
-    width: 64px; height: 64px;
-    border-radius: 12px;
+    width: 60px; height: 60px;
+    border-radius: 10px;
     overflow: hidden;
-    border: 1.5px solid var(--ink);
+    border: 1.5px solid var(--line-2);
     flex-shrink: 0;
   }
   .id-photo img { width: 100%; height: 100%; object-fit: cover; }
   .id-name {
     font-family: 'Anton', sans-serif;
-    font-size: 1.4rem;
-    letter-spacing: 0.5px;
+    font-size: 1.2rem;
+    letter-spacing: 0.4px;
     line-height: 1;
     text-transform: uppercase;
-    color: var(--ink);
+    color: var(--text);
     word-break: break-word;
   }
   .id-role {
     font-family: 'Space Mono', monospace;
-    font-size: 0.58rem;
-    letter-spacing: 1.5px;
-    color: var(--text-dim);
+    font-size: 0.55rem;
+    letter-spacing: 1.4px;
+    color: var(--text-dimmer);
     text-transform: uppercase;
     font-weight: 700;
-    margin-top: 5px;
+    margin-top: 4px;
   }
 
   .id-label {
     font-family: 'Space Mono', monospace;
-    font-size: 0.58rem;
+    font-size: 0.55rem;
     letter-spacing: 2px;
-    color: var(--text-dim);
+    color: var(--text-dimmer);
     text-transform: uppercase;
     font-weight: 700;
     margin-bottom: 8px;
@@ -1221,47 +1376,46 @@
 
   .id-display {
     display: flex; align-items: stretch;
-    background: var(--surface);
-    border: 1.5px solid var(--ink);
+    background: var(--bg-3);
+    border: 1px solid var(--line-2);
     border-radius: 10px;
     overflow: hidden;
   }
   .id-value {
     flex: 1;
-    padding: 15px 16px;
+    padding: 14px 14px;
     font-family: 'Space Mono', monospace;
-    font-size: 0.88rem;
+    font-size: 0.82rem;
     font-weight: 700;
-    letter-spacing: 1.2px;
-    color: var(--ink);
+    letter-spacing: 1px;
+    color: var(--text);
     word-break: break-all;
     display: flex; align-items: center;
     cursor: pointer;
   }
   .id-copy {
-    width: 52px;
+    width: 48px;
     background: var(--lime);
-    color: var(--ink);
+    color: var(--bg);
     border: none;
-    border-left: 1.5px solid var(--ink);
     cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    font-size: 1rem;
+    font-size: 0.95rem;
     transition: all 0.2s;
     flex-shrink: 0;
   }
-  .id-copy:hover { background: var(--ink); color: var(--lime); }
+  .id-copy:hover { background: #d4ff5c; }
 
   .copy-feedback {
     font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     font-weight: 700;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.4px;
     text-transform: uppercase;
-    color: var(--lime-dark);
+    color: var(--lime);
     text-align: center;
     margin-top: 10px;
-    min-height: 16px;
+    min-height: 14px;
     opacity: 0;
     transition: opacity 0.25s;
   }
@@ -1269,31 +1423,32 @@
 
   .id-note {
     font-family: 'Space Mono', monospace;
-    font-size: 0.6rem;
+    font-size: 0.55rem;
     color: var(--text-dimmer);
     text-align: center;
-    margin-top: 18px;
-    padding-top: 14px;
-    border-top: 1px dashed var(--line-2);
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--line);
     font-style: italic;
     letter-spacing: 1px;
   }
 
+  /* ===== ALBUM MODAL ===== */
   .album-modal-box {
-    background: var(--bg);
-    border: 2px solid var(--ink);
+    background: var(--bg-2);
+    border: 1px solid var(--line-2);
     border-radius: 16px;
     padding: 0;
     max-width: 96vw; width: auto;
     position: relative;
     animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 8px 8px 0 var(--lime-2);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.9), 0 0 80px rgba(198,255,61,0.15);
   }
 
   .album-viewer {
     position: relative;
     display: flex; align-items: center; justify-content: center;
-    padding: 14px;
+    padding: 12px;
   }
 
   .album-viewer img {
@@ -1301,9 +1456,9 @@
     max-height: 78vh;
     width: auto; height: auto;
     object-fit: contain;
-    border-radius: 12px;
-    border: 1.5px solid var(--ink);
-    background: var(--bg-2);
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--bg-3);
     transition: opacity 0.25s;
   }
 
@@ -1312,65 +1467,74 @@
   .album-nav {
     position: absolute;
     top: 50%; transform: translateY(-50%);
-    width: 44px; height: 44px;
-    background: var(--surface);
-    border: 1.5px solid var(--ink);
-    color: var(--ink);
+    width: 40px; height: 40px;
+    background: rgba(13,13,15,0.85);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--line-2);
+    color: var(--text);
     display: flex; align-items: center; justify-content: center;
     cursor: pointer;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     border-radius: 50%;
     transition: all 0.2s;
     z-index: 5;
   }
   .album-nav:hover, .album-nav:active {
     background: var(--lime);
-    transform: translateY(-50%) scale(1.1) translate(-2px, -2px);
-    box-shadow: 3px 3px 0 var(--ink);
+    color: var(--bg);
+    border-color: var(--lime);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 0 20px rgba(198,255,61,0.4);
   }
-  .album-nav.prev { left: 6px; }
-  .album-nav.next { right: 6px; }
+  .album-nav.prev { left: 4px; }
+  .album-nav.next { right: 4px; }
 
   .album-counter {
     position: absolute;
-    bottom: 24px; left: 50%;
+    bottom: 20px; left: 50%;
     transform: translateX(-50%);
-    background: var(--ink);
-    color: var(--lime);
+    background: rgba(13,13,15,0.9);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--line-2);
+    color: var(--text);
     font-family: 'Space Mono', monospace;
-    font-size: 0.62rem;
+    font-size: 0.6rem;
     font-weight: 700;
     letter-spacing: 2px;
-    padding: 6px 14px;
+    padding: 5px 12px;
     border-radius: 20px;
   }
   .album-counter .current { color: var(--lime); }
 
+  /* ===== BACK TOP ===== */
   .back-top {
     position: fixed;
-    bottom: 22px; right: 22px;
-    width: 48px; height: 48px;
-    background: var(--surface);
-    color: var(--ink);
-    border: 1.5px solid var(--ink);
+    bottom: 18px; right: 18px;
+    width: 44px; height: 44px;
+    background: rgba(13,13,15,0.9);
+    backdrop-filter: blur(10px);
+    color: var(--text);
+    border: 1px solid var(--line-2);
     border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 1rem;
+    font-size: 0.9rem;
     cursor: pointer;
     z-index: 90;
     opacity: 0;
     transform: translateY(20px);
     pointer-events: none;
     transition: all 0.3s;
-    box-shadow: 3px 3px 0 var(--ink);
   }
   .back-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
   .back-top:hover, .back-top:active {
     background: var(--lime);
-    transform: translate(-2px, -2px);
-    box-shadow: 5px 5px 0 var(--ink);
+    color: var(--bg);
+    border-color: var(--lime);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(198,255,61,0.4);
   }
 
+  /* ===== REVEAL ===== */
   .reveal {
     opacity: 0;
     transform: translateY(24px);
@@ -1378,189 +1542,76 @@
   }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  @media (min-width: 768px) {
+  /* ===== DESKTOP ===== */
+  @media (min-width: 640px) {
     body { font-size: 16px; }
-    .main { padding: 0 40px 100px; }
-    .mobile-bar { margin: 0 -40px; padding: 16px 40px; }
+    .wrap { padding: 60px 28px 100px; }
 
-    .hero { padding: 70px 0 50px; }
-    .hero-title { font-size: clamp(4.5rem, 12vw, 8rem); }
-    .hero-desc { font-size: 1.02rem; }
+    .header { padding: 24px 0 22px; }
+    .brand-logo { width: 54px; height: 54px; border-radius: 14px; }
+    .brand-name { font-size: 1.3rem; }
+    .brand-tag { font-size: 0.6rem; }
 
-    .stats { gap: 14px; margin-top: 50px; }
-    .stat { padding: 26px 16px; }
-    .stat-num { font-size: 3rem; }
-
-    .section { padding: 90px 0 10px; }
-
-    .about-card { padding: 34px 32px; font-size: 1rem; }
-
-    .player-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
-    .player-card { padding: 20px 20px; }
-    .player-idx { font-size: 2.6rem; min-width: 50px; }
-    .player-name { font-size: 1.5rem; }
-    .player-photo-wrap { width: 78px; height: 78px; }
-
-    .album-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
-
-    .roster-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-  }
-
-  @media (min-width: 1100px) {
-    .layout {
-      grid-template-columns: 280px 1fr;
-      gap: 40px;
-      padding: 0 40px;
+    .nav-desktop {
+      display: flex; gap: 4px;
     }
-
-    .mobile-bar { display: none; }
-    .drawer, .drawer-overlay { display: none !important; }
-
-    .sidebar {
-      display: flex; flex-direction: column;
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      padding: 40px 0 30px;
-      border-right: 1.5px solid var(--ink);
-      padding-right: 32px;
-    }
-
-    .sidebar-brand {
-      display: flex; align-items: center; gap: 14px;
-      padding-bottom: 26px;
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 30px;
-    }
-
-    .sidebar-brand-mark {
-      width: 52px; height: 52px;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1.5px solid var(--ink);
-      position: relative;
-      flex-shrink: 0;
-    }
-
-    .sidebar-brand-mark::before {
-      content: '';
-      position: absolute;
-      inset: -3px;
-      background: conic-gradient(from 0deg, #a3e635, #0f0f10, #a3e635, #7c3aed, #a3e635);
-      z-index: -1;
-      animation: spin 6s linear infinite;
-      filter: blur(8px);
-    }
-
-    .sidebar-brand-mark img {
-      width: 100%; height: 100%; object-fit: cover;
-      position: relative; z-index: 1;
-      border-radius: 12px;
-    }
-
-    .sidebar-brand-text {
-      font-family: 'Anton', sans-serif;
-      font-size: 1.1rem;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      line-height: 1;
-      color: var(--ink);
-    }
-    .sidebar-brand-text small {
-      display: block;
+    .nav-desktop a {
       font-family: 'Space Mono', monospace;
-      font-size: 0.58rem;
-      letter-spacing: 2px;
-      color: var(--lime-dark);
-      margin-top: 4px;
-      font-weight: 700;
-    }
-
-    .sidebar-nav {
-      display: flex; flex-direction: column;
-      gap: 4px;
-      flex: 1;
-    }
-
-    .sidebar-nav a {
-      display: flex; align-items: center; gap: 12px;
-      padding: 12px 14px;
-      color: var(--text-dim);
-      text-decoration: none;
-      border-radius: 10px;
-      border: 1px solid transparent;
-      transition: all 0.2s;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.72rem;
+      font-size: 0.62rem;
       font-weight: 700;
       letter-spacing: 1.5px;
       text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      padding: 9px 13px;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      transition: all 0.2s;
     }
-
-    .sidebar-nav a .navnum {
-      color: var(--text-dimmer);
-      font-size: 0.62rem;
-      min-width: 22px;
-    }
-
-    .sidebar-nav a i {
-      margin-left: auto;
-      font-size: 0.7rem;
-      opacity: 0;
-      transition: all 0.25s;
-      color: var(--lime-dark);
-    }
-
-    .sidebar-nav a:hover, .sidebar-nav a.active {
-      color: var(--ink);
+    .nav-desktop a:hover {
+      color: var(--lime);
       background: var(--surface);
-      border-color: var(--ink);
+      border-color: var(--line-2);
     }
 
-    .sidebar-nav a:hover i { opacity: 1; }
+    .hero { padding: 60px 0 40px; }
+    .hero-title { font-size: clamp(4.5rem, 13vw, 8.5rem); }
+    .hero-desc { font-size: 1rem; }
 
-    .sidebar-nav a.active {
-      background: var(--lime-soft);
-      border-color: var(--ink);
-      box-shadow: 3px 3px 0 var(--ink);
-    }
-    .sidebar-nav a.active .navnum { color: var(--lime-dark); }
+    .stats { gap: 14px; margin-top: 40px; }
+    .stat { padding: 24px 12px; }
+    .stat-num { font-size: 2.6rem; }
+    .stat-label { font-size: 0.58rem; }
 
-    .sidebar-footer {
-      padding-top: 22px;
-      border-top: 1px solid var(--line);
-      font-family: 'Space Mono', monospace;
-      font-size: 0.58rem;
-      color: var(--text-dimmer);
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      line-height: 1.9;
-      font-weight: 700;
-    }
+    .welcome { padding: 28px 26px; }
+    .welcome-photo { width: 90px; height: 90px; }
+    .welcome-title { font-size: 1.6rem; }
+    .welcome-text { font-size: 0.88rem; }
 
-    .sidebar-footer .status-line {
-      display: flex; align-items: center; gap: 8px;
-      color: var(--lime-dark);
-      margin-bottom: 8px;
-    }
-    .sidebar-footer .status-line .dot {
-      width: 6px; height: 6px;
-      background: var(--lime-2);
-      border-radius: 50%;
-      box-shadow: 0 0 8px var(--lime-2);
-      animation: pulse 1.3s infinite;
-    }
+    .section { padding: 80px 0 10px; }
 
-    .main { padding: 0 0 100px; }
+    .about-card { padding: 30px 28px; font-size: 0.95rem; }
 
-    .player-grid { grid-template-columns: repeat(2, 1fr); }
+    .player-grid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .player-name { font-size: 1.05rem; }
+
+    .album-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+
+    .roster-players { grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    .rp-photo { max-width: 92px; }
+    .rp-role { font-size: 0.45rem; padding: 3px 7px; }
+    .rp-name { font-size: 0.78rem; }
+
+    .roster-head { margin-bottom: 16px; }
+    .roster-title { font-size: 1.3rem; }
+
+    .back-top { right: 24px; bottom: 24px; width: 48px; height: 48px; }
+  }
+
+  @media (min-width: 960px) {
+    .player-grid { grid-template-columns: repeat(4, 1fr); }
     .album-grid { grid-template-columns: repeat(4, 1fr); }
     .roster-grid { grid-template-columns: repeat(2, 1fr); }
-
-    .hero { padding: 80px 0 60px; }
-    .hero-title { font-size: clamp(5rem, 9vw, 9rem); }
-
-    .back-top { right: 40px; bottom: 40px; }
   }
 </style>
 </head>
@@ -1570,233 +1621,209 @@
 <div class="grid-bg"></div>
 <div class="noise"></div>
 
-<div class="layout">
-
-  <aside class="sidebar">
-    <div class="sidebar-brand">
-      <div class="sidebar-brand-mark">
-        <img src="https://d.top4top.io/p_3923pfwc71.jpeg" alt="Logo">
-      </div>
-      <div class="sidebar-brand-text">
-        Dandru
-        <small>FAMILIA</small>
-      </div>
-    </div>
-
-    <nav class="sidebar-nav">
-      <a href="#top" class="active"><span class="navnum">01</span>Home<i class="fas fa-arrow-right"></i></a>
-      <a href="#about"><span class="navnum">02</span>Tentang<i class="fas fa-arrow-right"></i></a>
-      <a href="#journey"><span class="navnum">03</span>Journey<i class="fas fa-arrow-right"></i></a>
-      <a href="#players"><span class="navnum">04</span>Player<i class="fas fa-arrow-right"></i></a>
-      <a href="#album"><span class="navnum">05</span>Album<i class="fas fa-arrow-right"></i></a>
-      <a href="#roster"><span class="navnum">06</span>Roster<i class="fas fa-arrow-right"></i></a>
-    </nav>
-
-    <div class="sidebar-footer">
-      <div class="status-line">
-        <span class="dot"></span>
-        <span>Team Active</span>
-      </div>
-      © 2025 Dandru<br>
-      Esport Team<br>
-      Since Day One
-    </div>
-  </aside>
-
-  <main class="main" id="top">
-
-    <div class="mobile-bar">
-      <div class="mobile-brand">
-        <div class="brand-mark">
-          <img src="https://d.top4top.io/p_3923pfwc71.jpeg" alt="Logo">
-        </div>
-        <div class="brand-text">
-          Dandru
-          <small>FAMILIA</small>
-        </div>
-      </div>
-      <button class="mobile-menu-btn" id="menuOpen" aria-label="Menu">
-        <i class="fas fa-bars"></i>
-      </button>
-    </div>
-
-    <section class="hero">
-      <div class="hero-eyebrow">
-        <span class="dot"></span>
-        Official Team • Active • 2025
-        <span class="line"></span>
-      </div>
-
-      <h1 class="hero-title">
-        <span class="row row-1">Dandru</span>
-        <span class="row row-2">Familia</span>
-        <span class="row row-3">Esport</span>
-      </h1>
-
-      <p class="hero-desc">
-        Lahir dari sebuah <strong>candaan</strong>, tumbuh menjadi keluarga. Dari turnamen dadakan di Jaud Sarja Winata, hingga menjadi tim yang solid di setiap kompetisi.
-      </p>
-
-      <div class="hero-actions">
-        <a href="#players" class="btn primary"><i class="fas fa-users"></i>Lihat Squad</a>
-        <a href="#about" class="btn"><i class="fas fa-book-open"></i>Cerita Kami</a>
-      </div>
-    </section>
-
-    <div class="stats reveal">
-      <div class="stat">
-        <div class="stat-num" data-count="10">0</div>
-        <div class="stat-label">Pemain</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num" data-count="4">0</div>
-        <div class="stat-label">Roster</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num" data-count="14">0</div>
-        <div class="stat-label">Album</div>
-      </div>
-    </div>
-
-    <section class="section" id="about">
-      <div class="section-head">
-        <div class="section-title-block">
-          <span class="section-num">01</span>
-          <h2>Awal <em>Mula</em></h2>
-        </div>
-        <span class="section-meta">Chapter<br>Origin</span>
-      </div>
-      <div class="about-card reveal">
-        <p>Dandru Familia berawal dari sebuah ide sederhana yang awalnya hanya dianggap sebagai candaan. Nama <em>"Dandru"</em> sendiri pertama kali dicetuskan oleh <strong>Dyerta 05</strong>, yang kemudian menjadi sosok di balik lahirnya nama Dandru hingga akhirnya dikenal seperti sekarang.</p>
-        <p>Pada awalnya, Dandru bukanlah sebuah tim yang dibentuk dengan tujuan besar. Semuanya bermula dari sekumpulan pemain yang sering bermain dan menghabiskan waktu bersama. Sampai pada suatu saat, muncul sebuah turnamen dadakan yang diadakan di <strong>Jaud Sarja Winata</strong>. Momen tersebut menjadi awal terbentuknya Dandru Familia sebagai sebuah tim.</p>
-        <p>Seiring berjalannya waktu, yang awalnya hanya sekadar bercanda dan ikut turnamen untuk seru-seruan mulai berkembang. Semakin banyak pemain yang bergabung, dan Dandru pun mulai lebih sering mengikuti berbagai turnamen, baik secara offline maupun online.</p>
-        <p>Dari sinilah perjalanan Dandru Familia dimulai. Berawal dari sebuah nama yang dicetuskan oleh Dyerta 05 dan sebuah turnamen dadakan, Dandru perlahan tumbuh menjadi sebuah keluarga yang diisi oleh banyak pemain dengan karakter dan cerita masing-masing.</p>
-      </div>
-    </section>
-
-    <section class="section" id="journey">
-      <div class="section-head">
-        <div class="section-title-block">
-          <span class="section-num">02</span>
-          <h2>Perjalanan <em>Dandru</em></h2>
-        </div>
-        <span class="section-meta">Timeline<br>05 Chapters</span>
-      </div>
-      <div class="timeline reveal">
-        <div class="tl-item">
-          <div class="tl-num">01</div>
-          <div class="tl-body">
-            <div class="tl-title">Awal Ide</div>
-            <div class="tl-desc">Nama "Dandru" dicetuskan oleh Dyerta 05 — awalnya cuma candaan biasa.</div>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-num">02</div>
-          <div class="tl-body">
-            <div class="tl-title">Turnamen Dadakan</div>
-            <div class="tl-desc">Turnamen offline di Jaud Sarja Winata menjadi titik awal lahirnya tim.</div>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-num">03</div>
-          <div class="tl-body">
-            <div class="tl-title">Bertumbuh</div>
-            <div class="tl-desc">Pemain-pemain lama mulai bergabung: Ahmed, Yukki, Xiao Yan, Dann, dan lainnya.</div>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-num">04</div>
-          <div class="tl-body">
-            <div class="tl-title">Era Turnamen</div>
-            <div class="tl-desc">Dandru mulai rutin ikut berbagai turnamen online maupun offline.</div>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-num">05</div>
-          <div class="tl-body">
-            <div class="tl-title">Generasi Baru</div>
-            <div class="tl-desc">Member baru bergabung: Darkness, Onic Khairul 969, Mang Komar, dan Shima Rin.</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="players">
-      <div class="section-head">
-        <div class="section-title-block">
-          <span class="section-num">03</span>
-          <h2>Player <em>Dandru</em></h2>
-        </div>
-        <span class="section-meta">Active<br>Roster 10</span>
-      </div>
-      <div class="player-grid" id="playerGrid"></div>
-    </section>
-
-    <section class="section" id="album">
-      <div class="section-head">
-        <div class="section-title-block">
-          <span class="section-num">04</span>
-          <h2>Album <em>Dandru</em></h2>
-        </div>
-        <span class="section-meta">Gallery<br>14 Photos</span>
-      </div>
-      <div class="album-grid" id="albumGrid"></div>
-    </section>
-
-    <section class="section" id="roster">
-      <div class="section-head">
-        <div class="section-title-block">
-          <span class="section-num">05</span>
-          <h2>Roster <em>Dandru</em></h2>
-        </div>
-        <span class="section-meta">Squad<br>Formations</span>
-      </div>
-      <div class="roster-grid" id="rosterGrid"></div>
-      <div class="lock-wrap">
-        <button class="btn-lock" id="btnLockedRoster">
-          <i class="fas fa-lock"></i>Roster Inti
-          <span class="ln">// LOCKED</span>
-        </button>
-      </div>
-    </section>
-
-    <footer class="footer">
-      <div class="ft-left">
-        <span class="ft-dot"></span>
-        <span>© 2025 Dandru Familia</span>
-      </div>
-      <span>Esport Team — Since Day One</span>
-      <div class="ft-wordmark">DANDRU</div>
-    </footer>
-
-  </main>
-
+<div class="topbar">
+  <div class="topbar-track" id="topbarTrack"></div>
 </div>
 
-<div class="drawer-overlay" id="drawerOverlay"></div>
-<div class="drawer" id="drawer">
-  <div class="drawer-head">
-    <h3>Menu</h3>
-    <button class="drawer-close" id="drawerClose"><i class="fas fa-times"></i></button>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="brand">
+      <div class="brand-logo">
+        <img src="https://d.top4top.io/p_3923pfwc71.jpeg" alt="Logo">
+      </div>
+      <div class="brand-text">
+        <div class="brand-name">Dandru Familia</div>
+        <div class="brand-tag">Esport Team</div>
+      </div>
+    </div>
+    <nav class="nav-desktop">
+      <a href="#about">Tentang</a>
+      <a href="#players">Player</a>
+      <a href="#album">Album</a>
+      <a href="#roster">Roster</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-pill">
+      <span class="dot"></span>
+      Official Team • Active • 2025
+    </div>
+    <h1 class="hero-title">
+      <span class="row row-1">Dandru</span>
+      <span class="row row-2">Familia</span>
+      <span class="row row-3">— SINCE DAY ONE —</span>
+    </h1>
+    <p class="hero-desc">
+      Lahir dari sebuah <strong>candaan</strong>, tumbuh menjadi keluarga. Dari turnamen dadakan di Jaud Sarja Winata, hingga menjadi tim yang solid di setiap kompetisi.
+    </p>
+    <div class="hero-actions">
+      <a href="#players" class="btn primary"><i class="fas fa-users"></i>Lihat Squad</a>
+      <a href="#about" class="btn"><i class="fas fa-book-open"></i>Cerita Kami</a>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats reveal">
+    <div class="stat">
+      <div class="stat-num" data-count="10">0</div>
+      <div class="stat-label">Pemain</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" data-count="4">0</div>
+      <div class="stat-label">Roster</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" data-count="14">0</div>
+      <div class="stat-label">Album</div>
+    </div>
   </div>
-  <nav class="drawer-nav">
-    <a href="#top"><span class="dnum">01</span>Home<i class="fas fa-arrow-right"></i></a>
-    <a href="#about"><span class="dnum">02</span>Tentang<i class="fas fa-arrow-right"></i></a>
-    <a href="#journey"><span class="dnum">03</span>Journey<i class="fas fa-arrow-right"></i></a>
-    <a href="#players"><span class="dnum">04</span>Player<i class="fas fa-arrow-right"></i></a>
-    <a href="#album"><span class="dnum">05</span>Album<i class="fas fa-arrow-right"></i></a>
-    <a href="#roster"><span class="dnum">06</span>Roster<i class="fas fa-arrow-right"></i></a>
-  </nav>
-  <div class="drawer-footer">
-    © 2025 Dandru Familia<br>
-    Esport Team — Since Day One
+
+  <!-- WELCOME BANNER -->
+  <div class="welcome reveal">
+    <div class="welcome-inner">
+      <div class="welcome-photo">
+        <img src="https://i.top4top.io/p_3934ic9021.jpeg" alt="Shima Rin">
+      </div>
+      <div class="welcome-content">
+        <div class="welcome-label">
+          <i class="fas fa-star"></i> New Member
+        </div>
+        <div class="welcome-title">Welcome <span>Shima Rin!</span></div>
+        <p class="welcome-text">
+          Selamat datang di keluarga Dandru! <em>Shima Rin</em> resmi bergabung sebagai pemain cadangan dengan role <em>Jungler</em> & <em>Gold Laner</em>. Semoga makin solid dan bawa banyak kemenangan buat Dandru Familia! 🔥
+        </p>
+      </div>
+    </div>
   </div>
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="section-head">
+      <div class="section-title-block">
+        <span class="section-num">01</span>
+        <h2>Awal <em>Mula</em></h2>
+      </div>
+      <span class="section-meta">Chapter<br>Origin</span>
+    </div>
+    <div class="about-card reveal">
+      <p>Dandru Familia berawal dari sebuah ide sederhana yang awalnya hanya dianggap sebagai candaan. Nama <em>"Dandru"</em> sendiri pertama kali dicetuskan oleh <strong>Dyerta 05</strong>, yang kemudian menjadi sosok di balik lahirnya nama Dandru hingga akhirnya dikenal seperti sekarang.</p>
+      <p>Pada awalnya, Dandru bukanlah sebuah tim yang dibentuk dengan tujuan besar. Semuanya bermula dari sekumpulan pemain yang sering bermain dan menghabiskan waktu bersama. Sampai pada suatu saat, muncul sebuah turnamen dadakan yang diadakan di <strong>Jaud Sarja Winata</strong>. Momen tersebut menjadi awal terbentuknya Dandru Familia sebagai sebuah tim.</p>
+      <p>Seiring berjalannya waktu, yang awalnya hanya sekadar bercanda dan ikut turnamen untuk seru-seruan mulai berkembang. Semakin banyak pemain yang bergabung, dan Dandru pun mulai lebih sering mengikuti berbagai turnamen, baik secara offline maupun online.</p>
+      <p>Dari sinilah perjalanan Dandru Familia dimulai. Berawal dari sebuah nama yang dicetuskan oleh Dyerta 05 dan sebuah turnamen dadakan, Dandru perlahan tumbuh menjadi sebuah keluarga yang diisi oleh banyak pemain dengan karakter dan cerita masing-masing.</p>
+    </div>
+  </section>
+
+  <!-- JOURNEY -->
+  <section class="section" id="journey">
+    <div class="section-head">
+      <div class="section-title-block">
+        <span class="section-num">02</span>
+        <h2>Perjalanan <em>Dandru</em></h2>
+      </div>
+      <span class="section-meta">Timeline<br>05 Chapters</span>
+    </div>
+    <div class="timeline reveal">
+      <div class="tl-item">
+        <div class="tl-num">01</div>
+        <div>
+          <div class="tl-title">Awal Ide</div>
+          <div class="tl-desc">Nama "Dandru" dicetuskan oleh Dyerta 05 — awalnya cuma candaan biasa.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-num">02</div>
+        <div>
+          <div class="tl-title">Turnamen Dadakan</div>
+          <div class="tl-desc">Turnamen offline di Jaud Sarja Winata menjadi titik awal lahirnya tim.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-num">03</div>
+        <div>
+          <div class="tl-title">Bertumbuh</div>
+          <div class="tl-desc">Pemain-pemain lama mulai bergabung: Ahmed, Yukki, Xiao Yan, Dann, dan lainnya.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-num">04</div>
+        <div>
+          <div class="tl-title">Era Turnamen</div>
+          <div class="tl-desc">Dandru mulai rutin ikut berbagai turnamen online maupun offline.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-num">05</div>
+        <div>
+          <div class="tl-title">Generasi Baru</div>
+          <div class="tl-desc">Member baru bergabung: Darkness, Onic Khairul 969, Mang Komar, dan Shima Rin.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLAYERS -->
+  <section class="section" id="players">
+    <div class="section-head">
+      <div class="section-title-block">
+        <span class="section-num">03</span>
+        <h2>Player <em>Dandru</em></h2>
+      </div>
+      <span class="section-meta">Active<br>10 Players</span>
+    </div>
+    <div class="player-grid" id="playerGrid"></div>
+  </section>
+
+  <!-- ALBUM -->
+  <section class="section" id="album">
+    <div class="section-head">
+      <div class="section-title-block">
+        <span class="section-num">04</span>
+        <h2>Album <em>Dandru</em></h2>
+      </div>
+      <span class="section-meta">Gallery<br>14 Photos</span>
+    </div>
+    <div class="album-grid" id="albumGrid"></div>
+  </section>
+
+  <!-- ROSTER -->
+  <section class="section" id="roster">
+    <div class="section-head">
+      <div class="section-title-block">
+        <span class="section-num">05</span>
+        <h2>Roster <em>Dandru</em></h2>
+      </div>
+      <span class="section-meta">Squad<br>Formations</span>
+    </div>
+    <div class="roster-grid" id="rosterGrid"></div>
+    <div class="lock-wrap">
+      <button class="btn-lock" id="btnLockedRoster">
+        <i class="fas fa-lock"></i>Roster Inti
+        <span class="ln">// LOCKED</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="ft-left">
+      <span class="ft-dot"></span>
+      <span>© 2025 Dandru Familia</span>
+    </div>
+    <span>Esport Team</span>
+    <div class="ft-wordmark">DANDRU</div>
+  </footer>
+
 </div>
 
 <button class="back-top" id="backTop" aria-label="Kembali ke atas">
   <i class="fas fa-arrow-up"></i>
 </button>
 
+<!-- PASSWORD MODAL -->
 <div class="modal" id="modalPassword">
   <div class="modal-box">
     <button class="modal-close" id="btnClosePassword"><i class="fas fa-times"></i></button>
@@ -1808,6 +1835,7 @@
   </div>
 </div>
 
+<!-- CORE ROSTER MODAL -->
 <div class="modal" id="modalCore">
   <div class="modal-box">
     <button class="modal-close" id="btnCloseCore"><i class="fas fa-times"></i></button>
@@ -1817,6 +1845,7 @@
   </div>
 </div>
 
+<!-- ID MODAL -->
 <div class="modal" id="modalId">
   <div class="modal-box">
     <button class="modal-close" id="btnCloseId"><i class="fas fa-times"></i></button>
@@ -1837,6 +1866,7 @@
   </div>
 </div>
 
+<!-- ALBUM MODAL -->
 <div class="modal" id="modalAlbum">
   <div class="album-modal-box">
     <button class="modal-close" id="btnCloseAlbum"><i class="fas fa-times"></i></button>
@@ -1863,8 +1893,12 @@
     { nickname: "Dyerta │ 05", roles: ["Mid", "Exp"], badge: "founder", photo: "https://j.top4top.io/p_39331q1rf1.jpeg", id: "680441145 (8724)" },
     { nickname: "Xiao Yan", roles: ["Gold"], photo: "https://b.top4top.io/p_3924uq7sz1.jpeg", id: "963883824 (12833)" },
     { nickname: "Darkness", roles: ["Roam"], photo: "https://j.top4top.io/p_39244ksa01.jpeg", id: "140534781 (2703)" },
-    { nickname: "Shima Rin", roles: ["Jungle", "Gold"], badge: "reserve", photo: "https://i.top4top.io/p_3934ic9021.jpeg" }
+    { nickname: "Shima Rin", roles: ["Jungle", "Gold"], badge: "reserve", photo: "https://c.top4top.io/p_393876bno1.jpeg" }
   ];
+
+  // Map nickname to photo untuk roster
+  const playerPhotos = {};
+  players.forEach(p => { playerPhotos[p.nickname] = p.photo; });
 
   const albumImages = [
     "https://b.top4top.io/p_3923v42bz1.jpeg","https://c.top4top.io/p_3923l5isa2.jpeg","https://d.top4top.io/p_3923baz1g3.jpeg",
@@ -1874,35 +1908,46 @@
     "https://a.top4top.io/p_3923qs3ol1.jpeg","https://b.top4top.io/p_3924hduan1.jpeg"
   ];
 
-  // ===== ROSTERS (4 total: 2 regular + 2 Jaksel) =====
+  // Role mapping (untuk badge color)
+  const roleClass = (role) => {
+    const r = role.toLowerCase();
+    if (r.includes("jung")) return "jungle";
+    if (r.includes("gold")) return "gold";
+    if (r.includes("mid")) return "mid";
+    if (r.includes("exp")) return "exp";
+    if (r.includes("roam")) return "roam";
+    return "jungle";
+  };
+
+  // Roster definitions with role (short label for badge on photo)
   const rosters = [
-    { title: "Roster 1", tag: "#01", players: [
-      { role: "Jungler", name: "Onic Khairul 969" },
-      { role: "Exp Laner", name: "Dyerta │ 05" },
-      { role: "Gold Laner", name: "Xiao Yan" },
-      { role: "Mid Laner", name: "Yukki" },
-      { role: "Roamer", name: "Ahmed Teymola" }
+    { title: "Roster 1", tag: "#01", icon: "fa-shield-halved", players: [
+      { role: "Jungler", shortRole: "JGL", name: "Onic Khairul 969" },
+      { role: "Exp Laner", shortRole: "EXP", name: "Dyerta │ 05" },
+      { role: "Gold Laner", shortRole: "GOLD", name: "Xiao Yan" },
+      { role: "Mid Laner", shortRole: "MID", name: "Yukki" },
+      { role: "Roamer", shortRole: "ROAM", name: "Ahmed Teymola" }
     ]},
-    { title: "Roster 2", tag: "#02", players: [
-      { role: "Jungler", name: "Ahmed Teymola" },
-      { role: "Exp Laner", name: "Dann Like Noona" },
-      { role: "Gold Laner", name: "Mang Komar" },
-      { role: "Mid Laner", name: "Cahya Mirip Nnael" },
-      { role: "Roamer", name: "Darkness" }
+    { title: "Roster 2", tag: "#02", icon: "fa-shield-halved", players: [
+      { role: "Jungler", shortRole: "JGL", name: "Ahmed Teymola" },
+      { role: "Exp Laner", shortRole: "EXP", name: "Dann Like Noona" },
+      { role: "Gold Laner", shortRole: "GOLD", name: "Mang Komar" },
+      { role: "Mid Laner", shortRole: "MID", name: "Cahya Mirip Nnael" },
+      { role: "Roamer", shortRole: "ROAM", name: "Darkness" }
     ]},
-    { title: "Jaksel 1", tag: "★", highlight: true, players: [
-      { role: "Jungler", name: "Ahmed Teymola" },
-      { role: "Gold Laner", name: "Shima Rin" },
-      { role: "Mid Laner", name: "Dyerta │ 05" },
-      { role: "Exp Laner", name: "Dann Like Noona" },
-      { role: "Roamer", name: "Cahya Mirip Nnael" }
+    { title: "Jaksel 1", tag: "★ TOURNAMENT", icon: "fa-trophy", highlight: true, players: [
+      { role: "Jungler", shortRole: "JGL", name: "Ahmed Teymola" },
+      { role: "Gold Laner", shortRole: "GOLD", name: "Shima Rin" },
+      { role: "Mid Laner", shortRole: "MID", name: "Dyerta │ 05" },
+      { role: "Exp Laner", shortRole: "EXP", name: "Dann Like Noona" },
+      { role: "Roamer", shortRole: "ROAM", name: "Cahya Mirip Nnael" }
     ]},
-    { title: "Jaksel 2", tag: "★", highlight: true, players: [
-      { role: "Jungler", name: "Shima Rin" },
-      { role: "Gold Laner", name: "Cahya Mirip Nnael" },
-      { role: "Mid Laner", name: "Dyerta │ 05" },
-      { role: "Exp Laner", name: "Dann Like Noona" },
-      { role: "Roamer", name: "Ahmed Teymola" }
+    { title: "Jaksel 2", tag: "★ TOURNAMENT", icon: "fa-trophy", highlight: true, players: [
+      { role: "Jungler", shortRole: "JGL", name: "Shima Rin" },
+      { role: "Gold Laner", shortRole: "GOLD", name: "Cahya Mirip Nnael" },
+      { role: "Mid Laner", shortRole: "MID", name: "Dyerta │ 05" },
+      { role: "Exp Laner", shortRole: "EXP", name: "Dann Like Noona" },
+      { role: "Roamer", shortRole: "ROAM", name: "Ahmed Teymola" }
     ]}
   ];
 
@@ -1916,6 +1961,13 @@
 
   const CORRECT_PASSWORD = "cahyadanpadil";
 
+  // ===== TOP TICKER =====
+  const topbarTrack = document.getElementById("topbarTrack");
+  const topbarItems = ["Dandru Familia", "Esport Team", "Since Day One", "Solidarity", "Never Give Up", "Welcome Shima Rin", "Jaud Sarja Winata", "Official Team 2025"];
+  let topbarHTML = "";
+  for (let k = 0; k < 2; k++) topbarItems.forEach(t => topbarHTML += `<span>${t}</span>`);
+  topbarTrack.innerHTML = topbarHTML;
+
   // ===== PLAYERS =====
   const playerGrid = document.getElementById("playerGrid");
   players.forEach((p, i) => {
@@ -1924,23 +1976,28 @@
       ? `<img src="${p.photo}" alt="${p.nickname}" loading="lazy" onerror="this.style.display='none';this.parentNode.innerHTML='<div class=&quot;avatar-initial&quot;>${initial}</div>';">`
       : `<div class="avatar-initial">${initial}</div>`;
 
-    const rolesHTML = p.roles.map(r => r).join(' <span class="role-dot">·</span> ');
-    const idBtnHTML = p.id ? `<button class="id-btn" data-index="${i}"><i class="fas fa-id-card"></i>ID</button>` : '';
-    let badgeHTML = '';
-    if (p.badge === "founder") badgeHTML = `<div class="badge-founder">Founder</div>`;
-    else if (p.badge === "reserve") badgeHTML = `<div class="badge-reserve">Reserve</div>`;
+    const mainRole = p.roles[0] || "Player";
+    const roleClassStr = roleClass(mainRole);
+    const roleBadgeHTML = `<div class="role-badge ${roleClassStr}"><i class="fas fa-gamepad"></i>${mainRole}</div>`;
+
+    const idBtnHTML = p.id ? `<button class="id-btn" data-index="${i}"><i class="fas fa-id-card"></i>Lihat ID</button>` : '';
+    let cornerBadgeHTML = '';
+    if (p.badge === "founder") cornerBadgeHTML = `<div class="badge-founder">Founder</div>`;
+    else if (p.badge === "reserve") cornerBadgeHTML = `<div class="badge-reserve">Reserve</div>`;
 
     const card = document.createElement("div");
     card.className = "player-card reveal";
     card.innerHTML = `
-      ${badgeHTML}
-      <div class="player-idx">${String(i + 1).padStart(2, '0')}</div>
+      <div class="player-photo">
+        ${photoHTML}
+        ${roleBadgeHTML}
+        ${cornerBadgeHTML}
+      </div>
       <div class="player-info">
         <div class="player-name">${p.nickname}</div>
-        <div class="player-roles">${rolesHTML}</div>
+        <div class="player-roles">${p.roles.join(" · ")}</div>
+        ${idBtnHTML}
       </div>
-      <div class="player-photo-wrap">${photoHTML}</div>
-      <div class="player-actions">${idBtnHTML}</div>
     `;
     playerGrid.appendChild(card);
   });
@@ -1961,17 +2018,34 @@
   // ===== ROSTER =====
   const rosterGrid = document.getElementById("rosterGrid");
   rosters.forEach(r => {
-    const subHTML = r.substitute ? `<div class="sub-row"><span class="sub-tag">Cadangan</span><span>${r.substitute}</span></div>` : '';
+    const subHTML = r.substitute ? `<div class="roster-sub"><span class="sub-label">Cadangan</span><span class="sub-name">${r.substitute}</span></div>` : '';
+    const playersHTML = r.players.map(p => {
+      const photo = playerPhotos[p.name] || "";
+      const initial = p.name.trim().charAt(0).toUpperCase();
+      const rc = roleClass(p.role);
+      const photoContent = photo
+        ? `<img src="${photo}" alt="${p.name}" loading="lazy" onerror="this.style.display='none';this.parentNode.innerHTML+='<div class=&quot;rp-initial&quot;>${initial}</div>';">`
+        : `<div class="rp-initial">${initial}</div>`;
+
+      return `
+        <div class="roster-player">
+          <div class="rp-photo">
+            ${photoContent}
+            <div class="rp-role ${rc}">${p.shortRole}</div>
+          </div>
+          <div class="rp-name">${p.name}</div>
+        </div>
+      `;
+    }).join("");
+
     const card = document.createElement("div");
-    card.className = "roster-card reveal" + (r.highlight ? " highlight" : "");
+    card.className = "roster-block reveal" + (r.highlight ? " highlight" : "");
     card.innerHTML = `
       <div class="roster-head">
-        <div class="roster-title">${r.title}</div>
+        <div class="roster-title"><i class="fas ${r.icon}"></i>${r.title}</div>
         <div class="roster-tag">${r.tag}</div>
       </div>
-      <ul class="roster-list">
-        ${r.players.map(p => `<li><span class="role-tag">${p.role}</span><span class="pname">${p.name}</span></li>`).join("")}
-      </ul>
+      <div class="roster-players">${playersHTML}</div>
       ${subHTML}
     `;
     rosterGrid.appendChild(card);
@@ -2114,29 +2188,10 @@
   document.getElementById("btnCloseCore").addEventListener("click", () => modalCore.classList.remove("active"));
   modalCore.addEventListener("click", (e) => { if (e.target === modalCore) modalCore.classList.remove("active"); });
 
-  // ===== DRAWER =====
-  const drawer = document.getElementById("drawer");
-  const drawerOverlay = document.getElementById("drawerOverlay");
-
-  document.getElementById("menuOpen").addEventListener("click", () => {
-    drawer.classList.add("open");
-    drawerOverlay.classList.add("open");
-  });
-
-  function closeDrawer() {
-    drawer.classList.remove("open");
-    drawerOverlay.classList.remove("open");
-  }
-
-  document.getElementById("drawerClose").addEventListener("click", closeDrawer);
-  drawerOverlay.addEventListener("click", closeDrawer);
-  document.querySelectorAll(".drawer-nav a").forEach(a => a.addEventListener("click", closeDrawer));
-
   // ===== ESC =====
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
       [modalPassword, modalCore, modalId, modalAlbum].forEach(m => m.classList.remove("active"));
-      closeDrawer();
     }
     if (modalAlbum.classList.contains("active")) {
       if (e.key === "ArrowLeft") prevAlbum();
@@ -2149,20 +2204,6 @@
   modalAlbum.addEventListener("touchend", e => {
     const dx = e.changedTouches[0].screenX - tx0;
     if (Math.abs(dx) > 60) { dx > 0 ? prevAlbum() : nextAlbum(); }
-  }, { passive: true });
-
-  // ===== SIDEBAR ACTIVE =====
-  const sidebarLinks = document.querySelectorAll(".sidebar-nav a");
-  const sections = ["top","about","journey","players","album","roster"].map(id => document.getElementById(id));
-
-  window.addEventListener("scroll", () => {
-    let current = "top";
-    sections.forEach(sec => {
-      if (sec && window.pageYOffset >= sec.offsetTop - 200) current = sec.id;
-    });
-    sidebarLinks.forEach(link => {
-      link.classList.toggle("active", link.getAttribute("href") === "#" + current);
-    });
   }, { passive: true });
 
   // ===== BACK TOP =====
@@ -2179,7 +2220,7 @@
   const revealObs = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add("visible"), i * 50);
+        setTimeout(() => entry.target.classList.add("visible"), i * 60);
         revealObs.unobserve(entry.target);
       }
     });
