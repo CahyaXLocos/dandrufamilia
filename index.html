@@ -49,7 +49,6 @@
     font-size: 15px;
   }
 
-  /* ===== ATMOSPHERE ===== */
   .atmos {
     position: fixed; inset: 0;
     pointer-events: none;
@@ -103,7 +102,6 @@
   ::-webkit-scrollbar-thumb { background: var(--line-2); border-radius: 4px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--lime); }
 
-  /* ===== TOP BAR ===== */
   .topbar {
     position: fixed; top: 0; left: 0; right: 0;
     height: 40px;
@@ -157,7 +155,6 @@
     z-index: 2;
   }
 
-  /* ===== HEADER ===== */
   .header {
     padding: 20px 0 18px;
     display: flex; align-items: center; justify-content: space-between;
@@ -196,9 +193,7 @@
     border-radius: 12px;
   }
 
-  .brand-text {
-    min-width: 0;
-  }
+  .brand-text { min-width: 0; }
 
   .brand-name {
     font-family: 'Anton', sans-serif;
@@ -226,7 +221,6 @@
 
   .nav-desktop { display: none; }
 
-  /* ===== HERO ===== */
   .hero {
     padding: 40px 0 30px;
     position: relative;
@@ -345,7 +339,6 @@
     box-shadow: 0 12px 32px rgba(198,255,61,0.5);
   }
 
-  /* ===== STATS ===== */
   .stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -391,7 +384,6 @@
     font-weight: 700;
   }
 
-  /* ===== WELCOME BANNER ===== */
   .welcome {
     margin-top: 40px;
     position: relative;
@@ -505,7 +497,6 @@
     font-weight: 600;
   }
 
-  /* ===== SECTION ===== */
   .section { padding: 60px 0 10px; }
 
   .section-head {
@@ -559,7 +550,6 @@
     font-weight: 700;
   }
 
-  /* ===== ABOUT ===== */
   .about-card {
     background: var(--surface);
     border: 1px solid var(--line);
@@ -586,7 +576,6 @@
   .about-card strong { color: var(--text); font-weight: 700; }
   .about-card em { color: var(--lime); font-style: normal; font-weight: 700; }
 
-  /* ===== TIMELINE ===== */
   .timeline {
     display: flex; flex-direction: column;
     border-left: 1px solid var(--line-2);
@@ -640,7 +629,6 @@
     line-height: 1.5;
   }
 
-  /* ===== PLAYER GRID ===== */
   .player-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -722,9 +710,7 @@
     line-height: 1;
   }
 
-  .role-badge i {
-    font-size: 0.55rem;
-  }
+  .role-badge i { font-size: 0.55rem; }
 
   .role-badge.jungle { background: #c6ff3d; }
   .role-badge.gold { background: #ffc93c; }
@@ -819,7 +805,6 @@
     box-shadow: 0 0 16px rgba(198,255,61,0.4);
   }
 
-  /* ===== ALBUM ===== */
   .album-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -889,7 +874,6 @@
   }
   .album-item:hover::after { opacity: 1; transform: translateY(0); }
 
-  /* ===== ROSTER CARDS (NEW DESIGN) ===== */
   .roster-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -964,7 +948,6 @@
     flex-shrink: 0;
   }
 
-  /* NEW: Card-style player row */
   .roster-players {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1019,7 +1002,6 @@
     color: var(--text-dimmer);
   }
 
-  /* Role badge overlay ON TOP of photo */
   .rp-role {
     position: absolute;
     top: 4px;
@@ -1084,7 +1066,6 @@
     text-transform: uppercase;
   }
 
-  /* ===== LOCKED ===== */
   .lock-wrap { display: flex; justify-content: center; margin: 36px 0 10px; }
 
   .btn-lock {
@@ -1121,7 +1102,6 @@
   .btn-lock:hover i, .btn-lock:active i { color: var(--bg); }
   .btn-lock:hover .ln, .btn-lock:active .ln { color: rgba(0,0,0,0.6); }
 
-  /* ===== FOOTER ===== */
   .footer {
     margin-top: 70px;
     padding: 24px 0 20px;
@@ -1166,7 +1146,6 @@
     white-space: nowrap;
   }
 
-  /* ===== MODAL ===== */
   .modal {
     display: none; position: fixed; inset: 0;
     background: rgba(0,0,0,0.8);
@@ -1291,7 +1270,6 @@
     text-transform: uppercase;
   }
 
-  /* ===== CORE GRID ===== */
   .core-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 
   .core-card {
@@ -1330,7 +1308,6 @@
   }
   .core-name.mystery { color: var(--text-dimmer); letter-spacing: 3px; }
 
-  /* ===== ID MODAL ===== */
   .id-head {
     display: flex; align-items: center; gap: 12px;
     padding-bottom: 16px;
@@ -1433,7 +1410,6 @@
     letter-spacing: 1px;
   }
 
-  /* ===== ALBUM MODAL ===== */
   .album-modal-box {
     background: var(--bg-2);
     border: 1px solid var(--line-2);
@@ -1506,7 +1482,6 @@
   }
   .album-counter .current { color: var(--lime); }
 
-  /* ===== BACK TOP ===== */
   .back-top {
     position: fixed;
     bottom: 18px; right: 18px;
@@ -1534,7 +1509,6 @@
     box-shadow: 0 12px 30px rgba(198,255,61,0.4);
   }
 
-  /* ===== REVEAL ===== */
   .reveal {
     opacity: 0;
     transform: translateY(24px);
@@ -1542,7 +1516,6 @@
   }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* ===== DESKTOP ===== */
   @media (min-width: 640px) {
     body { font-size: 16px; }
     .wrap { padding: 60px 28px 100px; }
@@ -1552,9 +1525,7 @@
     .brand-name { font-size: 1.3rem; }
     .brand-tag { font-size: 0.6rem; }
 
-    .nav-desktop {
-      display: flex; gap: 4px;
-    }
+    .nav-desktop { display: flex; gap: 4px; }
     .nav-desktop a {
       font-family: 'Space Mono', monospace;
       font-size: 0.62rem;
@@ -1627,7 +1598,6 @@
 
 <div class="wrap">
 
-  <!-- HEADER -->
   <header class="header">
     <div class="brand">
       <div class="brand-logo">
@@ -1646,7 +1616,6 @@
     </nav>
   </header>
 
-  <!-- HERO -->
   <section class="hero">
     <div class="hero-pill">
       <span class="dot"></span>
@@ -1666,7 +1635,6 @@
     </div>
   </section>
 
-  <!-- STATS -->
   <div class="stats reveal">
     <div class="stat">
       <div class="stat-num" data-count="10">0</div>
@@ -1682,12 +1650,11 @@
     </div>
   </div>
 
-  <!-- WELCOME BANNER -->
   <div class="welcome reveal">
     <div class="welcome-inner">
       <div class="welcome-photo">
-        <img src="https://i.top4top.io/p_3934ic9021.jpeg" alt="Shima Rin">
-      </div>
+  <img src="https://c.top4top.io/p_393876bno1.jpeg" alt="Shima Rin">
+</div>
       <div class="welcome-content">
         <div class="welcome-label">
           <i class="fas fa-star"></i> New Member
@@ -1700,7 +1667,6 @@
     </div>
   </div>
 
-  <!-- ABOUT -->
   <section class="section" id="about">
     <div class="section-head">
       <div class="section-title-block">
@@ -1717,7 +1683,6 @@
     </div>
   </section>
 
-  <!-- JOURNEY -->
   <section class="section" id="journey">
     <div class="section-head">
       <div class="section-title-block">
@@ -1765,7 +1730,6 @@
     </div>
   </section>
 
-  <!-- PLAYERS -->
   <section class="section" id="players">
     <div class="section-head">
       <div class="section-title-block">
@@ -1777,7 +1741,6 @@
     <div class="player-grid" id="playerGrid"></div>
   </section>
 
-  <!-- ALBUM -->
   <section class="section" id="album">
     <div class="section-head">
       <div class="section-title-block">
@@ -1789,7 +1752,6 @@
     <div class="album-grid" id="albumGrid"></div>
   </section>
 
-  <!-- ROSTER -->
   <section class="section" id="roster">
     <div class="section-head">
       <div class="section-title-block">
@@ -1807,7 +1769,6 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer class="footer">
     <div class="ft-left">
       <span class="ft-dot"></span>
@@ -1823,7 +1784,6 @@
   <i class="fas fa-arrow-up"></i>
 </button>
 
-<!-- PASSWORD MODAL -->
 <div class="modal" id="modalPassword">
   <div class="modal-box">
     <button class="modal-close" id="btnClosePassword"><i class="fas fa-times"></i></button>
@@ -1835,7 +1795,6 @@
   </div>
 </div>
 
-<!-- CORE ROSTER MODAL -->
 <div class="modal" id="modalCore">
   <div class="modal-box">
     <button class="modal-close" id="btnCloseCore"><i class="fas fa-times"></i></button>
@@ -1845,7 +1804,6 @@
   </div>
 </div>
 
-<!-- ID MODAL -->
 <div class="modal" id="modalId">
   <div class="modal-box">
     <button class="modal-close" id="btnCloseId"><i class="fas fa-times"></i></button>
@@ -1866,7 +1824,6 @@
   </div>
 </div>
 
-<!-- ALBUM MODAL -->
 <div class="modal" id="modalAlbum">
   <div class="album-modal-box">
     <button class="modal-close" id="btnCloseAlbum"><i class="fas fa-times"></i></button>
@@ -1893,10 +1850,9 @@
     { nickname: "Dyerta │ 05", roles: ["Mid", "Exp"], badge: "founder", photo: "https://j.top4top.io/p_39331q1rf1.jpeg", id: "680441145 (8724)" },
     { nickname: "Xiao Yan", roles: ["Gold"], photo: "https://b.top4top.io/p_3924uq7sz1.jpeg", id: "963883824 (12833)" },
     { nickname: "Darkness", roles: ["Roam"], photo: "https://j.top4top.io/p_39244ksa01.jpeg", id: "140534781 (2703)" },
-    { nickname: "Shima Rin", roles: ["Jungle", "Gold"], badge: "reserve", photo: "https://c.top4top.io/p_393876bno1.jpeg" }
+    { nickname: "Shima Rin", roles: ["Jungle", "Gold"], badge: "reserve", photo: "https://c.top4top.io/p_393876bno1.jpeg", id: "568688947 (8277)" }
   ];
 
-  // Map nickname to photo untuk roster
   const playerPhotos = {};
   players.forEach(p => { playerPhotos[p.nickname] = p.photo; });
 
@@ -1908,7 +1864,6 @@
     "https://a.top4top.io/p_3923qs3ol1.jpeg","https://b.top4top.io/p_3924hduan1.jpeg"
   ];
 
-  // Role mapping (untuk badge color)
   const roleClass = (role) => {
     const r = role.toLowerCase();
     if (r.includes("jung")) return "jungle";
@@ -1919,7 +1874,6 @@
     return "jungle";
   };
 
-  // Roster definitions with role (short label for badge on photo)
   const rosters = [
     { title: "Roster 1", tag: "#01", icon: "fa-shield-halved", players: [
       { role: "Jungler", shortRole: "JGL", name: "Onic Khairul 969" },
@@ -1954,9 +1908,9 @@
   const coreRoster = [
     { role: "Jungle", name: "Ahmed Teymola" },
     { role: "Exp Lane", name: "Dann Like Noona" },
-    { role: "Roamer", name: "Cahya Mirip Nnael" },
+    { role: "Roamer", name: "Darkness" },
     { role: "Gold Lane", name: "Mang Komar" },
-    { role: "Mid Lane", name: "??" }
+    { role: "Mid Lane", name: "Cahya Mirip Nnael" }
   ];
 
   const CORRECT_PASSWORD = "cahyadanpadil";
