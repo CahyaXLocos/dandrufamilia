@@ -19,9 +19,6 @@
     --surface-2: rgba(255,255,255,0.07);
     --line: rgba(255,255,255,0.08);
     --line-2: rgba(255,255,255,0.16);
-    --chrome-1: #f0f0f5;
-    --chrome-2: #b0b0bc;
-    --chrome-3: #6a6a78;
     --text: #f0f0f5;
     --text-dim: #8a8a96;
     --text-dimmer: #55555e;
@@ -31,6 +28,7 @@
     --lime-dark: #8fbc1e;
     --violet: #a78bfa;
     --pink: #ff3d94;
+    --red: #ff5577;
     --r: 14px;
     --r-sm: 10px;
   }
@@ -909,12 +907,25 @@
     background: linear-gradient(90deg, var(--lime), var(--violet), var(--lime));
   }
 
+  .roster-block.custom {
+    border-color: rgba(167,139,250,0.4);
+  }
+
+  .roster-block.custom::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--violet), var(--lime));
+  }
+
   .roster-head {
     display: flex; align-items: center; justify-content: space-between;
     gap: 12px;
     margin-bottom: 14px;
     padding-bottom: 12px;
     border-bottom: 1px solid var(--line);
+    flex-wrap: wrap;
   }
 
   .roster-title {
@@ -927,11 +938,24 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    min-width: 0;
+    flex: 1;
   }
 
   .roster-title i {
     color: var(--lime);
     font-size: 0.85rem;
+  }
+
+  .roster-block.custom .roster-title i {
+    color: var(--violet);
+  }
+
+  .roster-actions-head {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-shrink: 0;
   }
 
   .roster-tag {
@@ -946,6 +970,29 @@
     border-radius: 5px;
     text-transform: uppercase;
     flex-shrink: 0;
+  }
+
+  .roster-edit-btn, .roster-del-btn {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    background: var(--bg-3);
+    border: 1px solid var(--line-2);
+    color: var(--text-dim);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .roster-edit-btn:hover, .roster-edit-btn:active {
+    background: var(--lime);
+    color: var(--bg);
+    border-color: var(--lime);
+  }
+  .roster-del-btn:hover, .roster-del-btn:active {
+    background: var(--red);
+    color: #fff;
+    border-color: var(--red);
   }
 
   .roster-players {
@@ -1066,7 +1113,7 @@
     text-transform: uppercase;
   }
 
-  .lock-wrap { display: flex; justify-content: center; margin: 36px 0 10px; }
+  .lock-wrap { display: flex; justify-content: center; gap: 10px; margin: 36px 0 10px; flex-wrap: wrap; }
 
   .btn-lock {
     display: inline-flex; align-items: center; gap: 10px;
@@ -1101,6 +1148,28 @@
   }
   .btn-lock:hover i, .btn-lock:active i { color: var(--bg); }
   .btn-lock:hover .ln, .btn-lock:active .ln { color: rgba(0,0,0,0.6); }
+
+  .btn-create {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 26px;
+    background: linear-gradient(135deg, var(--violet), var(--lime));
+    color: var(--bg);
+    border: 1px solid var(--violet);
+    font-family: 'Anton', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: var(--r-sm);
+    transition: all 0.25s;
+    box-shadow: 0 8px 24px rgba(167,139,250,0.3);
+  }
+  .btn-create i { color: var(--bg); font-size: 0.9rem; }
+  .btn-create:hover, .btn-create:active {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 40px rgba(167,139,250,0.5);
+    filter: brightness(1.1);
+  }
 
   .footer {
     margin-top: 70px;
@@ -1146,6 +1215,7 @@
     white-space: nowrap;
   }
 
+  /* ===== MODAL ===== */
   .modal {
     display: none; position: fixed; inset: 0;
     background: rgba(0,0,0,0.8);
@@ -1168,6 +1238,8 @@
     overflow-y: auto;
     box-shadow: 0 30px 80px rgba(0,0,0,0.9), 0 0 60px rgba(198,255,61,0.1);
   }
+
+  .modal-box.wide { max-width: 520px; }
 
   @keyframes modalIn {
     from { opacity: 0; transform: translateY(20px) scale(0.97); }
@@ -1203,6 +1275,7 @@
     color: var(--text);
     line-height: 1;
     margin-bottom: 5px;
+    padding-right: 30px;
   }
   .modal-title span { color: var(--lime); }
 
@@ -1259,7 +1332,7 @@
   }
 
   .err-msg {
-    color: #ff5577;
+    color: var(--red);
     font-family: 'Space Mono', monospace;
     font-size: 0.62rem;
     font-weight: 700;
@@ -1270,8 +1343,92 @@
     text-transform: uppercase;
   }
 
-  .core-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  /* ===== CUSTOM ROSTER FORM ===== */
+  .custom-form { display: flex; flex-direction: column; gap: 12px; }
+  .form-row { display: flex; flex-direction: column; gap: 6px; }
+  .form-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    color: var(--text-dim);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .form-select, .form-input-name {
+    width: 100%;
+    padding: 11px 12px;
+    background: var(--bg-3);
+    border: 1px solid var(--line-2);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'Archivo', sans-serif;
+    font-size: 0.85rem;
+    outline: none;
+    transition: all 0.2s;
+    font-weight: 600;
+  }
+  .form-select:focus, .form-input-name:focus {
+    border-color: var(--lime);
+    box-shadow: 0 0 0 2px rgba(198,255,61,0.2);
+  }
+  .form-select option {
+    background: var(--bg-2);
+    color: var(--text);
+  }
+  .form-role-group {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 10px;
+    background: rgba(0,0,0,0.2);
+  }
+  .form-role-group-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--lime);
+  }
+  .form-actions {
+    display: flex; gap: 8px; margin-top: 8px;
+  }
+  .form-actions .modal-btn { margin-top: 0; flex: 1; }
+  .btn-cancel {
+    flex: 1;
+    padding: 14px;
+    background: var(--bg-3);
+    color: var(--text);
+    border: 1px solid var(--line-2);
+    border-radius: 10px;
+    font-family: 'Anton', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-cancel:hover { background: var(--bg-3); border-color: var(--red); color: var(--red); }
 
+  .empty-custom {
+    text-align: center;
+    padding: 30px 20px;
+    background: rgba(167,139,250,0.05);
+    border: 1px dashed rgba(167,139,250,0.3);
+    border-radius: var(--r);
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+  .empty-custom i {
+    font-size: 2rem;
+    color: var(--violet);
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  /* ===== CORE GRID ===== */
+  .core-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .core-card {
     background: var(--surface);
     border: 1px solid var(--line);
@@ -1284,11 +1441,6 @@
     background: rgba(198,255,61,0.08);
     border-color: rgba(198,255,61,0.3);
   }
-  .core-card:hover {
-    border-color: var(--lime);
-    transform: translateY(-2px);
-  }
-
   .core-role {
     font-family: 'Space Mono', monospace;
     font-size: 0.52rem;
@@ -1306,8 +1458,8 @@
     color: var(--text);
     text-transform: uppercase;
   }
-  .core-name.mystery { color: var(--text-dimmer); letter-spacing: 3px; }
 
+  /* ===== ID MODAL ===== */
   .id-head {
     display: flex; align-items: center; gap: 12px;
     padding-bottom: 16px;
@@ -1340,7 +1492,6 @@
     font-weight: 700;
     margin-top: 4px;
   }
-
   .id-label {
     font-family: 'Space Mono', monospace;
     font-size: 0.55rem;
@@ -1350,7 +1501,6 @@
     font-weight: 700;
     margin-bottom: 8px;
   }
-
   .id-display {
     display: flex; align-items: stretch;
     background: var(--bg-3);
@@ -1382,7 +1532,6 @@
     flex-shrink: 0;
   }
   .id-copy:hover { background: #d4ff5c; }
-
   .copy-feedback {
     font-family: 'Space Mono', monospace;
     font-size: 0.6rem;
@@ -1397,7 +1546,6 @@
     transition: opacity 0.25s;
   }
   .copy-feedback.show { opacity: 1; }
-
   .id-note {
     font-family: 'Space Mono', monospace;
     font-size: 0.55rem;
@@ -1410,6 +1558,7 @@
     letter-spacing: 1px;
   }
 
+  /* ===== ALBUM MODAL ===== */
   .album-modal-box {
     background: var(--bg-2);
     border: 1px solid var(--line-2);
@@ -1420,13 +1569,11 @@
     animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     box-shadow: 0 30px 80px rgba(0,0,0,0.9), 0 0 80px rgba(198,255,61,0.15);
   }
-
   .album-viewer {
     position: relative;
     display: flex; align-items: center; justify-content: center;
     padding: 12px;
   }
-
   .album-viewer img {
     max-width: 100%;
     max-height: 78vh;
@@ -1437,9 +1584,7 @@
     background: var(--bg-3);
     transition: opacity 0.25s;
   }
-
   .album-viewer img.loading { opacity: 0.3; }
-
   .album-nav {
     position: absolute;
     top: 50%; transform: translateY(-50%);
@@ -1464,7 +1609,6 @@
   }
   .album-nav.prev { left: 4px; }
   .album-nav.next { right: 4px; }
-
   .album-counter {
     position: absolute;
     bottom: 20px; left: 50%;
@@ -1560,7 +1704,6 @@
     .welcome-text { font-size: 0.88rem; }
 
     .section { padding: 80px 0 10px; }
-
     .about-card { padding: 30px 28px; font-size: 0.95rem; }
 
     .player-grid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
@@ -1637,15 +1780,15 @@
 
   <div class="stats reveal">
     <div class="stat">
-      <div class="stat-num" data-count="10">0</div>
+      <div class="stat-num" data-count="11">0</div>
       <div class="stat-label">Pemain</div>
     </div>
     <div class="stat">
-      <div class="stat-num" data-count="4">0</div>
+      <div class="stat-num" data-count="5">0</div>
       <div class="stat-label">Roster</div>
     </div>
     <div class="stat">
-      <div class="stat-num" data-count="14">0</div>
+      <div class="stat-num" data-count="22">0</div>
       <div class="stat-label">Album</div>
     </div>
   </div>
@@ -1724,7 +1867,7 @@
         <div class="tl-num">05</div>
         <div>
           <div class="tl-title">Generasi Baru</div>
-          <div class="tl-desc">Member baru bergabung: Darkness, Onic Khairul 969, Mang Komar, dan Shima Rin.</div>
+          <div class="tl-desc">Member baru bergabung: Darkness, Onic Khairul 969, Mang Komar, Shima Rin, dan Ayaa.</div>
         </div>
       </div>
     </div>
@@ -1736,7 +1879,7 @@
         <span class="section-num">03</span>
         <h2>Player <em>Dandru</em></h2>
       </div>
-      <span class="section-meta">Active<br>10 Players</span>
+      <span class="section-meta">Active<br>11 Players</span>
     </div>
     <div class="player-grid" id="playerGrid"></div>
   </section>
@@ -1747,7 +1890,7 @@
         <span class="section-num">04</span>
         <h2>Album <em>Dandru</em></h2>
       </div>
-      <span class="section-meta">Gallery<br>14 Photos</span>
+      <span class="section-meta">Gallery<br>22 Photos</span>
     </div>
     <div class="album-grid" id="albumGrid"></div>
   </section>
@@ -1765,6 +1908,9 @@
       <button class="btn-lock" id="btnLockedRoster">
         <i class="fas fa-lock"></i>Roster Inti
         <span class="ln">// LOCKED</span>
+      </button>
+      <button class="btn-create" id="btnCreateRoster">
+        <i class="fas fa-plus"></i>Buat Roster
       </button>
     </div>
   </section>
@@ -1784,6 +1930,7 @@
   <i class="fas fa-arrow-up"></i>
 </button>
 
+<!-- ===== MODALS ===== -->
 <div class="modal" id="modalPassword">
   <div class="modal-box">
     <button class="modal-close" id="btnClosePassword"><i class="fas fa-times"></i></button>
@@ -1832,7 +1979,51 @@
       <img id="albumImage" src="" alt="Album">
       <button class="album-nav next" id="albumNext" aria-label="Selanjutnya"><i class="fas fa-chevron-right"></i></button>
       <div class="album-counter">
-        <span class="current" id="albumCurrent">1</span> / <span id="albumTotal">14</span>
+        <span class="current" id="albumCurrent">1</span> / <span id="albumTotal">22</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CUSTOM ROSTER MODAL ===== -->
+<div class="modal" id="modalCustom">
+  <div class="modal-box wide">
+    <button class="modal-close" id="btnCloseCustom"><i class="fas fa-times"></i></button>
+    <div class="modal-title">Buat <span>Roster</span></div>
+    <div class="modal-sub">// Susun formasi impianmu</div>
+
+    <div class="custom-form">
+      <div class="form-row">
+        <label class="form-label">Nama Roster</label>
+        <input type="text" class="form-input-name" id="customName" placeholder="cth: Roster Tryout" maxlength="30">
+      </div>
+
+      <div class="form-role-group">
+        <div class="form-role-group-title">◇ Jungler</div>
+        <select class="form-select" id="customJungler"></select>
+      </div>
+      <div class="form-role-group">
+        <div class="form-role-group-title">◇ Roamer</div>
+        <select class="form-select" id="customRoamer"></select>
+      </div>
+      <div class="form-role-group">
+        <div class="form-role-group-title">◇ Mid Laner</div>
+        <select class="form-select" id="customMid"></select>
+      </div>
+      <div class="form-role-group">
+        <div class="form-role-group-title">◇ Exp Laner</div>
+        <select class="form-select" id="customExp"></select>
+      </div>
+      <div class="form-role-group">
+        <div class="form-role-group-title">◇ Gold Laner</div>
+        <select class="form-select" id="customGold"></select>
+      </div>
+
+      <div class="err-msg" id="customErr"></div>
+
+      <div class="form-actions">
+        <button class="btn-cancel" id="btnCancelCustom">Batal</button>
+        <button class="modal-btn" id="btnSaveCustom"><i class="fas fa-save"></i>Simpan</button>
       </div>
     </div>
   </div>
@@ -1850,7 +2041,8 @@
     { nickname: "Dyerta │ 05", roles: ["Mid", "Exp"], badge: "founder", photo: "https://j.top4top.io/p_39331q1rf1.jpeg", id: "680441145 (8724)" },
     { nickname: "Xiao Yan", roles: ["Gold"], photo: "https://b.top4top.io/p_3924uq7sz1.jpeg", id: "963883824 (12833)" },
     { nickname: "Darkness", roles: ["Roam"], photo: "https://j.top4top.io/p_39244ksa01.jpeg", id: "140534781 (2703)" },
-    { nickname: "Shima Rin", roles: ["Jungle", "Gold"], badge: "reserve", photo: "https://c.top4top.io/p_393876bno1.jpeg", id: "568688947 (8277)" }
+    { nickname: "Shima Rin", roles: ["Jungle", "Gold"], badge: "reserve", photo: "https://c.top4top.io/p_393876bno1.jpeg", id: "568688947 (8277)" },
+    { nickname: "Ayaa", roles: ["Gold", "Mid"], badge: "reserve", photo: "https://f.top4top.io/p_3950mcl7d1.jpeg" }
   ];
 
   const playerPhotos = {};
@@ -1861,7 +2053,10 @@
     "https://e.top4top.io/p_3923w1l1f4.jpeg","https://f.top4top.io/p_392377jfv5.jpeg","https://g.top4top.io/p_39234bw256.jpeg",
     "https://h.top4top.io/p_3923scu117.jpeg","https://i.top4top.io/p_3923l70kp8.jpeg","https://j.top4top.io/p_3923gjhjl9.jpeg",
     "https://g.top4top.io/p_392327r8d3.jpeg","https://e.top4top.io/p_3923boz0c1.jpeg","https://l.top4top.io/p_39239ipht1.jpeg",
-    "https://a.top4top.io/p_3923qs3ol1.jpeg","https://b.top4top.io/p_3924hduan1.jpeg"
+    "https://a.top4top.io/p_3923qs3ol1.jpeg","https://b.top4top.io/p_3924hduan1.jpeg",
+    "https://g.top4top.io/p_3950aevaq2.jpeg","https://h.top4top.io/p_39506a2as3.jpeg","https://i.top4top.io/p_3950bd5d14.jpeg",
+    "https://j.top4top.io/p_3950sdyn45.jpeg","https://k.top4top.io/p_39508yxyh6.jpeg","https://l.top4top.io/p_3950x7kan7.jpeg",
+    "https://a.top4top.io/p_39509gjei8.jpeg","https://b.top4top.io/p_3950awfr59.jpeg"
   ];
 
   const roleClass = (role) => {
@@ -1874,8 +2069,9 @@
     return "jungle";
   };
 
-  // ROSTERS — Aeon: Mang Komar jungle, Xiao Yan gold
-  const rosters = [
+  // ===== STATIC ROSTERS =====
+  // Jaksel 1 LAMA dihapus, diganti dengan Roster Jaksel baru + Roster JSW baru
+  const staticRosters = [
     { title: "Roster 1", tag: "#01", icon: "fa-shield-halved", players: [
       { role: "Jungler", shortRole: "JGL", name: "Onic Khairul 969" },
       { role: "Exp Laner", shortRole: "EXP", name: "Dyerta │ 05" },
@@ -1890,12 +2086,19 @@
       { role: "Mid Laner", shortRole: "MID", name: "Cahya Mirip Nnael" },
       { role: "Roamer", shortRole: "ROAM", name: "Darkness" }
     ]},
-    { title: "Jaksel 1", tag: "★ TOURNAMENT", icon: "fa-trophy", highlight: true, players: [
-      { role: "Jungler", shortRole: "JGL", name: "Ahmed Teymola" },
-      { role: "Gold Laner", shortRole: "GOLD", name: "Shima Rin" },
-      { role: "Mid Laner", shortRole: "MID", name: "Dyerta │ 05" },
+    { title: "Roster JSW", tag: "★ JSW", icon: "fa-building", highlight: true, players: [
+      { role: "Jungler", shortRole: "JGL", name: "Cahya Mirip Nnael" },
+      { role: "Roamer", shortRole: "ROAM", name: "Ahmed Teymola" },
+      { role: "Gold Laner", shortRole: "GOLD", name: "Xiao Yan" },
       { role: "Exp Laner", shortRole: "EXP", name: "Dann Like Noona" },
-      { role: "Roamer", shortRole: "ROAM", name: "Cahya Mirip Nnael" }
+      { role: "Mid Laner", shortRole: "MID", name: "Yukki" }
+    ]},
+    { title: "Jaksel", tag: "★ JAKSEL", icon: "fa-trophy", highlight: true, players: [
+      { role: "Jungler", shortRole: "JGL", name: "Ahmed Teymola" },
+      { role: "Roamer", shortRole: "ROAM", name: "Cahya Mirip Nnael" },
+      { role: "Gold Laner", shortRole: "GOLD", name: "Shima Rin" },
+      { role: "Exp Laner", shortRole: "EXP", name: "Dann Like Noona" },
+      { role: "Mid Laner", shortRole: "MID", name: "Dyerta │ 05" }
     ]},
     { title: "Roster Aeon", tag: "★ AEON", icon: "fa-bolt", highlight: true, players: [
       { role: "Jungler", shortRole: "JGL", name: "Mang Komar" },
@@ -1915,15 +2118,40 @@
   ];
 
   const CORRECT_PASSWORD = "cahyadanpadil";
+  const STORAGE_KEY = "dandru_custom_rosters";
 
-  // ===== TOP TICKER =====
+  // ===== LOCALSTORAGE HELPERS =====
+  function loadCustomRosters() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return [];
+      const data = JSON.parse(raw);
+      return Array.isArray(data) ? data : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveCustomRosters(list) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+    } catch (e) {
+      console.error("Gagal simpan roster", e);
+    }
+  }
+
+  function makeId() {
+    return "custom_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7);
+  }
+
+  // ===== RENDER: TOP TICKER =====
   const topbarTrack = document.getElementById("topbarTrack");
-  const topbarItems = ["Dandru Familia", "Esport Team", "Since Day One", "Solidarity", "Never Give Up", "Welcome Shima Rin", "Jaud Sarja Winata", "Official Team 2025"];
+  const topbarItems = ["Dandru Familia", "Esport Team", "Since Day One", "Solidarity", "Never Give Up", "Welcome Ayaa", "Welcome Shima Rin", "Jaud Sarja Winata", "Official Team 2025"];
   let topbarHTML = "";
   for (let k = 0; k < 2; k++) topbarItems.forEach(t => topbarHTML += `<span>${t}</span>`);
   topbarTrack.innerHTML = topbarHTML;
 
-  // ===== PLAYERS =====
+  // ===== RENDER: PLAYERS =====
   const playerGrid = document.getElementById("playerGrid");
   players.forEach((p, i) => {
     const initial = p.nickname.trim().charAt(0).toUpperCase();
@@ -1957,7 +2185,7 @@
     playerGrid.appendChild(card);
   });
 
-  // ===== ALBUM =====
+  // ===== RENDER: ALBUM =====
   const albumGrid = document.getElementById("albumGrid");
   albumImages.forEach((src, i) => {
     const item = document.createElement("div");
@@ -1970,13 +2198,29 @@
     albumGrid.appendChild(item);
   });
 
-  // ===== ROSTER =====
-  const rosterGrid = document.getElementById("rosterGrid");
-  rosters.forEach(r => {
-    const subHTML = r.substitute ? `<div class="roster-sub"><span class="sub-label">Cadangan</span><span class="sub-name">${r.substitute}</span></div>` : '';
+  // ===== RENDER: ROSTER CARD (shared) =====
+  function buildRosterCard(r, isCustom) {
+    const card = document.createElement("div");
+    card.className = "roster-block reveal" +
+      (r.highlight ? " highlight" : "") +
+      (isCustom ? " custom" : "");
+
+    let headActions = "";
+    if (isCustom) {
+      headActions = `
+        <div class="roster-actions-head">
+          <span class="roster-tag">${r.tag || "CUSTOM"}</span>
+          <button class="roster-edit-btn" data-id="${r.id}" title="Edit"><i class="fas fa-pen"></i></button>
+          <button class="roster-del-btn" data-id="${r.id}" title="Hapus"><i class="fas fa-trash"></i></button>
+        </div>
+      `;
+    } else {
+      headActions = `<div class="roster-tag">${r.tag}</div>`;
+    }
+
     const playersHTML = r.players.map(p => {
       const photo = playerPhotos[p.name] || "";
-      const initial = p.name.trim().charAt(0).toUpperCase();
+      const initial = p.name ? p.name.trim().charAt(0).toUpperCase() : "?";
       const rc = roleClass(p.role);
       const photoContent = photo
         ? `<img src="${photo}" alt="${p.name}" loading="lazy" onerror="this.style.display='none';this.parentNode.innerHTML+='<div class=&quot;rp-initial&quot;>${initial}</div>';">`
@@ -1993,26 +2237,78 @@
       `;
     }).join("");
 
-    const card = document.createElement("div");
-    card.className = "roster-block reveal" + (r.highlight ? " highlight" : "");
     card.innerHTML = `
       <div class="roster-head">
-        <div class="roster-title"><i class="fas ${r.icon}"></i>${r.title}</div>
-        <div class="roster-tag">${r.tag}</div>
+        <div class="roster-title"><i class="fas ${r.icon || 'fa-layer-group'}"></i>${r.title}</div>
+        ${headActions}
       </div>
       <div class="roster-players">${playersHTML}</div>
-      ${subHTML}
     `;
-    rosterGrid.appendChild(card);
-  });
+    return card;
+  }
+
+  // ===== RENDER: ROSTER =====
+  const rosterGrid = document.getElementById("rosterGrid");
+
+  function renderRosters() {
+    rosterGrid.innerHTML = "";
+
+    // Static first
+    staticRosters.forEach(r => {
+      rosterGrid.appendChild(buildRosterCard(r, false));
+    });
+
+    // Then custom
+    const customs = loadCustomRosters();
+    if (customs.length === 0) {
+      const empty = document.createElement("div");
+      empty.className = "empty-custom reveal";
+      empty.style.gridColumn = "1 / -1";
+      empty.innerHTML = `
+        <i class="fas fa-wand-magic-sparkles"></i>
+        Belum ada roster custom.<br>Klik <strong>+ Buat Roster</strong> untuk menyusun formasi impianmu.
+      `;
+      rosterGrid.appendChild(empty);
+    } else {
+      customs.forEach(r => {
+        rosterGrid.appendChild(buildRosterCard(r, true));
+      });
+    }
+
+    // Bind edit & delete
+    rosterGrid.querySelectorAll(".roster-edit-btn").forEach(btn => {
+      btn.addEventListener("click", () => openCustomModal(btn.dataset.id));
+    });
+    rosterGrid.querySelectorAll(".roster-del-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        if (confirm("Hapus roster ini?")) {
+          const list = loadCustomRosters().filter(x => x.id !== btn.dataset.id);
+          saveCustomRosters(list);
+          renderRosters();
+          refreshReveal();
+          updateRosterStat();
+        }
+      });
+    });
+
+    // Update roster stat
+    updateRosterStat();
+  }
+
+  function updateRosterStat() {
+    const total = staticRosters.length + loadCustomRosters().length;
+    const rosterStatEl = document.querySelectorAll(".stat-num")[1];
+    if (rosterStatEl) rosterStatEl.textContent = total;
+  }
+
+  renderRosters();
 
   // ===== CORE =====
   const coreGrid = document.getElementById("coreGrid");
   coreRoster.forEach(p => {
-    const isMystery = p.name === "??";
     const card = document.createElement("div");
-    card.className = "core-card" + (isMystery ? "" : " hl");
-    card.innerHTML = `<div class="core-role">${p.role}</div><div class="core-name ${isMystery ? 'mystery' : ''}">${p.name}</div>`;
+    card.className = "core-card hl";
+    card.innerHTML = `<div class="core-role">${p.role}</div><div class="core-name">${p.name}</div>`;
     coreGrid.appendChild(card);
   });
 
@@ -2143,10 +2439,118 @@
   document.getElementById("btnCloseCore").addEventListener("click", () => modalCore.classList.remove("active"));
   modalCore.addEventListener("click", (e) => { if (e.target === modalCore) modalCore.classList.remove("active"); });
 
-  // ===== ESC =====
+  // ===== CUSTOM ROSTER MODAL =====
+  const modalCustom = document.getElementById("modalCustom");
+  const customName = document.getElementById("customName");
+  const customErr = document.getElementById("customErr");
+  const ROLE_KEYS = [
+    { key: "jungler", label: "Jungler", short: "JGL", el: "customJungler" },
+    { key: "roamer", label: "Roamer", short: "ROAM", el: "customRoamer" },
+    { key: "mid", label: "Mid Laner", short: "MID", el: "customMid" },
+    { key: "exp", label: "Exp Laner", short: "EXP", el: "customExp" },
+    { key: "gold", label: "Gold Laner", short: "GOLD", el: "customGold" }
+  ];
+
+  let editingRosterId = null;
+
+  function populateSelects() {
+    ROLE_KEYS.forEach(role => {
+      const sel = document.getElementById(role.el);
+      sel.innerHTML = `<option value="">— Pilih Player —</option>` +
+        players.map(p => `<option value="${p.nickname}">${p.nickname}</option>`).join("");
+    });
+  }
+  populateSelects();
+
+  function openCustomModal(editId = null) {
+    editingRosterId = editId;
+    customErr.textContent = "";
+    customName.value = "";
+
+    ROLE_KEYS.forEach(role => {
+      document.getElementById(role.el).value = "";
+    });
+
+    if (editId) {
+      const list = loadCustomRosters();
+      const r = list.find(x => x.id === editId);
+      if (r) {
+        customName.value = r.title;
+        r.players.forEach(p => {
+          const roleObj = ROLE_KEYS.find(rk => rk.label === p.role);
+          if (roleObj) document.getElementById(roleObj.el).value = p.name;
+        });
+        document.querySelector("#modalCustom .modal-title").innerHTML = 'Edit <span>Roster</span>';
+      }
+    } else {
+      document.querySelector("#modalCustom .modal-title").innerHTML = 'Buat <span>Roster</span>';
+    }
+
+    modalCustom.classList.add("active");
+    setTimeout(() => customName.focus(), 200);
+  }
+
+  document.getElementById("btnCreateRoster").addEventListener("click", () => openCustomModal());
+  document.getElementById("btnCloseCustom").addEventListener("click", () => modalCustom.classList.remove("active"));
+  document.getElementById("btnCancelCustom").addEventListener("click", () => modalCustom.classList.remove("active"));
+  modalCustom.addEventListener("click", (e) => { if (e.target === modalCustom) modalCustom.classList.remove("active"); });
+
+  document.getElementById("btnSaveCustom").addEventListener("click", () => {
+    customErr.textContent = "";
+    const name = customName.value.trim();
+    if (!name) {
+      customErr.textContent = "Nama roster wajib diisi.";
+      return;
+    }
+
+    const playerList = [];
+    const chosenPlayers = new Set();
+    let duplicate = false;
+
+    for (const role of ROLE_KEYS) {
+      const val = document.getElementById(role.el).value;
+      if (!val) {
+        customErr.textContent = `Role ${role.label} belum dipilih.`;
+        return;
+      }
+      if (chosenPlayers.has(val)) duplicate = true;
+      chosenPlayers.add(val);
+      playerList.push({ role: role.label, shortRole: role.short, name: val });
+    }
+
+    if (duplicate) {
+      customErr.textContent = "Tidak boleh ada player yang sama di 2 role.";
+      return;
+    }
+
+    const list = loadCustomRosters();
+
+    if (editingRosterId) {
+      const idx = list.findIndex(x => x.id === editingRosterId);
+      if (idx >= 0) {
+        list[idx].title = name;
+        list[idx].players = playerList;
+      }
+    } else {
+      list.push({
+        id: makeId(),
+        title: name,
+        tag: "CUSTOM",
+        icon: "fa-wand-magic-sparkles",
+        players: playerList
+      });
+    }
+
+    saveCustomRosters(list);
+    modalCustom.classList.remove("active");
+    renderRosters();
+    refreshReveal();
+  });
+
+  // ===== ESC / KEYBOARD =====
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
-      [modalPassword, modalCore, modalId, modalAlbum].forEach(m => m.classList.remove("active"));
+      [modalPassword, modalCore, modalId, modalAlbum, modalCustom].forEach(m => m.classList.remove("active"));
     }
     if (modalAlbum.classList.contains("active")) {
       if (e.key === "ArrowLeft") prevAlbum();
@@ -2172,6 +2576,14 @@
   onScroll();
 
   // ===== REVEAL =====
+  function refreshReveal() {
+    document.querySelectorAll(".reveal").forEach(el => {
+      if (!el.classList.contains("visible") && el.getBoundingClientRect().top < window.innerHeight - 30) {
+        el.classList.add("visible");
+      }
+    });
+  }
+
   const revealObs = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
@@ -2180,7 +2592,19 @@
       }
     });
   }, { threshold: 0.08, rootMargin: "0px 0px -30px 0px" });
-  document.querySelectorAll(".reveal").forEach(el => revealObs.observe(el));
+
+  function attachReveal() {
+    document.querySelectorAll(".reveal:not(.visible)").forEach(el => revealObs.observe(el));
+  }
+  attachReveal();
+
+  // Re-attach after rerender
+  const origRenderRosters = renderRosters;
+  renderRosters = function() {
+    origRenderRosters();
+    attachReveal();
+    refreshReveal();
+  };
 
   // ===== COUNTER =====
   const counterObs = new IntersectionObserver((entries) => {
